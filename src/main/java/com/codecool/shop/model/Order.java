@@ -4,12 +4,24 @@ public class Order extends BaseModel {
     private boolean paid;
     private Cart cart;
 
+    public Order(Cart cart) {
+        this.cart = cart;
+    }
+
     public boolean isPaid() {
         return paid;
     }
 
     public void markPaid() {
         this.paid = true;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     @Override
