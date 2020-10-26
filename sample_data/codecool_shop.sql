@@ -16,44 +16,6 @@ CREATE TABLE "product"
  "supplier"     text NOT NULL
 );
 
-CREATE TABLE "cart"
-(
- "id"       serial PRIMARY KEY,
- "quantity" int NOT NULL
-);
-
-CREATE TABLE "cart_content"
-(
- "id"         serial PRIMARY KEY,
- "product_id" integer NOT NULL,
- "cart_id"    integer NOT NULL,
- CONSTRAINT "FK_22" FOREIGN KEY ( "product_id" ) REFERENCES "product" ( "id" ),
- CONSTRAINT "FK_25" FOREIGN KEY ( "cart_id" ) REFERENCES "cart" ( "id" )
-);
-
-CREATE INDEX "fkIdx_22" ON "cart_content"
-(
- "product_id"
-);
-
-CREATE INDEX "fkIdx_25" ON "cart_content"
-(
- "cart_id"
-);
-
-CREATE TABLE "user_order"
-(
- "id"      serial PRIMARY KEY,
- "cart_id" integer NOT NULL,
- "paid"    boolean NOT NULL,
- CONSTRAINT "FK_62" FOREIGN KEY ( "cart_id" ) REFERENCES "cart" ( "id" )
-);
-
-CREATE INDEX "fkIdx_62" ON "user_order"
-(
- "cart_id"
-);
-
 CREATE TABLE "address"
 (
  "id"           serial PRIMARY KEY,
@@ -84,6 +46,51 @@ CREATE INDEX "fkIdx_47" ON "user_account"
 CREATE INDEX "fkIdx_50" ON "user_account"
 (
  "shipping_address"
+);
+
+CREATE TABLE "cart"
+(
+ "id"      serial PRIMARY KEY,
+ "user_id" integer NOT NULL,
+ CONSTRAINT "FK_67" FOREIGN KEY ( "user_id" ) REFERENCES "user_account" ( "id" )
+);
+
+CREATE INDEX "fkIdx_67" ON "cart"
+(
+ "user_id"
+);
+
+CREATE TABLE "cart_content"
+(
+ "id"         serial PRIMARY KEY,
+ "product_id" integer NOT NULL,
+ "cart_id"    integer NOT NULL,
+ "quantity"   int NOT NULL,
+ CONSTRAINT "FK_22" FOREIGN KEY ( "product_id" ) REFERENCES "product" ( "id" ),
+ CONSTRAINT "FK_25" FOREIGN KEY ( "cart_id" ) REFERENCES "cart" ( "id" )
+);
+
+CREATE INDEX "fkIdx_22" ON "cart_content"
+(
+ "product_id"
+);
+
+CREATE INDEX "fkIdx_25" ON "cart_content"
+(
+ "cart_id"
+);
+
+CREATE TABLE "user_order"
+(
+ "id"      serial PRIMARY KEY,
+ "cart_id" integer NOT NULL,
+ "paid"    boolean NOT NULL,
+ CONSTRAINT "FK_62" FOREIGN KEY ( "cart_id" ) REFERENCES "cart" ( "id" )
+);
+
+CREATE INDEX "fkIdx_62" ON "user_order"
+(
+ "cart_id"
 );
 
 CREATE TABLE "user_carts"
