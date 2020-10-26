@@ -1,4 +1,4 @@
-package com.codecool.shop.servlets;
+package com.codecool.shop.api;
 
 import javax.servlet.ServletRequest;
 

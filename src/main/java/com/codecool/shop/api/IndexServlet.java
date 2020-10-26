@@ -1,4 +1,4 @@
-package com.codecool.shop.servlets;
+package com.codecool.shop.api;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.logic.enumerators.Category;
