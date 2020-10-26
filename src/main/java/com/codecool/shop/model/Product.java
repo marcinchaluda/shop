@@ -19,6 +19,9 @@ public class Product extends BaseDescribedModel {
     @SerializedName(value="supplier")
     private Supplier supplier;
 
+    @SerializedName(value="image", alternate="imageSource")
+    private String imageSource;
+
     transient private final DecimalFormat df = new DecimalFormat("#.##");
 
     public Product(String name, double defaultPrice, String currencyString, String description, Category productCategory, Supplier supplier) {
@@ -85,5 +88,13 @@ public class Product extends BaseDescribedModel {
                 this.productCategory.getName(),
                 this.supplier.getName()
         );
+    }
+
+    public String getImageSource() {
+        return imageSource;
+    }
+
+    public void setImageSource(String imageSource) {
+        this.imageSource = imageSource;
     }
 }
