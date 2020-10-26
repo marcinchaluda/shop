@@ -1,6 +1,6 @@
 package com.codecool.shop.model;
 
-public class Product extends BaseModel {
+public class Product extends BaseDescribedModel {
 
     private double defaultPrice;
     private String defaultCurrency;
