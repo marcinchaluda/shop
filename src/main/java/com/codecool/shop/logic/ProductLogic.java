@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ProductLogic extends BusinessLogic {
 
-    public static Product getElementFromDatabase() {
+    public static Product getProductFromDatabase() {
         // TODO
         throw new RuntimeException("Not implemented yet!");
     }
