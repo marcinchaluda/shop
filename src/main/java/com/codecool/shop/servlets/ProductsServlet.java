@@ -1,6 +1,6 @@
-package com.codecool.shop.controller;
+package com.codecool.shop.servlets;
 
-import com.codecool.shop.logic.ProductManager;
+import com.codecool.shop.logic.ProductLogic;
 import com.codecool.shop.logic.enumerators.SortType;
 import com.codecool.shop.model.Product;
 import com.google.gson.Gson;
@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @WebServlet(urlPatterns = {"/api/products"})
-public class ProductsController extends HttpServlet {
+public class ProductsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -25,18 +25,18 @@ public class ProductsController extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        String sortType = HelpController.getParameterIfExist(request, "sort", "default");
-        String sortBy = HelpController.getParameterIfExist(request, "by", "default");
+        String sortType = HelpServlet.getParameterIfExist(request, "sort", "default");
+        String sortBy = HelpServlet.getParameterIfExist(request, "by", "default");
 
         if (!sortType.equals("default") && !sortBy.equals("default")) {
             Arrays.stream(SortType.values()).forEach(type -> {
                 if (type.getName().equals(sortType)) {
-                    List<Product> products = ProductManager.getAllProductsFromDatabase(type, sortBy);
+                    List<Product> products = ProductLogic.getAllProductsFromDatabase(type, sortBy);
                     out.print(new Gson().toJson(products));
                 }
             });
         } else {
-            List<Product> products = ProductManager.getAllProductsFromDatabase(SortType.ALL, sortBy);
+            List<Product> products = ProductLogic.getAllProductsFromDatabase(SortType.ALL, sortBy);
             out.print(new Gson().toJson(products));
         }
         out.flush();

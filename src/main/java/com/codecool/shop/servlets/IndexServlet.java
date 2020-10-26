@@ -1,4 +1,4 @@
-package com.codecool.shop.controller;
+package com.codecool.shop.servlets;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import org.thymeleaf.TemplateEngine;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/"})
-public class IndexController extends HttpServlet {
+public class IndexServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         WebContext context = new WebContext(request, response, request.getServletContext());
