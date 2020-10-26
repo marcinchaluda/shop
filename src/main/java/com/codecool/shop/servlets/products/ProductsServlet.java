@@ -1,8 +1,9 @@
-package com.codecool.shop.servlets;
+package com.codecool.shop.servlets.products;
 
 import com.codecool.shop.logic.ProductLogic;
 import com.codecool.shop.logic.enumerators.SortType;
 import com.codecool.shop.model.Product;
+import com.codecool.shop.servlets.HelpServlet;
 import com.google.gson.Gson;
 
 import javax.servlet.annotation.WebServlet;
