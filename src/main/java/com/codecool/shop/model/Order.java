@@ -1,7 +1,13 @@
 package com.codecool.shop.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Order extends BaseModel {
+
+    @SerializedName(value="status", alternate="paid")
     private boolean paid;
+
+    @SerializedName(value="cart")
     private Cart cart;
 
     public Order(Cart cart) {

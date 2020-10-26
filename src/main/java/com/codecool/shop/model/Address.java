@@ -1,10 +1,22 @@
 package com.codecool.shop.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Address extends BaseModel {
+
+    @SerializedName(value="country")
     private String country;
+
+    @SerializedName(value="city")
     private String city;
+
+    @SerializedName(value="zipCode")
     private String zipCode;
+
+    @SerializedName(value="street")
     private String street;
+
+    @SerializedName(value="local", alternate="localNumber")
     private int localNumber;
 
     public Address(String country, String city, String zipCode, String street, int localNumber) {

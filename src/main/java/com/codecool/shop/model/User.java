@@ -1,10 +1,19 @@
 package com.codecool.shop.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class User extends BaseDescribedModel {
 
+    @SerializedName(value="email")
     private String email;
+
+    @SerializedName(value="phoneNumber")
     private String phoneNumber;
+
+    @SerializedName(value="billingAddress")
     private Address billingAddress;
+
+    @SerializedName(value="shippingAddress")
     private Address shippingAddress;
 
     public User(String name, String email, String phoneNumber, Address billingAddress, Address shippingAddress) {

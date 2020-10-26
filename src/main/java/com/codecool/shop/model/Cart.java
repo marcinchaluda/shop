@@ -1,10 +1,16 @@
 package com.codecool.shop.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class Cart extends BaseModel {
+
+    @SerializedName(value="user")
     private User user;
+
+    @SerializedName(value="products", alternate="productList")
     private Map<Product, Integer> productList = new HashMap<>();
 
     public Cart(User user) {

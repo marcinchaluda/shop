@@ -1,13 +1,25 @@
 package com.codecool.shop.model;
 
 import com.codecool.shop.logic.enumerators.*;
+import com.google.gson.annotations.SerializedName;
+
+import java.text.DecimalFormat;
 
 public class Product extends BaseDescribedModel {
 
+    @SerializedName(value="unitPrice", alternate="defaultPrice")
     private double defaultPrice;
+
+    @SerializedName(value="currency", alternate="defaultCurrency")
     private String defaultCurrency;
+
+    @SerializedName(value="category", alternate="productCategory")
     private Category productCategory;
+
+    @SerializedName(value="supplier")
     private Supplier supplier;
+
+    transient private final DecimalFormat df = new DecimalFormat("#.##");
 
     public Product(String name, double defaultPrice, String currencyString, String description, Category productCategory, Supplier supplier) {
         super(name, description);
@@ -34,7 +46,7 @@ public class Product extends BaseDescribedModel {
     }
 
     public String getPrice() {
-        return String.valueOf(this.defaultPrice) + " " + this.defaultCurrency.toString();
+        return String.valueOf(df.format(this.defaultPrice)) + " " + this.defaultCurrency;
     }
 
     public void setPrice(double price, String currency) {

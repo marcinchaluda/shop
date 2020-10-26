@@ -33,8 +33,8 @@ public class IndexServlet extends HttpServlet {
         // List<Product> products = ProductLogic.getAllProductsFromDatabase("default", "default");
 
         Map<String, Object> params = new HashMap<>();
-        params.put("supplier", Supplier.values());
-        params.put("category", Category.values());
+        params.put("suppliers", Supplier.values());
+        params.put("categories", Category.values());
         params.put("products", sampleProducts);
         context.setVariables(params);
 
