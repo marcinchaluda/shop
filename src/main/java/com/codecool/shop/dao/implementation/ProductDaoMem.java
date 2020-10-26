@@ -2,6 +2,8 @@ package com.codecool.shop.dao.implementation;
 
 
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.logic.enumerators.Category;
+import com.codecool.shop.logic.enumerators.Supplier;
 import com.codecool.shop.model.Product;
 
 import java.util.ArrayList;
@@ -52,7 +54,7 @@ public class ProductDaoMem implements ProductDao {
     }
 
     @Override
-    public List<Product> getBy(ProductCategory productCategory) {
+    public List<Product> getBy(Category productCategory) {
         return data.stream().filter(t -> t.getProductCategory().equals(productCategory)).collect(Collectors.toList());
     }
 }
