@@ -2,6 +2,7 @@ package com.codecool.shop.model;
 
 public class Order extends BaseModel {
     private boolean paid;
+    private Cart cart;
 
     public boolean isPaid() {
         return paid;
