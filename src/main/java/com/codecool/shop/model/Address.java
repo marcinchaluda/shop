@@ -1,6 +1,6 @@
 package com.codecool.shop.model;
 
-public class Address {
+public class Address extends BaseModel {
     private String country;
     private String city;
     private String zipCode;
@@ -53,5 +53,21 @@ public class Address {
 
     public void setLocalNumber(int localNumber) {
         this.localNumber = localNumber;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("id: %1$s, " +
+                        "country: %2$s, " +
+                        "city: %3$s, " +
+                        "zipCode: %4$s, " +
+                        "street: %5$s, " +
+                        "localNumber: %6$d",
+                this.id,
+                this.country,
+                this.city,
+                this.zipCode,
+                this.street,
+                this.localNumber);
     }
 }
