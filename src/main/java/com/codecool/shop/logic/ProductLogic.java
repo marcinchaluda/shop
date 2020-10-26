@@ -5,9 +5,9 @@ import com.codecool.shop.model.Product;
 
 import java.util.List;
 
-public class ProductManager extends BusinessLogic {
+public class ProductLogic extends BusinessLogic {
 
-    public static Product getElementFromDatabase() {
+    public static Product getProductFromDatabase() {
         // TODO
         throw new RuntimeException("Not implemented yet!");
     }

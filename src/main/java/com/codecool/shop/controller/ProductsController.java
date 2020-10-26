@@ -1,6 +1,6 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.logic.ProductManager;
+import com.codecool.shop.logic.ProductLogic;
 import com.codecool.shop.logic.enumerators.SortType;
 import com.codecool.shop.model.Product;
 import com.google.gson.Gson;
@@ -31,12 +31,12 @@ public class ProductsController extends HttpServlet {
         if (!sortType.equals("default") && !sortBy.equals("default")) {
             Arrays.stream(SortType.values()).forEach(type -> {
                 if (type.getName().equals(sortType)) {
-                    List<Product> products = ProductManager.getAllProductsFromDatabase(type, sortBy);
+                    List<Product> products = ProductLogic.getAllProductsFromDatabase(type, sortBy);
                     out.print(new Gson().toJson(products));
                 }
             });
         } else {
-            List<Product> products = ProductManager.getAllProductsFromDatabase(SortType.ALL, sortBy);
+            List<Product> products = ProductLogic.getAllProductsFromDatabase(SortType.ALL, sortBy);
             out.print(new Gson().toJson(products));
         }
         out.flush();
