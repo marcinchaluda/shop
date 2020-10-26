@@ -4,7 +4,6 @@ DROP TABLE IF EXISTS cart_content CASCADE;
 DROP TABLE IF EXISTS user_order CASCADE;
 DROP TABLE IF EXISTS address CASCADE;
 DROP TABLE IF EXISTS user_account CASCADE;
-DROP TABLE IF EXISTS user_carts CASCADE;
 
 CREATE TABLE "product"
 (
@@ -14,44 +13,6 @@ CREATE TABLE "product"
  "currency"     text NOT NULL,
  "category"     text NOT NULL,
  "supplier"     text NOT NULL
-);
-
-CREATE TABLE "cart"
-(
- "id"       serial PRIMARY KEY,
- "quantity" int NOT NULL
-);
-
-CREATE TABLE "cart_content"
-(
- "id"         serial PRIMARY KEY,
- "product_id" integer NOT NULL,
- "cart_id"    integer NOT NULL,
- CONSTRAINT "FK_22" FOREIGN KEY ( "product_id" ) REFERENCES "product" ( "id" ),
- CONSTRAINT "FK_25" FOREIGN KEY ( "cart_id" ) REFERENCES "cart" ( "id" )
-);
-
-CREATE INDEX "fkIdx_22" ON "cart_content"
-(
- "product_id"
-);
-
-CREATE INDEX "fkIdx_25" ON "cart_content"
-(
- "cart_id"
-);
-
-CREATE TABLE "user_order"
-(
- "id"      serial PRIMARY KEY,
- "cart_id" integer NOT NULL,
- "paid"    boolean NOT NULL,
- CONSTRAINT "FK_62" FOREIGN KEY ( "cart_id" ) REFERENCES "cart" ( "id" )
-);
-
-CREATE INDEX "fkIdx_62" ON "user_order"
-(
- "cart_id"
 );
 
 CREATE TABLE "address"
@@ -86,21 +47,47 @@ CREATE INDEX "fkIdx_50" ON "user_account"
  "shipping_address"
 );
 
-CREATE TABLE "user_carts"
+CREATE TABLE "cart"
 (
  "id"      serial PRIMARY KEY,
  "user_id" integer NOT NULL,
- "cart_id" integer NOT NULL,
- CONSTRAINT "FK_53" FOREIGN KEY ( "user_id" ) REFERENCES "user_account" ( "id" ),
- CONSTRAINT "FK_56" FOREIGN KEY ( "cart_id" ) REFERENCES "cart" ( "id" )
+ CONSTRAINT "FK_67" FOREIGN KEY ( "user_id" ) REFERENCES "user_account" ( "id" )
 );
 
-CREATE INDEX "fkIdx_53" ON "user_carts"
+CREATE INDEX "fkIdx_67" ON "cart"
 (
  "user_id"
 );
 
-CREATE INDEX "fkIdx_56" ON "user_carts"
+CREATE TABLE "cart_content"
+(
+ "id"         serial PRIMARY KEY,
+ "product_id" integer NOT NULL,
+ "cart_id"    integer NOT NULL,
+ "quantity"   int NOT NULL,
+ CONSTRAINT "FK_22" FOREIGN KEY ( "product_id" ) REFERENCES "product" ( "id" ),
+ CONSTRAINT "FK_25" FOREIGN KEY ( "cart_id" ) REFERENCES "cart" ( "id" )
+);
+
+CREATE INDEX "fkIdx_22" ON "cart_content"
+(
+ "product_id"
+);
+
+CREATE INDEX "fkIdx_25" ON "cart_content"
+(
+ "cart_id"
+);
+
+CREATE TABLE "user_order"
+(
+ "id"      serial PRIMARY KEY,
+ "cart_id" integer NOT NULL,
+ "paid"    boolean NOT NULL,
+ CONSTRAINT "FK_62" FOREIGN KEY ( "cart_id" ) REFERENCES "cart" ( "id" )
+);
+
+CREATE INDEX "fkIdx_62" ON "user_order"
 (
  "cart_id"
 );
