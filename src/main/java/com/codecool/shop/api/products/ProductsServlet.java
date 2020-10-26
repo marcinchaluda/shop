@@ -18,6 +18,8 @@ import java.util.List;
 @WebServlet(urlPatterns = {"/api/products"})
 public class ProductsServlet extends HttpServlet {
 
+    ProductLogic productLogic = new ProductLogic();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         PrintWriter out = response.getWriter();
@@ -31,12 +33,12 @@ public class ProductsServlet extends HttpServlet {
         if (!sortType.equals("default") && !sortBy.equals("default")) {
             Arrays.stream(SortType.values()).forEach(type -> {
                 if (type.getName().equals(sortType)) {
-                    List<Product> products = ProductLogic.getAllProductsFromDatabase(type, sortBy);
+                    List<Product> products = productLogic.getAllFromDatabase(type, sortBy);
                     out.print(new Gson().toJson(products));
                 }
             });
         } else {
-            List<Product> products = ProductLogic.getAllProductsFromDatabase(SortType.ALL, sortBy);
+            List<Product> products = productLogic.getAllFromDatabase();
             out.print(new Gson().toJson(products));
         }
         out.flush();

@@ -5,36 +5,28 @@ import com.codecool.shop.model.Product;
 
 import java.util.List;
 
-public class ProductLogic extends BusinessLogic {
-
-    public static Product getProductFromDatabase() {
-        // TODO
+public class ProductLogic implements BusinessLogic<Product> {
+    @Override
+    public void addToDatabase(Product product) {
         throw new RuntimeException("Not implemented yet!");
     }
 
-    public static void setProductInDatabase(Product product) {
-        // TODO
+    @Override
+    public void updateInDatabase(Product product) {
         throw new RuntimeException("Not implemented yet!");
     }
 
-    public static List<Product> getAllProductsFromDatabase(SortType sortType, String element) {
-        // TODO
-        //  element -> name of supplier or name of category
-
-        switch (sortType) {
-            case SUPPLIER:
-                break;
-            case CATEGORY:
-                break;
-            default:
-                break;
-        }
-
+    @Override
+    public Product getFromDatabase(int id) {
         throw new RuntimeException("Not implemented yet!");
     }
 
-    public static void setAllProductsInDatabase(List<Product> products) {
-        // TODO
+    @Override
+    public List<Product> getAllFromDatabase() {
+        throw new RuntimeException("Not implemented yet!");
+    }
+
+    public List<Product> getAllFromDatabase(SortType sortType, String sortBy) {
         throw new RuntimeException("Not implemented yet!");
     }
 
