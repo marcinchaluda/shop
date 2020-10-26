@@ -1,35 +1,33 @@
 package com.codecool.shop.model;
 
-import java.util.Currency;
-
 public class Product extends BaseModel {
 
-    private float defaultPrice;
-    private Currency defaultCurrency;
-    private ProductCategory productCategory;
-    private Supplier supplier;
+    private double defaultPrice;
+    private String defaultCurrency;
+    private String productCategory;
+    private String supplier;
 
-
-    public Product(String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
+    public Product(String name, double defaultPrice, String currencyString, String description, String productCategory, String supplier) {
         super(name, description);
-        this.setPrice(defaultPrice, currencyString);
-        this.setSupplier(supplier);
-        this.setProductCategory(productCategory);
+        this.defaultPrice = defaultPrice;
+        this.defaultCurrency = currencyString;
+        this.supplier = supplier;
+        this.productCategory = productCategory;
     }
 
-    public float getDefaultPrice() {
+    public double getDefaultPrice() {
         return defaultPrice;
     }
 
-    public void setDefaultPrice(float defaultPrice) {
+    public void setDefaultPrice(double defaultPrice) {
         this.defaultPrice = defaultPrice;
     }
 
-    public Currency getDefaultCurrency() {
+    public String getDefaultCurrency() {
         return defaultCurrency;
     }
 
-    public void setDefaultCurrency(Currency defaultCurrency) {
+    public void setDefaultCurrency(String defaultCurrency) {
         this.defaultCurrency = defaultCurrency;
     }
 
@@ -37,27 +35,25 @@ public class Product extends BaseModel {
         return String.valueOf(this.defaultPrice) + " " + this.defaultCurrency.toString();
     }
 
-    public void setPrice(float price, String currency) {
+    public void setPrice(double price, String currency) {
         this.defaultPrice = price;
-        this.defaultCurrency = Currency.getInstance(currency);
+        this.defaultCurrency = currency;
     }
 
-    public ProductCategory getProductCategory() {
+    public String getProductCategory() {
         return productCategory;
     }
 
-    public void setProductCategory(ProductCategory productCategory) {
+    public void setProductCategory(String productCategory) {
         this.productCategory = productCategory;
-        this.productCategory.addProduct(this);
     }
 
-    public Supplier getSupplier() {
+    public String getSupplier() {
         return supplier;
     }
 
-    public void setSupplier(Supplier supplier) {
+    public void setSupplier(String supplier) {
         this.supplier = supplier;
-        this.supplier.addProduct(this);
     }
 
     @Override
@@ -71,8 +67,8 @@ public class Product extends BaseModel {
                 this.id,
                 this.name,
                 this.defaultPrice,
-                this.defaultCurrency.toString(),
-                this.productCategory.getName(),
-                this.supplier.getName());
+                this.defaultCurrency,
+                this.productCategory,
+                this.supplier);
     }
 }
