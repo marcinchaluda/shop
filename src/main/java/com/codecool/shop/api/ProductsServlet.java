@@ -19,36 +19,33 @@ import java.util.List;
 public class ProductsServlet extends HttpServlet {
 
     ProductLogic productLogic = new ProductLogic();
+    final int MODEL_ID_INDEX = 1;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        final int MODEL_ID_INDEX = 1;
-
-        PrintWriter out = response.getWriter();
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-
+        PrintWriter out = HelpServlet.setResponse(response);
         String pathInfo = request.getPathInfo();
-        System.out.println(pathInfo);
-
         if (pathInfo == null || pathInfo.equals("/")){
             responseWithAllElements(request, out);
             return;
         }
 
-        String[] splits = pathInfo.split("/");
+        String[] splits = HelpServlet.uriGotOneIdAndIsCorrect(response, pathInfo);
+        int productId = HelpServlet.parseIdToInt(splits[MODEL_ID_INDEX]);
+        responseWithOneElement(productId, out);
+    }
 
-        if(splits.length != 2) {
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String pathInfo = request.getPathInfo();
+        if (pathInfo == null || pathInfo.equals("/")){
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-            return;
         }
 
-        try {
-            int modelId = Integer.parseInt(splits[MODEL_ID_INDEX]);
-            responseWithOneElement(modelId, out);
-        } catch (NumberFormatException e) {
-            throw new ServletException("Id parameter is not valid.", e);
-        }
+        HelpServlet.uriGotOneIdAndIsCorrect(response, pathInfo);
+        String json = request.getParameter("jsondata");
+        productLogic.updateElement(new Gson().fromJson(json, Product.class));
+        response.setStatus(200);
     }
 
     private void responseWithAllElements(HttpServletRequest request, PrintWriter out) {
@@ -69,8 +66,8 @@ public class ProductsServlet extends HttpServlet {
         out.flush();
     }
 
-    private void responseWithOneElement(int modelId, PrintWriter out) {
-        Product product = productLogic.getElement(modelId);
+    private void responseWithOneElement(int productId, PrintWriter out) {
+        Product product = productLogic.getElement(productId);
         out.print(new Gson().toJson(product));
         out.flush();
     }
