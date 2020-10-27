@@ -8,26 +8,45 @@ import com.codecool.shop.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.sql.DataSource;
+import java.sql.*;
+
 
 public class ProductDaoJdbc implements ProductDao {
 
     private List<Product> data = new ArrayList<>();
     private static ProductDaoJdbc instance = null;
+    private final DataSource dataSource;
 
-    private ProductDaoJdbc() {
+    private ProductDaoJdbc(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
-    public static ProductDaoJdbc getInstance() {
+    public static ProductDaoJdbc getInstance(DataSource dataSource) {
         if (instance == null) {
-            instance = new ProductDaoJdbc();
+            instance = new ProductDaoJdbc(dataSource);
         }
         return instance;
     }
 
     @Override
     public void add(Product product) {
-        // TODO
-        throw new RuntimeException("Not implemented yet!");
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "INSERT INTO product VALUES (DEFAULT, ?, ?, ?, ?, ?)";
+            PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            st.setString(1, product.getName());
+            st.setDouble(2, product.getDefaultPrice());
+            st.setString(3, product.getDefaultCurrency());
+            st.setString(4, product.getProductCategory().getName());
+            st.setString(5, product.getSupplier().getName());
+            st.executeUpdate();
+            ResultSet rs = st.getGeneratedKeys();
+            rs.next();
+            product.setId(rs.getInt(1));
+
+        } catch (SQLException throwable) {
+            throw new RuntimeException("Error while adding new Product.", throwable);
+        }
     }
 
     @Override

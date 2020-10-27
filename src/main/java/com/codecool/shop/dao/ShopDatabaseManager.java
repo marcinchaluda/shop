@@ -1,14 +1,21 @@
 package com.codecool.shop.dao;
 
+import com.codecool.shop.dao.implementation.ProductDaoJdbc;
 import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
 public class ShopDatabaseManager {
+    private ProductDao productDao;
+
+    public ShopDatabaseManager() throws SQLException {
+        setup();
+    }
 
     public void setup() throws SQLException {
         DataSource dataSource = connect();
+        productDao = ProductDaoJdbc.getInstance(dataSource);
     }
 
     private DataSource connect() throws SQLException {
