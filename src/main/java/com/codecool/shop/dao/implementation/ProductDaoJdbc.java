@@ -80,8 +80,30 @@ public class ProductDaoJdbc implements ProductDao {
 
     @Override
     public Product get(int id) {
-        // TODO
-        throw new RuntimeException("Not implemented yet!");
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT product_name, unit_price, currency, category, supplier FROM product WHERE id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (!rs.next()) {
+                return null;
+            }
+
+            Product product = new Product(
+                    rs.getString(1),
+                    rs.getDouble(2),
+                    rs.getString(3),
+                    "opis",
+                    Category.getFromValue(rs.getString(4)),
+                    Supplier.getFromValue(rs.getString(5))
+            );
+
+            product.setId(id);
+            return product;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while reading product with id: " + id, e);
+        }
     }
 
     @Override

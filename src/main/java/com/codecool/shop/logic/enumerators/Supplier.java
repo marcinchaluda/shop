@@ -7,13 +7,16 @@ public enum Supplier {
 
     private final String name;
     private final String description;
-
     private final String country;
 
     Supplier(String name, String description, String country) {
         this.name = name;
         this.description = description;
         this.country = country;
+    }
+
+    public static Supplier getFromValue(String value){
+        return Supplier.valueOf(value.toUpperCase());
     }
 
     public String getName() {
