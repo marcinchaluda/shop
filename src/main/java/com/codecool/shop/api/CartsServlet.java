@@ -17,21 +17,21 @@ public class CartsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        HelpServlet.getElementsBasedOnUriId(request, response, cartLogic, Cart.class);
+        HelpServlet.sendRequestForAllElementsAndCheckSortAbility(request, response, cartLogic, Cart.class);
     }
 
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HelpServlet.updateOneElementInBusinessLogic(request, response, cartLogic, Cart.class);
+        HelpServlet.createInstanceAndUpdateElement(request, response, cartLogic, Cart.class);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HelpServlet.addOneElementToBusinessLogic(request, response, cartLogic, Cart.class);
+        HelpServlet.createInstanceAndAddElement(request, response, cartLogic, Cart.class);
     }
 
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HelpServlet.removeOneElementToBusinessLogic(request, response, cartLogic, Cart.class);
+        HelpServlet.createInstanceAndRemoveElement(request, response, cartLogic, Cart.class);
     }
 }

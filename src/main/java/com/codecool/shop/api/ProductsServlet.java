@@ -17,21 +17,21 @@ public class ProductsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HelpServlet.getElementsBasedOnUriId(request, response, productLogic, Product.class);
+        HelpServlet.sendRequestForAllElementsAndCheckSortAbility(request, response, productLogic, Product.class);
     }
 
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HelpServlet.updateOneElementInBusinessLogic(request, response, productLogic, Product.class);
+        HelpServlet.createInstanceAndUpdateElement(request, response, productLogic, Product.class);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HelpServlet.addOneElementToBusinessLogic(request, response, productLogic, Product.class);
+        HelpServlet.createInstanceAndAddElement(request, response, productLogic, Product.class);
     }
 
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HelpServlet.removeOneElementToBusinessLogic(request, response, productLogic, Product.class);
+        HelpServlet.createInstanceAndRemoveElement(request, response, productLogic, Product.class);
     }
 }

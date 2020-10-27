@@ -17,21 +17,21 @@ public class OrdersServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        HelpServlet.getElementsBasedOnUriId(request, response, orderLogic, Order.class);
+        HelpServlet.sendRequestForAllElementsAndCheckSortAbility(request, response, orderLogic, Order.class);
     }
 
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HelpServlet.updateOneElementInBusinessLogic(request, response, orderLogic, Order.class);
+        HelpServlet.createInstanceAndUpdateElement(request, response, orderLogic, Order.class);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HelpServlet.addOneElementToBusinessLogic(request, response, orderLogic, Order.class);
+        HelpServlet.createInstanceAndAddElement(request, response, orderLogic, Order.class);
     }
 
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HelpServlet.removeOneElementToBusinessLogic(request, response, orderLogic, Order.class);
+        HelpServlet.createInstanceAndRemoveElement(request, response, orderLogic, Order.class);
     }
 }

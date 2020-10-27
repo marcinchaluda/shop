@@ -17,21 +17,21 @@ public class UsersServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        HelpServlet.getElementsBasedOnUriId(request, response, userLogic, User.class);
+        HelpServlet.sendRequestForAllElementsAndCheckSortAbility(request, response, userLogic, User.class);
     }
 
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HelpServlet.updateOneElementInBusinessLogic(request, response, userLogic, User.class);
+        HelpServlet.createInstanceAndUpdateElement(request, response, userLogic, User.class);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HelpServlet.addOneElementToBusinessLogic(request, response, userLogic, User.class);
+        HelpServlet.createInstanceAndAddElement(request, response, userLogic, User.class);
     }
 
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HelpServlet.removeOneElementToBusinessLogic(request, response, userLogic, User.class);
+        HelpServlet.createInstanceAndRemoveElement(request, response, userLogic, User.class);
     }
 }

@@ -17,21 +17,21 @@ public class AddressesServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        HelpServlet.getElementsBasedOnUriId(request, response, addressLogic, Address.class);
+        HelpServlet.sendRequestForAllElementsAndCheckSortAbility(request, response, addressLogic, Address.class);
     }
 
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HelpServlet.updateOneElementInBusinessLogic(request, response, addressLogic, Address.class);
+        HelpServlet.createInstanceAndUpdateElement(request, response, addressLogic, Address.class);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HelpServlet.addOneElementToBusinessLogic(request, response, addressLogic, Address.class);
+        HelpServlet.createInstanceAndAddElement(request, response, addressLogic, Address.class);
     }
 
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HelpServlet.removeOneElementToBusinessLogic(request, response, addressLogic, Address.class);
+        HelpServlet.createInstanceAndRemoveElement(request, response, addressLogic, Address.class);
     }
 }
