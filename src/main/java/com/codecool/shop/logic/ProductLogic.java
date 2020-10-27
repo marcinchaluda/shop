@@ -1,6 +1,5 @@
 package com.codecool.shop.logic;
 
-import com.codecool.shop.logic.enumerators.SortType;
 import com.codecool.shop.model.Product;
 
 import java.util.List;
