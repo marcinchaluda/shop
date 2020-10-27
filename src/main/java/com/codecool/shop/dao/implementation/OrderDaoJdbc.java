@@ -51,7 +51,15 @@ public class OrderDaoJdbc implements Dao<Order> {
 
     @Override
     public void remove(int id) {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "DELETE FROM user_order WHERE id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, id);
+            st.executeUpdate();
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
