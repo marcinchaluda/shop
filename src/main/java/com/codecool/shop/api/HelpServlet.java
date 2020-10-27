@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
@@ -70,10 +71,10 @@ public class HelpServlet {
         String pathInfo = request.getPathInfo();
         if (pathInfo == null || pathInfo.equals("/")) {
             if (classType == Product.class) {
-                sendParametrizedAllElementsRequest(request, out, (Sortable) logic);
+                sendParametrizedAllElementsRequest(request, out, (Sortable<Product>) logic);
                 return;
             }
-            getAllElementsFromBusinessLogicAndSendViaJson((NotSortable) logic, out);
+            getAllElementsFromBusinessLogicAndSendViaJson((NotSortable<T>) logic, out);
             return;
         }
 

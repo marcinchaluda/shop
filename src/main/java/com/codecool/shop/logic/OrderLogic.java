@@ -22,7 +22,7 @@ public class OrderLogic implements NotSortable<Order> {
 
     @Override
     public Order getElement(int id) {
-        throw new RuntimeException("Not implemented yet!");
+        throw new RuntimeException("Not implemented yet! - getElement " + id);
     }
 
     @Override

@@ -22,7 +22,7 @@ public class UserLogic implements NotSortable<User> {
 
     @Override
     public User getElement(int id) {
-        throw new RuntimeException("Not implemented yet!");
+        throw new RuntimeException("Not implemented yet! - getElement " + id);
     }
 
     @Override
