@@ -1,12 +1,12 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.Dao;
-import com.codecool.shop.model.Cart;
-import com.codecool.shop.model.Product;
-import com.codecool.shop.model.User;
+import com.codecool.shop.model.*;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -52,6 +52,27 @@ public class CartDaoJdbc implements Dao<Cart> {
                 throw new RuntimeException(e);
             }
         }
+
+        public Map<Product, Integer> getAllProducts(int cartId) {
+            try (Connection conn = dataSource.getConnection()) {
+                String sql = "SELECT product_id, quantity FROM cart_content WHERE cart_id = ?";
+                PreparedStatement st = conn.prepareStatement(sql);
+                st.setInt(1, cartId);
+                ResultSet rs = st.executeQuery();
+
+                Map<Product, Integer> cartContent = new HashMap<>();
+                while (rs.next()) {
+                    Product product = productDao.get(rs.getInt(1));
+                    product.setId(rs.getInt(1));
+
+                    cartContent.put(product, rs.getInt(2));
+                }
+
+                return cartContent;
+            } catch (SQLException e) {
+                throw new RuntimeException("Error while reading products belongs to cart of id " + cartId, e);
+            }
+        }
     }
 
     @Override
@@ -94,7 +115,24 @@ public class CartDaoJdbc implements Dao<Cart> {
 
     @Override
     public Cart get(int id) {
-        return null;
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT user_id FROM cart WHERE id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (!rs.next()) {
+                return null;
+            }
+
+            Cart cart = new Cart(userDao.get(rs.getInt(1)));
+            cart.setId(id);
+            cart.setProductList(cartContentJdbc.getAllProducts(id));
+
+            return cart;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while reading cart with id: " + id, e);
+        }
     }
 
     @Override
