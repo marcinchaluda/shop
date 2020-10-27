@@ -1,0 +1,132 @@
+$basicBlack: #0D0D0D
+$color: #032340
+$darkSkyColor: #0B2D59
+$lightGrey: #C6C5D9
+$silver: #EAE9F2
+
+*
+  margin: 0
+  padding: 0
+
+body
+  background-position: center top
+  background-color: $silver
+
+.banner
+  text-align: center
+  padding: 2em
+  text-transform: uppercase
+
+.banner h1
+  color: $color
+
+.footer-body
+  position: absolute
+  bottom: 0
+  right: 0
+  width: 100vw
+  border-top: 1px solid $basicBlack
+  padding: 1em 3em
+  overflow: hidden
+  text-align: right
+
+.nav-bar
+  background-color: $darkSkyColor
+  font-size: 1.2em
+  height: 7vh
+  margin-bottom: 2em
+
+.nav-bar ul
+  margin: 0 auto
+  width: 60%
+  padding: 1em
+
+.nav-bar li
+  list-style: none
+
+.nav-bar li a
+  color: $silver
+  text-transform: uppercase
+  text-decoration: none
+  padding: 0.5em
+
+.nav-bar li a:hover
+  color: $lightGrey
+  border-bottom: 2px solid $lightGrey
+
+.flex-row
+  display: flex
+  justify-content: space-around
+  flex-wrap: wrap
+
+.flex-col
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  height: 100%
+
+.container
+  width: 90%
+  margin: 0 auto
+
+.card strong
+  padding: 1em 2em
+  text-transform: uppercase
+  color: $color
+  font-size: 1.1em
+  border-radius: 10px
+
+
+.card-title
+  padding: 1em 0
+  text-transform: uppercase
+  font-size: 1em
+  text-align: center
+  background-color: $lightGrey
+  color: $darkSkyColor
+
+.card
+  margin: 1em auto
+  text-align: center
+
+.image
+  border: 2px solid $lightGrey
+  border-radius: 50%
+  width: 250px
+  height: 250px
+
+.card-details
+  width: 25vw
+  min-height: 60vh
+  background-color: $silver
+  border: 2px solid $lightGrey
+  text-align: center
+
+.image-container
+  padding: 1em 0
+
+.card-button
+  background-color: $lightGrey
+  padding: 1em
+
+.card-button a
+  text-decoration: none
+  color: $darkSkyColor
+  padding: 0 0.5em 0.5em 0
+
+.card-button a:hover
+  border-bottom: 2px solid $darkSkyColor
+
+i
+  padding: 0 0.5em
+  color: $darkSkyColor
+
+.card-details .card-header
+  flex-grow: 1
+
+.card-price
+  padding: 0.5em 0
+  color: $darkSkyColor
+
+.card-header
+  color: $darkSkyColor
