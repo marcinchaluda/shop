@@ -2,6 +2,7 @@ const container = document.querySelector(".container");
 
 export const layoutGenerator = {
     createProductCards: function (products, category) {
+        console.log(products);
         const cardContainer = this.createElementWithClasses("div", "flex-row");
 
         products.forEach(product => {

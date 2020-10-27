@@ -39,7 +39,7 @@ public class IndexServlet extends HttpServlet {
         context.setVariables(params);
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
-        engine.process("product/index.html", context, response.getWriter());
+        engine.process("cart/cart.html", context, response.getWriter());
     }
 }
 

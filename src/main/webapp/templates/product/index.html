@@ -14,17 +14,9 @@
 
 <body>
 
-<div class="banner">
-    <h1>Codecool Shop</h1>
-</div>
-<div class="nav-bar">
-    <ul class="flex-row">
-        <li><a class="tablets" href="#">Tablets</a></li>
-        <li><a class="phones" href="#">Phones</a></li>
-        <li><a class="notebooks" href="#">Notebooks</a></li>
-        <li><a class="web-devives" href="#">Web devices</a></li>
-    </ul>
-</div>
+<div th:replace="fragments.html :: main-page-banner"></div>
+<div th:replace="fragments.html :: main-page-nav-bar"></div>
+
 <div class="container">
 </div>
 

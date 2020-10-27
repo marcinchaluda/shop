@@ -1,0 +1,93 @@
+$basicBlack: #0D0D0D
+$color: #032340
+$darkSkyColor: #0B2D59
+$lightGrey: #C6C5D9
+$silver: #EAE9F2
+
+%remove-decoration
+  text-decoration: none
+  text-transform: uppercase
+
+%padding-1em
+  padding: 1em
+
+%border
+  border: 2px solid $lightGrey
+
+%set-basic-width
+  width: 50vw
+  margin: 1em auto
+
+*
+  margin: 0
+  padding: 0
+
+body
+  background-position: center top
+  background-color: $silver
+
+.cart
+  @extend %set-basic-width
+
+.user-items
+  @extend %border
+
+.user-items div
+  @extend %padding-1em
+
+.user-items .cart-header, .billing-address h1
+  background-color: $lightGrey
+
+.cart-header a
+  @extend %remove-decoration
+  font-size: 1em
+  color: $darkSkyColor
+  margin: auto 0
+  width: 30%
+
+.cart-header i
+  padding-right: 0.6em
+
+.user-items h1
+  color: $darkSkyColor
+
+.user-items p
+  color: $darkSkyColor
+
+.flex-row
+  display: flex
+  justify-content: space-around
+  flex-wrap: wrap
+
+.flex-col
+  display: flex
+  flex-direction: column
+  justify-content: space-around
+  height: 100%
+
+.card-details
+  @extend %border
+  margin: 1em 0
+  height: 1em
+  font-size: 1em
+
+.card-details a
+  @extend %remove-decoration
+  font-size: 1em
+
+.card-details .quantity
+  padding: 0
+
+.card-details .quantity .number
+  padding: 0
+  margin: auto 0.5em
+
+.billing-address
+  @extend %border, %set-basic-width
+
+.billing-address div
+  padding: 0.5em 0
+
+.billing-address h1
+  color: $darkSkyColor
+  text-align: center

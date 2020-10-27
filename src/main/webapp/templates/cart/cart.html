@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="Codecool" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title>Codecool Shop || Cart</title>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/static/css/cart.css" />
+<!--    <script type="module" src='/static/js/main.js' defer></script>-->
+</head>
+<body>
+<div class="content flex-col">
+    <div class="cart">
+        <div class="user-items flex-col">
+            <div class="cart-header flex-row">
+                <h1>UserName Cart</h1>
+                <a href="#"><i class="fas fa-trash-alt"></i>Remove Basket</a>
+            </div>
+            <div class="items flex-col">
+                <div class="card-details item flex-row">
+                    <p class="item-name">Item1 name</p>
+                    <div class="quantity flex-row">
+                        <a href="#"><i class="fas fa-minus"></i></a>
+                        <p class="number">1</p>
+                        <a href="#"><i class="fas fa-plus"></i></a>
+                    </div>
+                    <p class="total-cost">Total Cost</p>
+                    <a href="#"><i class="fas fa-trash-alt"></i>Remove Item</a>
+                </div>
+                <div class="card-details item flex-row">
+                    <p class="item-name">Item2 name</p>
+                    <div class="quantity flex-row">
+                        <a href="#"><i class="fas fa-minus"></i></a>
+                        <p class="number">1</p>
+                        <a href="#"><i class="fas fa-plus"></i></a>
+                    </div>
+                    <p class="total-cost">Total Cost</p>
+                    <a href="#"><i class="fas fa-trash-alt"></i>Remove Item</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="billing-address flex-col">
+        <h1>Billing Address</h1>
+        <div class="flex-row">
+            <label for="country">Country</label>
+            <input type="text" id="country" class="country">
+        </div>
+        <div class="flex-row">
+            <label for="city">City</label>
+            <input type="text" id="city" class="city">
+        </div>
+        <div class="flex-row">
+            <label for="zip-code">Zip Code</label>
+            <input type="text" id="zip-code" class="zip-code">
+        </div>
+        <div class="flex-row">
+            <label for="street">Street</label>
+            <input type="text" id="street" class="street">
+        </div>
+        <div class="flex-row">
+            <label for="local">Local</label>
+            <input type="text" id="local" class="local">
+        </div>
+    </div>
+    <div class="billing-address flex-col">
+        <h1>Shipping Address</h1>
+        <div class="flex-row">
+            <label for="ship-country">Country</label>
+            <input type="text" id="ship-country" class="ship-country">
+        </div>
+        <div class="flex-row">
+            <label for="ship-city">City</label>
+            <input type="text" id="ship-city" class="ship-city">
+        </div>
+        <div class="flex-row">
+            <label for="ship-zip-code">Zip Code</label>
+            <input type="text" id="ship-zip-code" class="ship-zip-code">
+        </div>
+        <div class="flex-row">
+            <label for="ship-street">Street</label>
+            <input type="text" id="ship-street" class="ship-street">
+        </div>
+        <div class="flex-row">
+            <label for="ship-local">Local</label>
+            <input type="text" id="ship-local" class="ship-local">
+        </div>
+    </div>
+</div>
+</body>
+</html>
