@@ -1,8 +1,6 @@
 package com.codecool.shop.dao;
 
-import com.codecool.shop.logic.enumerators.Category;
-import com.codecool.shop.logic.enumerators.Supplier;
-import com.codecool.shop.model.Product;
+import com.codecool.shop.model.*;
 
 import java.util.List;
 
