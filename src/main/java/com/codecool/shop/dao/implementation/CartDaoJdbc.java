@@ -38,7 +38,18 @@ public class CartDaoJdbc implements Dao<Cart> {
                 }
 
             } catch (SQLException throwable) {
-                throw new RuntimeException("Error while adding new Product.", throwable);
+                throw new RuntimeException("Error while adding new products to cart.", throwable);
+            }
+        }
+
+        public void remove(int cartId) {
+            try (Connection conn = dataSource.getConnection()) {
+                String sql = "DELETE FROM cart_content WHERE cart_id = ?";
+                PreparedStatement st = conn.prepareStatement(sql);
+                st.setInt(1, cartId);
+                st.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
         }
     }
@@ -57,13 +68,14 @@ public class CartDaoJdbc implements Dao<Cart> {
             cartContentJdbc.add(cart.getProductList(), cart.getId());
 
         } catch (SQLException throwable) {
-            throw new RuntimeException("Error while adding new Product.", throwable);
+            throw new RuntimeException("Error while adding new cart.", throwable);
         }
     }
 
     @Override
     public void update(Cart cart) {
-
+        cartContentJdbc.remove(cart.getId());
+        cartContentJdbc.add(cart.getProductList(), cart.getId());
     }
 
     @Override
