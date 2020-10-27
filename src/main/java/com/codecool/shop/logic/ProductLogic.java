@@ -7,22 +7,22 @@ import java.util.List;
 
 public class ProductLogic implements BusinessLogic<Product> {
     @Override
-    public void addToDatabase(Product product) {
+    public void addElement(Product product) {
         throw new RuntimeException("Not implemented yet!");
     }
 
     @Override
-    public void updateInDatabase(Product product) {
+    public void updateElement(Product product) {
         throw new RuntimeException("Not implemented yet!");
     }
 
     @Override
-    public Product getFromDatabase(int id) {
+    public Product getElement(int id) {
         throw new RuntimeException("Not implemented yet!");
     }
 
     @Override
-    public List<Product> getAllFromDatabase() {
+    public List<Product> getAllElements() {
         throw new RuntimeException("Not implemented yet!");
     }
 

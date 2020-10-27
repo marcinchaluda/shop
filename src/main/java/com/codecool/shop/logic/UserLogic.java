@@ -6,22 +6,22 @@ import java.util.List;
 
 public class UserLogic implements BusinessLogic<User> {
     @Override
-    public void addToDatabase(User user) {
+    public void addElement(User user) {
         throw new RuntimeException("Not implemented yet!");
     }
 
     @Override
-    public void updateInDatabase(User user) {
+    public void updateElement(User user) {
         throw new RuntimeException("Not implemented yet!");
     }
 
     @Override
-    public User getFromDatabase(int id) {
+    public User getElement(int id) {
         throw new RuntimeException("Not implemented yet!");
     }
 
     @Override
-    public List<User> getAllFromDatabase() {
+    public List<User> getAllElements() {
         throw new RuntimeException("Not implemented yet!");
     }
 }

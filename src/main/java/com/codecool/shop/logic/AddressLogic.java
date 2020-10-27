@@ -6,22 +6,22 @@ import java.util.List;
 
 public class AddressLogic implements BusinessLogic<Address>{
     @Override
-    public void addToDatabase(Address address) {
+    public void addElement(Address address) {
         throw new RuntimeException("Not implemented yet!");
     }
 
     @Override
-    public void updateInDatabase(Address address) {
+    public void updateElement(Address address) {
         throw new RuntimeException("Not implemented yet!");
     }
 
     @Override
-    public Address getFromDatabase(int id) {
+    public Address getElement(int id) {
         throw new RuntimeException("Not implemented yet!");
     }
 
     @Override
-    public List<Address> getAllFromDatabase() {
+    public List<Address> getAllElements() {
         throw new RuntimeException("Not implemented yet!");
     }
 }

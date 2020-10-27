@@ -3,8 +3,8 @@ package com.codecool.shop.logic;
 import java.util.List;
 
 public interface BusinessLogic<T> {
-    void addToDatabase(T element);
-    void updateInDatabase(T element);
-    T getFromDatabase(int id);
-    List<T> getAllFromDatabase();
+    void addElement(T element);
+    void updateElement(T element);
+    T getElement(int id);
+    List<T> getAllElements();
 }

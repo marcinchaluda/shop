@@ -38,7 +38,7 @@ public class ProductsServlet extends HttpServlet {
                 }
             });
         } else {
-            List<Product> products = productLogic.getAllFromDatabase();
+            List<Product> products = productLogic.getAllElements();
             out.print(new Gson().toJson(products));
         }
         out.flush();

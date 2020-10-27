@@ -7,22 +7,22 @@ import java.util.List;
 public class CartLogic implements BusinessLogic<Cart> {
 
     @Override
-    public void addToDatabase(Cart cart) {
+    public void addElement(Cart cart) {
         throw new RuntimeException("Not implemented yet!");
     }
 
     @Override
-    public void updateInDatabase(Cart cart) {
+    public void updateElement(Cart cart) {
         throw new RuntimeException("Not implemented yet!");
     }
 
     @Override
-    public Cart getFromDatabase(int id) {
+    public Cart getElement(int id) {
         throw new RuntimeException("Not implemented yet!");
     }
 
     @Override
-    public List<Cart> getAllFromDatabase() {
+    public List<Cart> getAllElements() {
         throw new RuntimeException("Not implemented yet!");
     }
 }
