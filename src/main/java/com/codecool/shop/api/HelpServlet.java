@@ -3,7 +3,6 @@ package com.codecool.shop.api;
 import com.codecool.shop.logic.BusinessLogic;
 import com.codecool.shop.logic.NotSortable;
 import com.codecool.shop.logic.Sortable;
-import com.codecool.shop.model.Product;
 import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
@@ -67,7 +66,7 @@ public class HelpServlet {
         String pathInfo = request.getPathInfo();
         if (pathInfo == null || pathInfo.equals("/")) {
             if (classType == Sortable.class) {
-                sendParametrizedAllElementsRequest(request, out, (Sortable<Product>) logic);
+                sendParametrizedAllElementsRequest(request, out, (Sortable<T>) logic);
                 return;
             }
             getAllElementsFromBusinessLogicAndSendViaJson((NotSortable<T>) logic, out);
@@ -79,11 +78,11 @@ public class HelpServlet {
         getOneElementFromBusinessLogicAndSendViaJson(logic, productId, out);
     }
 
-    private static void sendParametrizedAllElementsRequest(HttpServletRequest request, PrintWriter out, Sortable<Product> logic) {
+    private static <T> void sendParametrizedAllElementsRequest(HttpServletRequest request, PrintWriter out, Sortable<T> logic) {
         String sortType = HelpServlet.getParameterIfExist(request, "sort", "default");
         String sortBy = HelpServlet.getParameterIfExist(request, "by", "default");
 
-        List<Product> elements = logic.getAllElements(sortType, sortBy);
+        List<T> elements = logic.getAllElements(sortType, sortBy);
         out.print(new Gson().toJson(elements));
         out.flush();
     }
