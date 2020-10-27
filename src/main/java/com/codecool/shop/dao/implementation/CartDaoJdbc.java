@@ -22,7 +22,7 @@ public class CartDaoJdbc implements Dao<Cart> {
         this.productDao = productDao;
     }
 
-    class CartContentJdbc {
+    private class CartContentJdbc {
         public void add(Map<Product, Integer> productInCart, int cartId) {
             try (Connection conn = dataSource.getConnection()) {
                 for (Product product : productInCart.keySet()) {
@@ -80,7 +80,16 @@ public class CartDaoJdbc implements Dao<Cart> {
 
     @Override
     public void remove(int id) {
+        cartContentJdbc.remove(id);
 
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "DELETE FROM cart WHERE id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, id);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
