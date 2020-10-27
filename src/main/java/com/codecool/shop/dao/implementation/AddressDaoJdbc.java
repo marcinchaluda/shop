@@ -47,7 +47,7 @@ public class AddressDaoJdbc implements Dao<Address> {
             statement.setInt(5, address.getLocalNumber());
             statement.setInt(6, address.getId());
         } catch (SQLException error) {
-            throw new RuntimeException("Error while updating an Address.");
+            throw new RuntimeException("Error while updating an Address.", error);
         }
     }
 
@@ -58,7 +58,7 @@ public class AddressDaoJdbc implements Dao<Address> {
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
             statement.setInt(1, id);
         } catch (SQLException error) {
-            throw new RuntimeException("Error while removing an Address.");
+            throw new RuntimeException("Error while removing an Address.", error);
         }
     }
 
@@ -71,7 +71,7 @@ public class AddressDaoJdbc implements Dao<Address> {
             ResultSet result = statement.executeQuery();
             return !result.next() ? null : getAddress(result);
         } catch (SQLException error) {
-            throw new RuntimeException("Error while retrieving an Address with " + id + ".");
+            throw new RuntimeException("Error while retrieving an Address with " + id + ".", error);
         }
     }
 
@@ -87,7 +87,7 @@ public class AddressDaoJdbc implements Dao<Address> {
             }
             return addresses;
         } catch (SQLException error) {
-            throw new RuntimeException("Error while retrieving all Addresses.");
+            throw new RuntimeException("Error while retrieving all Addresses.", error);
         }
     }
 
