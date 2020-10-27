@@ -64,7 +64,25 @@ public class OrderDaoJdbc implements Dao<Order> {
 
     @Override
     public Order get(int id) {
-        return null;
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT cart_id, paid FROM user_order WHERE id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (!rs.next()) {
+                return null;
+            }
+
+            Cart cart = cartDao.get(rs.getInt(1));
+            Order order = new Order(cart);
+            order.setId(id);
+            order.setPaid(rs.getBoolean(2));
+
+            return order;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while reading order with id: " + id, e);
+        }
     }
 
     @Override
