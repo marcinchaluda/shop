@@ -35,8 +35,18 @@ public class OrderDaoJdbc implements Dao<Order> {
     }
 
     @Override
-    public void update(Order thing) {
+    public void update(Order order) {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "UPDATE user_order SET cart_id = ?, paid = ? WHERE id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, order.getCart().getId());
+            st.setBoolean(2, order.isPaid());
+            st.setInt(3, order.getId());
+            st.executeUpdate();
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
