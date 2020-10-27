@@ -4,6 +4,22 @@ DROP TABLE IF EXISTS cart_content CASCADE;
 DROP TABLE IF EXISTS user_order CASCADE;
 DROP TABLE IF EXISTS address CASCADE;
 DROP TABLE IF EXISTS user_account CASCADE;
+DROP TABLE IF EXISTS supplier CASCADE;
+DROP TABLE IF EXISTS product_category CASCADE;
+
+CREATE TABLE "supplier"
+(
+    "id"           serial PRIMARY KEY,
+    "name"         text NOT NULL,
+    "description"  text NOT NULL,
+    "country"      text NOT NULL
+);
+
+CREATE TABLE "product_category"
+(
+    "id"           serial PRIMARY KEY,
+    "name"         text NOT NULL
+);
 
 CREATE TABLE "product"
 (
@@ -12,10 +28,22 @@ CREATE TABLE "product"
  "description"  text NOT NULL,
  "unit_price"   double precision NOT NULL,
  "currency"     text NOT NULL,
- "category"     text NOT NULL,
- "supplier"     text NOT NULL,
- "image_source" text
+ "category"     integer NOT NULL,
+ "supplier"     integer NOT NULL,
+ "image_source" text,
+ CONSTRAINT "FK_411" FOREIGN KEY ( "category" ) REFERENCES "product_category" ( "id" ),
+ CONSTRAINT "FK_412" FOREIGN KEY ( "supplier" ) REFERENCES "supplier" ( "id" )
 );
+
+CREATE INDEX "fkIdx_411" ON "product"
+    (
+     "category"
+        );
+
+CREATE INDEX "fkIdx_412" ON "product"
+    (
+     "supplier"
+        );
 
 CREATE TABLE "address"
 (
@@ -24,7 +52,7 @@ CREATE TABLE "address"
  "city"         text NOT NULL,
  "zip_code"     text NOT NULL,
  "street"       text NOT NULL,
- "local_number" int NOT NULL
+ "local_number" integer NOT NULL
 );
 
 CREATE TABLE "user_account"
@@ -100,6 +128,17 @@ SELECT pg_catalog.setval('address_id_seq', 1, true);
 INSERT INTO user_account VALUES (DEFAULT, 'Bob', 'soriusz15@gmail.com', '111221222', 1, 1);
 SELECT pg_catalog.setval('user_account_id_seq', 1, true);
 
-INSERT INTO product VALUES (DEFAULT, 'x100', 'moj opis', '50.0', 'EURO', 'Laptop', 'Samsung', '');
-INSERT INTO product VALUES (DEFAULT, 'abc', 'moj opis 2', '10.0', 'EURO', 'Tablet', 'Huawei', '');
+INSERT INTO supplier VALUES (DEFAULT, 'Amazon', 'Description of the Amazon', 'America');
+INSERT INTO supplier VALUES (DEFAULT, 'Lenovo', 'Description of the Lenovo', 'China');
+INSERT INTO supplier VALUES (DEFAULT, 'Apple', 'Description of the Apple', 'America');
+SELECT pg_catalog.setval('supplier_id_seq', 3, true);
+
+INSERT INTO product_category VALUES (DEFAULT, 'Tablet');
+INSERT INTO product_category VALUES (DEFAULT, 'Phone');
+INSERT INTO product_category VALUES (DEFAULT, 'PC');
+INSERT INTO product_category VALUES (DEFAULT, 'Laptop');
+SELECT pg_catalog.setval('product_category_id_seq', 2, true);
+
+INSERT INTO product VALUES (DEFAULT, 'x100', 'moj opis', '50.0', 'EURO', 2, 2, '');
+INSERT INTO product VALUES (DEFAULT, 'abc', 'moj opis 2', '10.0', 'EURO', 1, 1, '');
 SELECT pg_catalog.setval('product_id_seq', 2, true);
