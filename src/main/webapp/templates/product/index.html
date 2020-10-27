@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+    <script type="module" src='/static/js/main.js' defer></script>
 </head>
 
 <body>
@@ -18,36 +19,13 @@
 </div>
 <div class="nav-bar">
     <ul class="flex-row">
-        <li><a href="#">Tablets</a></li>
-        <li><a href="#">Phones</a></li>
-        <li><a href="#">Notebooks</a></li>
-        <li><a href="#">Web devices</a></li>
+        <li><a class="tablets" href="#">Tablets</a></li>
+        <li><a class="phones" href="#">Phones</a></li>
+        <li><a class="notebooks" href="#">Notebooks</a></li>
+        <li><a class="web-devives" href="#">Web devices</a></li>
     </ul>
 </div>
 <div class="container">
-<!--    <div class="card">-->
-<!--        <strong th:text="${category.name}">Category Title</strong>-->
-<!--    </div>-->
-
-    <div id="products" class="flex-row">
-        <div class="card" th:each="prod : ${products}">
-            <div class="card-details flex-col">
-                <h4 class="card-title" th:text="${prod.name}">Product name</h4>
-                <div class="image-container">
-                    <img class="image" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
-                </div>
-                <div class="card-header">
-                    <p class="card-text" th:text="${prod.description}">Product description... </p>
-                </div>
-                <div class="card-price">
-                    <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
-                </div>
-                <div class="card-button">
-                    <a class="btn" href="#"><i class="fas fa-shopping-cart"></i>Add to cart</a>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <div th:replace="footer.html :: card"></div>
