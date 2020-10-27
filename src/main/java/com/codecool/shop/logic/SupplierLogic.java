@@ -4,7 +4,7 @@ import com.codecool.shop.model.Supplier;
 
 import java.util.List;
 
-public class SupplierLogic implements BusinessLogic<Supplier> {
+public class SupplierLogic implements NotSortable<Supplier> {
 
 
     @Override
@@ -15,6 +15,11 @@ public class SupplierLogic implements BusinessLogic<Supplier> {
     @Override
     public void updateElement(Supplier supplier) {
         throw new RuntimeException("Not implemented yet!");
+    }
+
+    @Override
+    public void removeElement(Supplier element) {
+
     }
 
     @Override
