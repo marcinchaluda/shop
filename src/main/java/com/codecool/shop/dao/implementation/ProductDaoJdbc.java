@@ -2,11 +2,12 @@ package com.codecool.shop.dao.implementation;
 
 
 import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.logic.enumerators.Category;
-import com.codecool.shop.logic.enumerators.Supplier;
+import com.codecool.shop.dao.SimpleInOutDao;
+import com.codecool.shop.model.Category;
 import com.codecool.shop.model.Product;
+import com.codecool.shop.model.Supplier;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import javax.sql.DataSource;
 import java.sql.*;
@@ -14,19 +15,14 @@ import java.sql.*;
 
 public class ProductDaoJdbc implements ProductDao {
 
-    private List<Product> data = new ArrayList<>();
-    private static ProductDaoJdbc instance = null;
     private final DataSource dataSource;
+    private final SimpleInOutDao<Supplier> supplierDao;
+    private final SimpleInOutDao<Category> categoryDao;
 
-    private ProductDaoJdbc(DataSource dataSource) {
+    public ProductDaoJdbc(DataSource dataSource, SimpleInOutDao<Supplier> supplierDao, SimpleInOutDao<Category> categoryDao) {
         this.dataSource = dataSource;
-    }
-
-    public static ProductDaoJdbc getInstance(DataSource dataSource) {
-        if (instance == null) {
-            instance = new ProductDaoJdbc(dataSource);
-        }
-        return instance;
+        this.supplierDao = supplierDao;
+        this.categoryDao = categoryDao;
     }
 
     @Override
@@ -38,8 +34,8 @@ public class ProductDaoJdbc implements ProductDao {
             st.setString(2, product.getDescription());
             st.setDouble(3, product.getDefaultPrice());
             st.setString(4, product.getDefaultCurrency());
-            st.setString(5, product.getProductCategory().getName());
-            st.setString(6, product.getSupplier().getName());
+            st.setInt(5, product.getProductCategory().getId());
+            st.setInt(6, product.getSupplier().getId());
             st.setString(7, product.getImageSource());
             st.executeUpdate();
             ResultSet rs = st.getGeneratedKeys();
@@ -60,8 +56,8 @@ public class ProductDaoJdbc implements ProductDao {
             st.setString(2, product.getDescription());
             st.setDouble(3, product.getDefaultPrice());
             st.setString(4, product.getDefaultCurrency());
-            st.setString(5, product.getProductCategory().getName());
-            st.setString(6, product.getSupplier().getName());
+            st.setInt(5, product.getProductCategory().getId());
+            st.setInt(6, product.getSupplier().getId());
             st.setString(7, product.getImageSource());
             st.setInt(8, product.getId());
             st.executeUpdate();
@@ -93,13 +89,16 @@ public class ProductDaoJdbc implements ProductDao {
                 return null;
             }
 
+            Category category = categoryDao.get(rs.getInt(5));
+            Supplier supplier = supplierDao.get(rs.getInt(6));
+
             Product product = new Product(
                     rs.getString(1),
                     rs.getString(2),
                     rs.getDouble(3),
                     rs.getString(4),
-                    Category.getFromValue(rs.getString(5)),
-                    Supplier.getFromValue(rs.getString(6)),
+                    category,
+                    supplier,
                     rs.getString(7)
             );
 
@@ -116,15 +115,17 @@ public class ProductDaoJdbc implements ProductDao {
         try (Connection conn = dataSource.getConnection()) {
             String sql = "SELECT * FROM product";
             ResultSet rs = conn.createStatement().executeQuery(sql);
-            data = new ArrayList<>();
+            List<Product> data = new LinkedList<>();
             while (rs.next()) {
+                Category category = categoryDao.get(rs.getInt(6));
+                Supplier supplier = supplierDao.get(rs.getInt(7));
                 Product product = new Product(
                         rs.getString(2),
                         rs.getString(3),
                         rs.getDouble(4),
                         rs.getString(5),
-                        Category.getFromValue(rs.getString(6)),
-                        Supplier.getFromValue(rs.getString(7)),
+                        category,
+                        supplier,
                         rs.getString(8)
                 );
                 product.setId(rs.getInt(1));
@@ -141,17 +142,18 @@ public class ProductDaoJdbc implements ProductDao {
         try (Connection conn = dataSource.getConnection()) {
             String sql = "SELECT id, product_name, description, unit_price, currency, category, image_source FROM product WHERE supplier = ?";
             PreparedStatement st = conn.prepareStatement(sql);
-            st.setString(1, supplier.getName());
+            st.setInt(1, supplier.getId());
             ResultSet rs = st.executeQuery();
 
-            data = new ArrayList<>();
+            List<Product> data = new LinkedList<>();
             while (rs.next()) {
+                Category category = categoryDao.get(rs.getInt(6));
                 Product product = new Product(
                         rs.getString(2),
                         rs.getString(3),
                         rs.getDouble(4),
                         rs.getString(5),
-                        Category.getFromValue(rs.getString(6)),
+                        category,
                         supplier,
                         rs.getString(7)
                 );
@@ -167,22 +169,23 @@ public class ProductDaoJdbc implements ProductDao {
     }
 
     @Override
-    public List<Product> getBy(Category productCategory) {
+    public List<Product> getBy(Category category) {
         try (Connection conn = dataSource.getConnection()) {
             String sql = "SELECT id, product_name, description, unit_price, currency, supplier, image_source FROM product WHERE category = ?";
             PreparedStatement st = conn.prepareStatement(sql);
-            st.setString(1, productCategory.getName());
+            st.setInt(1, category.getId());
             ResultSet rs = st.executeQuery();
 
-            data = new ArrayList<>();
+            List<Product> data = new LinkedList<>();
             while (rs.next()) {
+                Supplier supplier = supplierDao.get(rs.getInt(7));
                 Product product = new Product(
                         rs.getString(2),
                         rs.getString(3),
                         rs.getDouble(4),
                         rs.getString(5),
-                        productCategory,
-                        Supplier.getFromValue(rs.getString(6)),
+                        category,
+                        supplier,
                         rs.getString(7)
                 );
                 product.setId(rs.getInt(1));
@@ -192,7 +195,7 @@ public class ProductDaoJdbc implements ProductDao {
             return data;
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error while reading product with category: " + productCategory.getName(), e);
+            throw new RuntimeException("Error while reading product with category: " + category.getName(), e);
         }
     }
 }
