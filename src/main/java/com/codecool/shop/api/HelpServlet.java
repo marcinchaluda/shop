@@ -2,9 +2,7 @@ package com.codecool.shop.api;
 
 import com.codecool.shop.logic.BusinessLogic;
 import com.codecool.shop.logic.NotSortable;
-import com.codecool.shop.logic.ProductLogic;
 import com.codecool.shop.logic.Sortable;
-import com.codecool.shop.logic.enumerators.SortType;
 import com.codecool.shop.model.Product;
 import com.google.gson.Gson;
 
@@ -12,10 +10,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.List;
 
 public class HelpServlet {
