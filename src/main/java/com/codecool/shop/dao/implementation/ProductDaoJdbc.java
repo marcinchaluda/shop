@@ -50,9 +50,20 @@ public class ProductDaoJdbc implements ProductDao {
     }
 
     @Override
-    public void update(Product thing) {
-        // TODO
-        throw new RuntimeException("Not implemented yet!");
+    public void update(Product product) {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "UPDATE product SET product_name = ?, unit_price = ?, currency = ?, category = ?, supplier = ? WHERE id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, product.getName());
+            st.setDouble(2, product.getDefaultPrice());
+            st.setString(3, product.getDefaultCurrency());
+            st.setString(4, product.getProductCategory().getName());
+            st.setString(5, product.getSupplier().getName());
+            st.setInt(6, product.getId());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
