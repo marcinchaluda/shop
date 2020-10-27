@@ -34,31 +34,6 @@
     <h1>Codecool Shop</h1>
 </div>
 
-<div class="container">
-    <div id="products" class="row">
-        <div class="suppliers">
-            Suppliers:
-            <div th:each="supplier: ${suppliers}">
-                <div th:text="${supplier.name}" />
-            </div>
-        </div>
-        <div class="categories">
-            Categories:
-            <div th:each="category: ${categories}">
-                <div th:text="${category.name}" />
-            </div>
-        </div>
-        <div class="products">
-            Products:
-            <div th:each="product: ${products}">
-                <div th:text="${product.name}" />
-                <div th:text="${product.description}" />
-                <div th:text="${product.getPrice()}" />
-            </div>
-        </div>
-    </div>
-</div>
-
 <div th:replace="footer.html :: copy"></div>
 
 </body>
