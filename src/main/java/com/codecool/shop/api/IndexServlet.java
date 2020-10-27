@@ -25,9 +25,28 @@ public class IndexServlet extends HttpServlet {
         WebContext context = new WebContext(request, response, request.getServletContext());
 
         List<Product> sampleProducts = Arrays.asList(
-                new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", Category.TABLET, Supplier.AMAZON),
-                new Product("Lenovo IdeaPad Mix 700", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.", Category.TABLET, Supplier.LENOVO),
-                new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", Category.TABLET, Supplier.AMAZON)
+                new Product("Amazon Fire",
+                        "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.",
+                        49.9f,
+                        "USD",
+                        Category.TABLET,
+                        Supplier.AMAZON,
+                        ""),
+                new Product(
+                        "Lenovo IdeaPad Mix 700",
+                        "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.",
+                        479,
+                        "USD",
+                        Category.TABLET,
+                        Supplier.LENOVO,""),
+                new Product(
+                        "Amazon Fire HD 8",
+                        "Amazon's latest Fire HD 8 tablet is a great value for media consumption.",
+                        89,
+                        "USD",
+                        Category.TABLET,
+                        Supplier.AMAZON,
+                        "")
         );
 
         // List<Product> products = ProductLogic.getAllProductsFromDatabase("default", "default");
