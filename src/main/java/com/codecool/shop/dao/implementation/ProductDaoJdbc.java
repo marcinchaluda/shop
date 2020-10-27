@@ -168,7 +168,31 @@ public class ProductDaoJdbc implements ProductDao {
 
     @Override
     public List<Product> getBy(Category productCategory) {
-        // TODO
-        throw new RuntimeException("Not implemented yet!");
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT id, product_name, description, unit_price, currency, supplier, image_source FROM product WHERE category = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, productCategory.getName());
+            ResultSet rs = st.executeQuery();
+
+            data = new ArrayList<>();
+            while (rs.next()) {
+                Product product = new Product(
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getDouble(4),
+                        rs.getString(5),
+                        productCategory,
+                        Supplier.getFromValue(rs.getString(6)),
+                        rs.getString(7)
+                );
+                product.setId(rs.getInt(1));
+
+                data.add(product);
+            }
+            return data;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while reading product with category: " + productCategory.getName(), e);
+        }
     }
 }

@@ -100,6 +100,6 @@ SELECT pg_catalog.setval('address_id_seq', 1, true);
 INSERT INTO user_account VALUES (DEFAULT, 'Bob', 'soriusz15@gmail.com', '111221222', 1, 1);
 SELECT pg_catalog.setval('user_account_id_seq', 1, true);
 
-INSERT INTO product VALUES (DEFAULT, 'x100', 'moj opis', '50.0', 'EURO', 'tablet', 'samsung', '');
-INSERT INTO product VALUES (DEFAULT, 'abc', 'moj opis 2', '10.0', 'EURO', 'tablet', 'huawei', '');
+INSERT INTO product VALUES (DEFAULT, 'x100', 'moj opis', '50.0', 'EURO', 'Laptop', 'Samsung', '');
+INSERT INTO product VALUES (DEFAULT, 'abc', 'moj opis 2', '10.0', 'EURO', 'Tablet', 'Huawei', '');
 SELECT pg_catalog.setval('product_id_seq', 2, true);
