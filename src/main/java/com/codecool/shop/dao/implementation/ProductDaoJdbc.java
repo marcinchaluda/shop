@@ -68,8 +68,14 @@ public class ProductDaoJdbc implements ProductDao {
 
     @Override
     public void remove(int id) {
-        // TODO
-        throw new RuntimeException("Not implemented yet!");
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "DELETE FROM product WHERE id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, id);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
