@@ -66,7 +66,7 @@ public class HelpServlet {
         PrintWriter out = HelpServlet.setResponse(response);
         String pathInfo = request.getPathInfo();
         if (pathInfo == null || pathInfo.equals("/")) {
-            if (classType == Product.class) {
+            if (classType == Sortable.class) {
                 sendParametrizedAllElementsRequest(request, out, (Sortable<Product>) logic);
                 return;
             }
