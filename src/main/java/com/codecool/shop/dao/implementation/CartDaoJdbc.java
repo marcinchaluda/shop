@@ -48,6 +48,7 @@ public class CartDaoJdbc implements Dao<Cart> {
                 PreparedStatement st = conn.prepareStatement(sql);
                 st.setInt(1, cartId);
                 st.executeUpdate();
+
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -69,6 +70,7 @@ public class CartDaoJdbc implements Dao<Cart> {
                 }
 
                 return cartContent;
+
             } catch (SQLException e) {
                 throw new RuntimeException("Error while reading products belongs to cart of id " + cartId, e);
             }
@@ -108,6 +110,7 @@ public class CartDaoJdbc implements Dao<Cart> {
             PreparedStatement st = conn.prepareStatement(sql);
             st.setInt(1, id);
             st.executeUpdate();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -137,6 +140,23 @@ public class CartDaoJdbc implements Dao<Cart> {
 
     @Override
     public List<Cart> getAll() {
-        return null;
+        //TODO odpytac tylko o id cart i wykorzystac get powyzej,
+        // czy odpytac o wszystko z tabeli cart i tworzyc tutaj cart (mniej polaczen z DB, ale wiecej manewrow z danymi po stronie serwera)
+        // pytanie: jedna skomplikowana kwerenda + wiecej parsowania danych po stronie serwera VS wiecej prostszych kwerend + prosta logika po stronie serwera
+        // co jest lepsze i kiedy?
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT id FROM cart";
+            ResultSet rs = conn.createStatement().executeQuery(sql);
+            List<Cart> cartList = new LinkedList<>();
+
+            while (rs.next()) {
+                cartList.add(get(rs.getInt(1)));
+            }
+
+            return cartList;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while reading all carts", e);
+        }
     }
 }
