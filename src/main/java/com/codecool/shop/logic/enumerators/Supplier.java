@@ -1,8 +1,15 @@
 package com.codecool.shop.logic.enumerators;
 
+import com.google.gson.annotations.SerializedName;
+
 public enum Supplier {
+    @SerializedName("Amazon")
     AMAZON("Amazon", "Supplier 1", "America"),
+
+    @SerializedName("Lenovo")
     LENOVO("Lenovo", "Supplier 2", "China"),
+
+    @SerializedName("Apple")
     APPLE("Apple", "Supplier 3", "America");
 
     private final String name;
