@@ -1,54 +1,68 @@
 package com.codecool.shop.model;
 
-import java.util.Currency;
+import com.codecool.shop.logic.enumerators.*;
+import com.google.gson.annotations.SerializedName;
 
-public class Product extends BaseModel {
+import java.text.DecimalFormat;
 
-    private float defaultPrice;
-    private Currency defaultCurrency;
-    private ProductCategory productCategory;
+public class Product extends BaseDescribedModel {
+
+    @SerializedName(value="unitPrice", alternate="defaultPrice")
+    private double defaultPrice;
+
+    @SerializedName(value="currency", alternate="defaultCurrency")
+    private String defaultCurrency;
+
+    @SerializedName(value="category", alternate="productCategory")
+    private Category productCategory;
+
+    @SerializedName(value="supplier")
     private Supplier supplier;
 
+    @SerializedName(value="image", alternate="imageSource")
+    private String imageSource;
 
-    public Product(String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
+    transient private final DecimalFormat df = new DecimalFormat("#.##");
+
+    public Product(String name, double defaultPrice, String currencyString, String description, Category productCategory, Supplier supplier) {
         super(name, description);
-        this.setPrice(defaultPrice, currencyString);
-        this.setSupplier(supplier);
-        this.setProductCategory(productCategory);
+        this.defaultPrice = defaultPrice;
+        this.defaultCurrency = currencyString;
+        this.supplier = supplier;
+        this.productCategory = productCategory;
     }
 
-    public float getDefaultPrice() {
+    public double getDefaultPrice() {
         return defaultPrice;
     }
 
-    public void setDefaultPrice(float defaultPrice) {
+    public void setDefaultPrice(double defaultPrice) {
         this.defaultPrice = defaultPrice;
     }
 
-    public Currency getDefaultCurrency() {
+    public String getDefaultCurrency() {
         return defaultCurrency;
     }
 
-    public void setDefaultCurrency(Currency defaultCurrency) {
+    public void setDefaultCurrency(String defaultCurrency) {
         this.defaultCurrency = defaultCurrency;
     }
 
     public String getPrice() {
-        return String.valueOf(this.defaultPrice) + " " + this.defaultCurrency.toString();
+        return String.valueOf(df.format(this.defaultPrice)) + " " + this.defaultCurrency;
     }
 
-    public void setPrice(float price, String currency) {
+    public void setPrice(double price, String currency) {
         this.defaultPrice = price;
-        this.defaultCurrency = Currency.getInstance(currency);
+        this.defaultCurrency = currency;
     }
 
-    public ProductCategory getProductCategory() {
+    public Category getProductCategory() {
         return productCategory;
     }
 
-    public void setProductCategory(ProductCategory productCategory) {
+    public void setProductCategory(Category productCategory) {
         this.productCategory = productCategory;
-        this.productCategory.addProduct(this);
     }
 
     public Supplier getSupplier() {
@@ -57,7 +71,6 @@ public class Product extends BaseModel {
 
     public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
-        this.supplier.addProduct(this);
     }
 
     @Override
@@ -71,8 +84,17 @@ public class Product extends BaseModel {
                 this.id,
                 this.name,
                 this.defaultPrice,
-                this.defaultCurrency.toString(),
+                this.defaultCurrency,
                 this.productCategory.getName(),
-                this.supplier.getName());
+                this.supplier.getName()
+        );
+    }
+
+    public String getImageSource() {
+        return imageSource;
+    }
+
+    public void setImageSource(String imageSource) {
+        this.imageSource = imageSource;
     }
 }

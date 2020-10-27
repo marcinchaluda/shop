@@ -7,23 +7,6 @@
 
     <title>Codecool Shop</title>
 
-<!--    &lt;!&ndash; Bootstrap components &ndash;&gt;-->
-<!--    &lt;!&ndash; Latest compiled and minified Jquery &ndash;&gt;-->
-<!--    <script src="https://code.jquery.com/jquery-3.3.1.min.js"-->
-<!--            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>-->
-
-<!--    &lt;!&ndash;Latest compiled and minified Popper &ndash;&gt;-->
-<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"-->
-<!--            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>-->
-
-<!--    &lt;!&ndash; Latest compiled and minified JavaScript &ndash;&gt;-->
-<!--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"-->
-<!--    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>-->
-
-<!--    &lt;!&ndash; Latest compiled and minified CSS &ndash;&gt;-->
-<!--    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"-->
-<!--          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">-->
-<!--    &lt;!&ndash; End of Bootstrap components &ndash;&gt;-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
 </head>
@@ -42,12 +25,12 @@
     </ul>
 </div>
 <div class="container">
-    <div class="card">
-        <strong th:text="${category.name}">Category Title</strong>
-    </div>
+<!--    <div class="card">-->
+<!--        <strong th:text="${category.name}">Category Title</strong>-->
+<!--    </div>-->
 
     <div id="products" class="flex-row">
-        <div class="card" th:each="prod,iterStat : ${products}">
+        <div class="card" th:each="prod : ${products}">
             <div class="card-details flex-col">
                 <h4 class="card-title" th:text="${prod.name}">Product name</h4>
                 <div class="image-container">
