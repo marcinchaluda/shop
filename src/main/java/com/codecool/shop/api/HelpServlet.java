@@ -65,7 +65,6 @@ public class HelpServlet {
         PrintWriter out = HelpServlet.createPrintWriterAndSetItUp(response);
         String pathInfo = request.getPathInfo();
         if (pathInfo == null || pathInfo.equals("/")) {
-            System.out.println(pathInfo);
             if (logic instanceof Sortable) {
                 getAllSortedElements(request, out, (Sortable<T>) logic);
             } else if (logic instanceof GetAllLogic) {
