@@ -4,9 +4,7 @@ import com.codecool.shop.dao.ModifyDao;
 import com.codecool.shop.dao.ShopDatabaseManager;
 import com.codecool.shop.model.Address;
 
-import java.util.List;
-
-public class AddressLogic implements NotSortable<Address>{
+public class AddressLogic implements BusinessLogic<Address> {
     ModifyDao<Address> addressDao = ShopDatabaseManager.Instance.getAddressDao();
 
     private static AddressLogic instance = null;
@@ -20,26 +18,21 @@ public class AddressLogic implements NotSortable<Address>{
 
     @Override
     public void addElement(Address address) {
-        throw new RuntimeException("Not implemented yet!");
+        addressDao.add(address);
     }
 
     @Override
     public void updateElement(Address address) {
-        throw new RuntimeException("Not implemented yet!");
+        addressDao.update(address);
     }
 
     @Override
-    public void removeElement(Address element) {
-        throw new RuntimeException("Not implemented yet!");
+    public void removeElement(Address address) {
+        addressDao.remove(address.getId());
     }
 
     @Override
     public Address getElement(int id) {
-        throw new RuntimeException("Not implemented yet! - getElement " + id);
-    }
-
-    @Override
-    public List<Address> getAllElements() {
-        throw new RuntimeException("Not implemented yet!");
+        return addressDao.get(id);
     }
 }
