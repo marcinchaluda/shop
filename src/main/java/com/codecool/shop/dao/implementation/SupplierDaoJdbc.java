@@ -65,8 +65,7 @@ public class SupplierDaoJdbc implements GetAllDao<Supplier> {
             String sqlQuery = "SELECT id, name, description, country FROM supplier WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
             statement.setInt(1, id);
-            statement.executeUpdate();
-            ResultSet result = statement.getGeneratedKeys();
+            ResultSet result = statement.executeQuery();
             return !result.next() ? null : getSupplier(result);
         } catch (SQLException error) {
             throw new RuntimeException("Error while getting a Supplier.", error);
@@ -82,12 +81,13 @@ public class SupplierDaoJdbc implements GetAllDao<Supplier> {
             List<Supplier> suppliers = new LinkedList<>();
             String sqlQuery = "SELECT id, name, description, country FROM supplier";
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
-            statement.executeUpdate();
-            ResultSet result = statement.getGeneratedKeys();
+            ResultSet result = statement.executeQuery();
+
             while (result.next()) {
                 suppliers.add(getSupplier(result));
             }
             return suppliers;
+
         } catch (SQLException error) {
             throw new RuntimeException("Error while getting all Suppliers.", error);
         }
