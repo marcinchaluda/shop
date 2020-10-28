@@ -44,7 +44,7 @@ public class HelpServlet {
     public static String[] getSplitUrlIfLengthIsEqual2(HttpServletResponse response, String pathInfo) throws IOException {
         String[] splits = pathInfo.split("/");
 
-        if(splits.length != 2) {
+        if (splits.length != 2) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
 
@@ -53,7 +53,7 @@ public class HelpServlet {
 
     public static String getPathInfoWhenUriContainsIdParameter(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String pathInfo = request.getPathInfo();
-        if (pathInfo == null || pathInfo.equals("/")){
+        if (pathInfo == null || pathInfo.equals("/")) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
         return pathInfo;
@@ -63,15 +63,16 @@ public class HelpServlet {
         final int MODEL_ID_INDEX = 1;
 
         PrintWriter out = HelpServlet.createPrintWriterAndSetItUp(response);
-        try {
+        if (classType == Sortable.class) {
             getAllSortedElements(request, out, (Sortable<T>) logic);
-        } catch (ClassCastException e) {
+        }
+
+        if (classType == GetAllLogic.class) {
             String pathInfo = request.getPathInfo();
             if (pathInfo == null || pathInfo.equals("/")) {
                 getAllUnsortedElements((GetAllLogic<T>) logic, out);
                 return;
             }
-
             String[] splits = HelpServlet.getSplitUrlIfLengthIsEqual2(response, pathInfo);
             int productId = parseParameterIdToInteger(splits[MODEL_ID_INDEX]);
             createJsonFromElement(logic, productId, out);
