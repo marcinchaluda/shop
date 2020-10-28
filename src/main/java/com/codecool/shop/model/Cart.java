@@ -13,6 +13,12 @@ public class Cart extends BaseModel {
     @SerializedName(value="products")
     private Map<Product, Integer> productList = new HashMap<>();
 
+    @SerializedName(value="totalPrice")
+    private double totalPrice;
+
+    @SerializedName(value="quantity")
+    private int quantity;
+
     public Cart(User user) {
         this.user = user;
     }
@@ -31,6 +37,14 @@ public class Cart extends BaseModel {
 
     public void setProductList(Map<Product, Integer> productList) {
         this.productList = productList;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     @Override
