@@ -7,34 +7,28 @@
 
     <title>Codecool Shop</title>
 
-    <!-- Bootstrap components -->
-    <!-- Latest compiled and minified Jquery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-
-    <!--Latest compiled and minified Popper -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
-    <!-- Latest compiled and minified CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <!-- End of Bootstrap components -->
-
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+    <script type="module" src='/static/js/main.js' defer></script>
 </head>
 
 <body>
 
-<div class="jumbotron text-center">
+<div class="banner">
     <h1>Codecool Shop</h1>
 </div>
+<div class="nav-bar">
+    <ul class="flex-row">
+        <li><a class="tablets" href="#">Tablets</a></li>
+        <li><a class="phones" href="#">Phones</a></li>
+        <li><a class="notebooks" href="#">Notebooks</a></li>
+        <li><a class="web-devives" href="#">Web devices</a></li>
+    </ul>
+</div>
+<div class="container">
+</div>
 
-<div th:replace="footer.html :: copy"></div>
+<div th:replace="footer.html :: card"></div>
 
 </body>
 </html>
