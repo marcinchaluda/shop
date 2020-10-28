@@ -14,28 +14,41 @@ export const navButtonHandler = {
     init: function () {
         showProducts(category.product, products.tablets);
         setInitStyles();
-        this.activateAllNavButtons();
+        this.activateAllProductButtons();
         this.toggleNavMenuBySortOption();
     },
 
-    activateAllNavButtons: function () {
+    activateAllProductButtons: function () {
         this.tabletsButtonHandler();
         this.phonesButtonHandler();
-
+        this.notebooksButtonHandler();
+        this.webDevicesButtonHandler();
     },
 
     tabletsButtonHandler: function () {
         tabletsBtn.addEventListener("click", function () {
-            layoutGenerator.removeContent(content);
-            markButtonAsCurrent(tabletsBtn);
-            showProducts(category.product, products.tablets);
-        })
+            displayProducts(category.product, products.tablets);
+        });
     },
 
     phonesButtonHandler: function () {
         const phonesBtn = document.querySelector(".phones");
         phonesBtn.addEventListener("click", () => {
-            markButtonAsCurrent(phonesBtn);
+            displayProducts(category.product, products.phones);
+        });
+    },
+
+    notebooksButtonHandler: function () {
+        const phonesBtn = document.querySelector(".notebooks");
+        phonesBtn.addEventListener("click", () => {
+            displayProducts(category.product, products.notebooks);
+        });
+    },
+
+    webDevicesButtonHandler: function () {
+        const phonesBtn = document.querySelector(".web-devices");
+        phonesBtn.addEventListener("click", () => {
+            displayProducts(category.product, products.webDevices);
         });
     },
 
@@ -78,6 +91,12 @@ function switchSortOption() {
         }
         markButtonAsCurrent(button);
     });
+}
+
+function displayProducts(category, product) {
+    layoutGenerator.removeContent(content);
+    markButtonAsCurrent(tabletsBtn);
+    showProducts(category, products);
 }
 
 function displaySortOptionOnButton() {
