@@ -18,8 +18,8 @@ public class Order extends BaseModel {
         return paid;
     }
 
-    public void markPaid() {
-        this.paid = true;
+    public void setPaid(boolean status) {
+        this.paid = status;
     }
 
     public Cart getCart() {
