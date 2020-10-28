@@ -1,8 +1,5 @@
 package com.codecool.shop.dao;
 
-/**
- * Class responsible for communication one type of object and database table
- */
 public interface ModifyDao<T> extends Dao<T> {
 
     /**

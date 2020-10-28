@@ -23,6 +23,9 @@ public class CartDaoJdbc implements ModifyDao<Cart> {
         this.productDao = productDao;
     }
 
+    /**
+     * Private class inside CartDaoJdbc to get Cart Content everytime it is necessary
+     */
     private class CartContentJdbc {
         public void add(Map<Product, Integer> productInCart, int cartId) {
             try (Connection conn = dataSource.getConnection()) {
@@ -78,6 +81,10 @@ public class CartDaoJdbc implements ModifyDao<Cart> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * @param cart - cart instance with defined all fields without id
+     */
     @Override
     public void add(Cart cart) {
         try (Connection conn = dataSource.getConnection()) {
@@ -96,12 +103,20 @@ public class CartDaoJdbc implements ModifyDao<Cart> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * @param cart - cart instance with defined all fields
+     */
     @Override
     public void update(Cart cart) {
         cartContentJdbc.remove(cart.getId());
         cartContentJdbc.add(cart.getProductList(), cart.getId());
     }
 
+    /**
+     * {@inheritDoc}
+     * @param id - id of cart instance to remove from database
+     */
     @Override
     public void remove(int id) {
         cartContentJdbc.remove(id);
@@ -117,6 +132,10 @@ public class CartDaoJdbc implements ModifyDao<Cart> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * @param id - id of cart instance to get from database
+     */
     @Override
     public Cart get(int id) {
         try (Connection conn = dataSource.getConnection()) {

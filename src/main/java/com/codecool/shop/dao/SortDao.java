@@ -7,6 +7,7 @@ import com.codecool.shop.model.Supplier;
 import java.util.List;
 
 public interface SortDao extends GetAllDao<Product> {
+
     /**
      * DAO's method that get all elements from database when objects is instance of Sortable and sort it by supplier
      */

@@ -17,6 +17,10 @@ public class OrderDaoJdbc implements ModifyDao<Order> {
         this.cartDao = cartDao;
     }
 
+    /**
+     * {@inheritDoc}
+     * @param order - order instance with defined all fields without id
+     */
     @Override
     public void add(Order order) {
         try (Connection conn = dataSource.getConnection()) {
@@ -34,6 +38,10 @@ public class OrderDaoJdbc implements ModifyDao<Order> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * @param order - order instance with defined all fields
+     */
     @Override
     public void update(Order order) {
         try (Connection conn = dataSource.getConnection()) {
@@ -49,6 +57,10 @@ public class OrderDaoJdbc implements ModifyDao<Order> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * @param id - id of order instance to remove from database
+     */
     @Override
     public void remove(int id) {
         try (Connection conn = dataSource.getConnection()) {
@@ -62,6 +74,10 @@ public class OrderDaoJdbc implements ModifyDao<Order> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * @param id - id of order instance to get from database
+     */
     @Override
     public Order get(int id) {
         try (Connection conn = dataSource.getConnection()) {
