@@ -9,6 +9,15 @@ import java.util.List;
 public class AddressLogic implements NotSortable<Address>{
     ModifyDao<Address> addressDao = ShopDatabaseManager.Instance.getAddressDao();
 
+    private static AddressLogic instance = null;
+
+    public static AddressLogic getInstance() {
+        if (instance == null) {
+            instance = new AddressLogic();
+        }
+        return instance;
+    }
+
     @Override
     public void addElement(Address address) {
         throw new RuntimeException("Not implemented yet!");

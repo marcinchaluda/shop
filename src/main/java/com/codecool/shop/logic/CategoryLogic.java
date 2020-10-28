@@ -9,6 +9,15 @@ import java.util.List;
 public class CategoryLogic implements NotSortable<Category> {
     GetAllDao<Category> categoryDao = ShopDatabaseManager.Instance.getCategoryDao();
 
+    private static CategoryLogic instance = null;
+
+    public static CategoryLogic getInstance() {
+        if (instance == null) {
+            instance = new CategoryLogic();
+        }
+        return instance;
+    }
+
     @Override
     public void addElement(Category category) {
         throw new RuntimeException("Not implemented yet!");

@@ -9,6 +9,15 @@ import java.util.List;
 public class ProductLogic implements Sortable<Product> {
     SortDao productDao = ShopDatabaseManager.Instance.getProductDao();
 
+    private static ProductLogic instance = null;
+
+    public static ProductLogic getInstance() {
+        if (instance == null) {
+            instance = new ProductLogic();
+        }
+        return instance;
+    }
+
     @Override
     public void addElement(Product product) {
         throw new RuntimeException("Not implemented yet!");

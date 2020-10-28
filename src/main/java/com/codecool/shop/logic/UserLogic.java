@@ -9,6 +9,15 @@ import java.util.List;
 public class UserLogic implements NotSortable<User> {
     ModifyDao<User> userDao = ShopDatabaseManager.Instance.getUserDao();
 
+    private static UserLogic instance = null;
+
+    public static UserLogic getInstance() {
+        if (instance == null) {
+            instance = new UserLogic();
+        }
+        return instance;
+    }
+
     @Override
     public void addElement(User user) {
         throw new RuntimeException("Not implemented yet!");

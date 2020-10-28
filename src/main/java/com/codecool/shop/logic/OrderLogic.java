@@ -9,6 +9,15 @@ import java.util.List;
 public class OrderLogic implements NotSortable<Order> {
     ModifyDao<Order> orderDao = ShopDatabaseManager.Instance.getOrderDao();
 
+    private static OrderLogic instance = null;
+
+    public static OrderLogic getInstance() {
+        if (instance == null) {
+            instance = new OrderLogic();
+        }
+        return instance;
+    }
+
     @Override
     public void addElement(Order order) {
         throw new RuntimeException("Not implemented yet!");

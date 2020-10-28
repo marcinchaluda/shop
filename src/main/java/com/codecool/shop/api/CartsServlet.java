@@ -13,25 +13,27 @@ import java.io.IOException;
 @WebServlet(urlPatterns = {"/api/carts/*"})
 public class CartsServlet extends HttpServlet {
 
-    CartLogic cartLogic = new CartLogic();
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        CartLogic cartLogic = CartLogic.getInstance();
         HelpServlet.sendRequestForAllElementsAndCheckSortAbility(request, response, cartLogic, Cart.class);
     }
 
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        CartLogic cartLogic = CartLogic.getInstance();
         HelpServlet.createInstanceAndUpdateElement(request, response, cartLogic, Cart.class);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        CartLogic cartLogic = CartLogic.getInstance();
         HelpServlet.createInstanceAndAddElement(request, response, cartLogic, Cart.class);
     }
 
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        CartLogic cartLogic = CartLogic.getInstance();
         HelpServlet.createInstanceAndRemoveElement(request, response, cartLogic, Cart.class);
     }
 }

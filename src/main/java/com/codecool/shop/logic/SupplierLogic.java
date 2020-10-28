@@ -9,6 +9,15 @@ import java.util.List;
 public class SupplierLogic implements NotSortable<Supplier> {
     GetAllDao<Supplier> supplierDao = ShopDatabaseManager.Instance.getSupplierDao();
 
+    private static SupplierLogic instance = null;
+
+    public static SupplierLogic getInstance() {
+        if (instance == null) {
+            instance = new SupplierLogic();
+        }
+        return instance;
+    }
+
     @Override
     public void addElement(Supplier supplier) {
         throw new RuntimeException("Not implemented yet!");

@@ -9,6 +9,15 @@ import java.util.List;
 public class CartLogic implements NotSortable<Cart> {
     ModifyDao<Cart> cartDao = ShopDatabaseManager.Instance.getCartDao();
 
+    private static CartLogic instance = null;
+
+    public static CartLogic getInstance() {
+        if (instance == null) {
+            instance = new CartLogic();
+        }
+        return instance;
+    }
+
     @Override
     public void addElement(Cart cart) {
         throw new RuntimeException("Not implemented yet!");
