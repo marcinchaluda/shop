@@ -63,16 +63,15 @@ public class HelpServlet {
         final int MODEL_ID_INDEX = 1;
 
         PrintWriter out = HelpServlet.createPrintWriterAndSetItUp(response);
-        if (classType == Sortable.class) {
-            getAllSortedElements(request, out, (Sortable<T>) logic);
-        }
-
-        if (classType == GetAllLogic.class) {
-            String pathInfo = request.getPathInfo();
-            if (pathInfo == null || pathInfo.equals("/")) {
+        String pathInfo = request.getPathInfo();
+        if (pathInfo == null || pathInfo.equals("/")) {
+            System.out.println(pathInfo);
+            if (logic instanceof Sortable) {
+                getAllSortedElements(request, out, (Sortable<T>) logic);
+            } else if (logic instanceof GetAllLogic) {
                 getAllUnsortedElements((GetAllLogic<T>) logic, out);
-                return;
             }
+        } else {
             String[] splits = HelpServlet.getSplitUrlIfLengthIsEqual2(response, pathInfo);
             int productId = parseParameterIdToInteger(splits[MODEL_ID_INDEX]);
             createJsonFromElement(logic, productId, out);
