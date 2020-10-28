@@ -91,3 +91,34 @@ body
 .billing-address h1
   color: $darkSkyColor
   text-align: center
+
+.content form
+  @extend %padding-1em
+  text-align: center
+
+.button
+  justify-content: center
+
+.button .submit-button
+  padding: 0.5em 2em
+  text-transform: uppercase
+  font-size: 1.2em
+  background-color: $darkSkyColor
+  color: $silver
+
+.button .submit-button:hover
+  cursor: pointer
+  color: $darkSkyColor
+  background-color: $lightGrey
+
+.plus-minus:hover, .card-details a:hover
+  color: $lightGrey
+
+.card-details a i
+  padding-right: 0.5em
+
+.cart-header a
+  padding-bottom: 0.5em
+
+.cart-header a:hover
+  border-bottom: 2px solid $darkSkyColor

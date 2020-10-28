@@ -1,0 +1,51 @@
+<div th:fragment="billing-address" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="billing-address flex-col">
+        <h1>Billing Address</h1>
+        <div class="flex-row">
+            <label for="country">Country</label>
+            <input type="text" id="country" class="country">
+        </div>
+        <div class="flex-row">
+            <label for="city">City</label>
+            <input type="text" id="city" class="city">
+        </div>
+        <div class="flex-row">
+            <label for="zip-code">Zip Code</label>
+            <input type="text" id="zip-code" class="zip-code">
+        </div>
+        <div class="flex-row">
+            <label for="street">Street</label>
+            <input type="text" id="street" class="street">
+        </div>
+        <div class="flex-row">
+            <label for="local">Local</label>
+            <input type="text" id="local" class="local">
+        </div>
+    </div>
+</div>
+
+<div th:fragment="shipping-address" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="billing-address flex-col">
+        <h1>Shipping Address</h1>
+        <div class="flex-row">
+            <label for="ship-country">Country</label>
+            <input type="text" id="ship-country" class="ship-country">
+        </div>
+        <div class="flex-row">
+            <label for="ship-city">City</label>
+            <input type="text" id="ship-city" class="ship-city">
+        </div>
+        <div class="flex-row">
+            <label for="ship-zip-code">Zip Code</label>
+            <input type="text" id="ship-zip-code" class="ship-zip-code">
+        </div>
+        <div class="flex-row">
+            <label for="ship-street">Street</label>
+            <input type="text" id="ship-street" class="ship-street">
+        </div>
+        <div class="flex-row">
+            <label for="ship-local">Local</label>
+            <input type="text" id="ship-local" class="ship-local">
+        </div>
+    </div>
+</div>
