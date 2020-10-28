@@ -1,15 +1,14 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.Dao;
+import com.codecool.shop.dao.ModifyDao;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Order;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.LinkedList;
-import java.util.List;
 
-public class OrderDaoJdbc implements Dao<Order> {
+public class OrderDaoJdbc implements ModifyDao<Order> {
     private final DataSource dataSource;
     private final Dao<Cart> cartDao;
 
@@ -83,24 +82,6 @@ public class OrderDaoJdbc implements Dao<Order> {
 
         } catch (SQLException e) {
             throw new RuntimeException("Error while reading order with id: " + id, e);
-        }
-    }
-
-    @Override
-    public List<Order> getAll() {
-        try (Connection conn = dataSource.getConnection()) {
-            String sql = "SELECT id FROM user_order";
-            ResultSet rs = conn.createStatement().executeQuery(sql);
-            List<Order> orderList = new LinkedList<>();
-
-            while (rs.next()) {
-                orderList.add(get(rs.getInt(1)));
-            }
-
-            return orderList;
-
-        } catch (SQLException e) {
-            throw new RuntimeException("Error while reading all orders", e);
         }
     }
 }
