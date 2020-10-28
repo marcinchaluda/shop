@@ -17,6 +17,8 @@ public class ShopDatabaseManager {
     private SortDao productDao;
     private ModifyDao<Address> addressDao;
     private ModifyDao<User> userDao;
+    private ModifyDao<Cart> cartDao;
+    private ModifyDao<Order> orderDao;
 
     /**
      * Constructor that runs setup right after creating instance of ShopDatabaseManager
@@ -42,6 +44,8 @@ public class ShopDatabaseManager {
         productDao = new ProductDaoJdbc(dataSource, supplierDao, categoryDao);
         addressDao = new AddressDaoJdbc(dataSource);
         userDao = new UserDaoJdbc(dataSource, addressDao);
+        cartDao = new CartDaoJdbc(dataSource, userDao, productDao);
+        orderDao = new OrderDaoJdbc(dataSource, cartDao);
     }
 
     /**
