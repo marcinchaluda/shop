@@ -1,14 +1,12 @@
 package com.codecool.shop.dao.implementation;
 
-import com.codecool.shop.dao.Dao;
+import com.codecool.shop.dao.ModifyDao;
 import com.codecool.shop.model.Address;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.LinkedList;
-import java.util.List;
 
-public class AddressDaoJdbc implements Dao<Address> {
+public class AddressDaoJdbc implements ModifyDao<Address> {
 
     private final DataSource dataSource;
 
@@ -16,6 +14,11 @@ public class AddressDaoJdbc implements Dao<Address> {
         this.dataSource = dataSource;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param address - address instance with defined all fields without id
+     */
     @Override
     public void add(Address address) {
         try (Connection connection = dataSource.getConnection()) {
@@ -35,6 +38,11 @@ public class AddressDaoJdbc implements Dao<Address> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param address - address instance with defined all fields
+     */
     @Override
     public void update(Address address) {
         try (Connection connection = dataSource.getConnection()) {
@@ -51,6 +59,11 @@ public class AddressDaoJdbc implements Dao<Address> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param id - id of address instance to remove from database
+     */
     @Override
     public void remove(int id) {
         try (Connection connection = dataSource.getConnection()) {
@@ -62,6 +75,11 @@ public class AddressDaoJdbc implements Dao<Address> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param id - id of address instance to get from database
+     */
     @Override
     public Address get(int id) {
         try (Connection connection = dataSource.getConnection()) {
@@ -72,22 +90,6 @@ public class AddressDaoJdbc implements Dao<Address> {
             return !result.next() ? null : getAddress(result);
         } catch (SQLException error) {
             throw new RuntimeException("Error while retrieving an Address with " + id + ".", error);
-        }
-    }
-
-    @Override
-    public List<Address> getAll() {
-        try (Connection connection = dataSource.getConnection()) {
-            List<Address> addresses = new LinkedList<>();
-            String sqlQuery = "SELECT id, country, city, zip_code, street, local_number FROM address;";
-            ResultSet result = connection.createStatement().executeQuery(sqlQuery);
-            while (result.next()) {
-                Address address = getAddress(result);
-                addresses.add(address);
-            }
-            return addresses;
-        } catch (SQLException error) {
-            throw new RuntimeException("Error while retrieving all Addresses.", error);
         }
     }
 

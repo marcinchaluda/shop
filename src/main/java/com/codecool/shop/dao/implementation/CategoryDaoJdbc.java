@@ -1,6 +1,6 @@
 package com.codecool.shop.dao.implementation;
 
-import com.codecool.shop.dao.SimpleInOutDao;
+import com.codecool.shop.dao.GetAllDao;
 import com.codecool.shop.model.Category;
 
 import javax.sql.DataSource;
@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CategoryDaoJdbc implements SimpleInOutDao<Category> {
+public class CategoryDaoJdbc implements GetAllDao<Category> {
 
     private final DataSource dataSource;
 
@@ -16,6 +16,11 @@ public class CategoryDaoJdbc implements SimpleInOutDao<Category> {
         this.dataSource = dataSource;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param category - category instance with defined all fields without id
+     */
     @Override
     public void add(Category category) {
         try (Connection connection = dataSource.getConnection()) {
@@ -31,6 +36,27 @@ public class CategoryDaoJdbc implements SimpleInOutDao<Category> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void update(Category thing) {
+        throw new RuntimeException("Method not implemented yet!");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void remove(int id) {
+        throw new RuntimeException("Method not implemented yet!");
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param id - id of the category to get from database
+     */
     @Override
     public Category get(int id) {
         try (Connection connection = dataSource.getConnection()) {
@@ -48,6 +74,9 @@ public class CategoryDaoJdbc implements SimpleInOutDao<Category> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Category> getAll() {
         try (Connection connection = dataSource.getConnection()) {

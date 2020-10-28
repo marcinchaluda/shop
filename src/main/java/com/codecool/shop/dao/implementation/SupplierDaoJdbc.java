@@ -1,6 +1,6 @@
 package com.codecool.shop.dao.implementation;
 
-import com.codecool.shop.dao.SimpleInOutDao;
+import com.codecool.shop.dao.GetAllDao;
 import com.codecool.shop.model.Supplier;
 
 import javax.sql.DataSource;
@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SupplierDaoJdbc implements SimpleInOutDao<Supplier> {
+public class SupplierDaoJdbc implements GetAllDao<Supplier> {
 
     private final DataSource dataSource;
 
@@ -16,6 +16,11 @@ public class SupplierDaoJdbc implements SimpleInOutDao<Supplier> {
         this.dataSource = dataSource;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param supplier - supplier instance with defined all fields without ID
+     */
     @Override
     public void add(Supplier supplier) {
         try (Connection connection = dataSource.getConnection()) {
@@ -33,6 +38,27 @@ public class SupplierDaoJdbc implements SimpleInOutDao<Supplier> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void update(Supplier thing) {
+        throw new RuntimeException("Method not implemented yet!");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void remove(int id) {
+        throw new RuntimeException("Method not implemented yet!");
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param id - id of the supplier to get from database
+     */
     @Override
     public Supplier get(int id) {
         try (Connection connection = dataSource.getConnection()) {
@@ -50,6 +76,9 @@ public class SupplierDaoJdbc implements SimpleInOutDao<Supplier> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Supplier> getAll() {
         try (Connection connection = dataSource.getConnection()) {

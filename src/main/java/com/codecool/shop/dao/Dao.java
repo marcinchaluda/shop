@@ -1,11 +1,14 @@
 package com.codecool.shop.dao;
 
-import java.util.List;
-
 public interface Dao<T> {
+
+    /**
+     * DAO's method that add element to database
+     */
     void add(T thing);
-    void update(T thing);
-    void remove(int id);
+
+    /**
+     * DAO's method that get element from database
+     */
     T get(int id);
-    List<T> getAll();
 }

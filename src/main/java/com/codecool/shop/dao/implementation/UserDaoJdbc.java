@@ -1,6 +1,7 @@
 package com.codecool.shop.dao.implementation;
 
-import com.codecool.shop.dao.Dao;
+import com.codecool.shop.dao.GetAllDao;
+import com.codecool.shop.dao.ModifyDao;
 import com.codecool.shop.model.Address;
 import com.codecool.shop.model.User;
 
@@ -9,16 +10,21 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class UserDaoJdbc implements Dao<User> {
+public class UserDaoJdbc implements GetAllDao<User>, ModifyDao<User> {
 
     private final DataSource dataSource;
-    private final AddressDaoJdbc addressDao;
+    private final ModifyDao<Address> addressDao;
 
-    public UserDaoJdbc(DataSource dataSource, AddressDaoJdbc addressDao) {
+    public UserDaoJdbc(DataSource dataSource, ModifyDao<Address> addressDao) {
         this.dataSource = dataSource;
         this.addressDao = addressDao;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param user - user instance with defined all fields without ID
+     */
     @Override
     public void add(User user) {
         try (Connection connection = dataSource.getConnection()) {
@@ -38,6 +44,11 @@ public class UserDaoJdbc implements Dao<User> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param user - user instance with defined all fields
+     */
     @Override
     public void update(User user) {
         try (Connection connection = dataSource.getConnection()) {
@@ -54,6 +65,11 @@ public class UserDaoJdbc implements Dao<User> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param id - id of the user to remove from database
+     */
     @Override
     public void remove(int id) {
         try (Connection connection = dataSource.getConnection()) {
@@ -65,6 +81,11 @@ public class UserDaoJdbc implements Dao<User> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param id - id of the user to get from database
+     */
     @Override
     public User get(int id) {
         try (Connection connection = dataSource.getConnection()) {
@@ -78,6 +99,9 @@ public class UserDaoJdbc implements Dao<User> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<User> getAll() {
         try (Connection connection = dataSource.getConnection()) {
@@ -101,7 +125,6 @@ public class UserDaoJdbc implements Dao<User> {
         String phoneNumber = result.getString("phone_number");
         Address billingAddress = addressDao.get(result.getInt("billing_address"));
         Address shippingAddress = addressDao.get(result.getInt("shipping_address"));
-
         User user = new User(name, email, phoneNumber, billingAddress, shippingAddress);
         user.setId(id);
         return user;
