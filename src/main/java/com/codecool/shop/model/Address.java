@@ -16,7 +16,7 @@ public class Address extends BaseModel {
     @SerializedName(value="street")
     private String street;
 
-    @SerializedName(value="local", alternate="localNumber")
+    @SerializedName(value="localNumber")
     private int localNumber;
 
     public Address(String country, String city, String zipCode, String street, int localNumber) {

@@ -1,10 +1,13 @@
 package com.codecool.shop.logic;
 
+import com.codecool.shop.dao.ModifyDao;
+import com.codecool.shop.dao.ShopDatabaseManager;
 import com.codecool.shop.model.Cart;
 
 import java.util.List;
 
-public class CartLogic implements BusinessLogic<Cart> {
+public class CartLogic implements NotSortable<Cart> {
+    ModifyDao<Cart> cartDao = ShopDatabaseManager.Instance.getCartDao();
 
     @Override
     public void addElement(Cart cart) {
@@ -17,8 +20,13 @@ public class CartLogic implements BusinessLogic<Cart> {
     }
 
     @Override
-    public Cart getElement(int id) {
+    public void removeElement(Cart element) {
         throw new RuntimeException("Not implemented yet!");
+    }
+
+    @Override
+    public Cart getElement(int id) {
+        throw new RuntimeException("Not implemented yet! - getElement " + id);
     }
 
     @Override

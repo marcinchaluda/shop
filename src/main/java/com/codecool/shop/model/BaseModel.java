@@ -1,9 +1,12 @@
 package com.codecool.shop.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.lang.reflect.Field;
 
 public abstract class BaseModel {
 
+    @SerializedName(value="id")
     protected int id;
 
     public int getId() {
