@@ -1,3 +1,3 @@
-import {navButtonHandler} from "./buttons_handler.js";
+import {buttonHandler} from "./buttons_handler.js";
 
-navButtonHandler.init();
+buttonHandler.init();
