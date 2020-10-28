@@ -1,7 +1,7 @@
 package com.codecool.shop.api;
 
 import com.codecool.shop.logic.BusinessLogic;
-import com.codecool.shop.logic.NotSortable;
+import com.codecool.shop.logic.GetAllLogic;
 import com.codecool.shop.logic.Sortable;
 import com.google.gson.Gson;
 
@@ -69,7 +69,7 @@ public class HelpServlet {
                 getAllSortedElements(request, out, (Sortable<T>) logic);
                 return;
             }
-            getAllUnsortedElements((NotSortable<T>) logic, out);
+            getAllUnsortedElements((GetAllLogic<T>) logic, out);
             return;
         }
 
@@ -124,7 +124,7 @@ public class HelpServlet {
         out.flush();
     }
 
-    public static <T> void getAllUnsortedElements(NotSortable<T> businessClass, PrintWriter out) {
+    public static <T> void getAllUnsortedElements(GetAllLogic<T> businessClass, PrintWriter out) {
         List<T> elements = businessClass.getAllElements();
         out.print(new Gson().toJson(elements));
         out.flush();
