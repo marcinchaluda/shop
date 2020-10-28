@@ -1,10 +1,14 @@
 package com.codecool.shop.logic;
 
+import com.codecool.shop.dao.ModifyDao;
+import com.codecool.shop.dao.ShopDatabaseManager;
 import com.codecool.shop.model.User;
 
 import java.util.List;
 
-public class UserLogic implements BusinessLogic<User> {
+public class UserLogic implements NotSortable<User> {
+    ModifyDao<User> userDao = ShopDatabaseManager.Instance.getUserDao();
+
     @Override
     public void addElement(User user) {
         throw new RuntimeException("Not implemented yet!");
@@ -16,8 +20,13 @@ public class UserLogic implements BusinessLogic<User> {
     }
 
     @Override
-    public User getElement(int id) {
+    public void removeElement(User element) {
         throw new RuntimeException("Not implemented yet!");
+    }
+
+    @Override
+    public User getElement(int id) {
+        throw new RuntimeException("Not implemented yet! - getElement " + id);
     }
 
     @Override

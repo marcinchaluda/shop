@@ -24,12 +24,13 @@ public class Product extends BaseDescribedModel {
 
     transient private final DecimalFormat df = new DecimalFormat("#.##");
 
-    public Product(String name, double defaultPrice, String currencyString, String description, Category productCategory, Supplier supplier) {
+    public Product(String name, String description, double defaultPrice, String currencyString, Category productCategory, Supplier supplier, String imageSource) {
         super(name, description);
         this.defaultPrice = defaultPrice;
         this.defaultCurrency = currencyString;
         this.supplier = supplier;
         this.productCategory = productCategory;
+        this.imageSource = imageSource;
     }
 
     public double getDefaultPrice() {
@@ -77,16 +78,20 @@ public class Product extends BaseDescribedModel {
     public String toString() {
         return String.format("id: %1$d, " +
                         "name: %2$s, " +
-                        "defaultPrice: %3$f, " +
-                        "defaultCurrency: %4$s, " +
-                        "productCategory: %5$s, " +
-                        "supplier: %6$s",
+                        "getDescription: %3$s, " +
+                        "defaultPrice: %4$f, " +
+                        "defaultCurrency: %5$s, " +
+                        "productCategory: %6$s, " +
+                        "supplier: %7$s, " +
+                        "imageSource: %8$s",
                 this.id,
                 this.name,
+                this.getDescription(),
                 this.defaultPrice,
                 this.defaultCurrency,
                 this.productCategory.getName(),
-                this.supplier.getName()
+                this.supplier.getName(),
+                this.imageSource
         );
     }
 
