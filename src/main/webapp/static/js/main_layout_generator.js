@@ -54,8 +54,7 @@ function handleAddToCartButton() {
     addToCartButtons.forEach(button => {
         button.addEventListener("click", function () {
             const productId = document.querySelector(".card-details").id
-            navButtonHandler.addProductToCart(productId)
-            // navButtonHandler.showProduct(productId);
+            navButtonHandler.addProductToCart(productId, 1, 1, 1)
         })
     })
 }

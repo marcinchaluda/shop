@@ -32,14 +32,14 @@ export const dataHandler = {
     },
 
     getProduct: function (productId, callback) {
-        this._api_get("api/products" + productId, response => {
+        this._api_get("api/products/" + productId, response => {
             this._data['product'] = response;
             callback(response)
         });
     },
 
     sendProductToCart: function (productDetails, callback) {
-        this._api_post("/api/cart", productDetails, response => {
+        this._api_post("api/cart", productDetails, response => {
             this._data['product-details'] = response;
             callback(response);
         });
