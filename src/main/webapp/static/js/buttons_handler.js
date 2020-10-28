@@ -7,6 +7,7 @@ const tabletsBtn = document.querySelector(".tablets");
 const sortOptionBtn = document.getElementById("toggle-sort-option");
 const ulProducts = document.querySelector(".products");
 const ulSupplies = document.querySelector(".suppliers");
+const navButtons = document.querySelectorAll("ul li a");
 
 export const navButtonHandler = {
 
@@ -19,6 +20,7 @@ export const navButtonHandler = {
     productButtonHandler: function () {
         tabletsBtn.addEventListener("click", function () {
             layoutGenerator.removeContent(content);
+            markButtonAsCurrent(tabletsBtn);
             showProducts();
         })
     },
@@ -65,6 +67,14 @@ function displaySortOptionOnButton() {
         : sortOptionBtn.innerText = category.SUPPLIER;
 }
 
+function markButtonAsCurrent(currentButton) {
+    navButtons.forEach(button => {
+        button.style.backgroundColor = "#0B2D59";
+        button.style.color = "#EAE9F2";
+    });
+    currentButton.style.backgroundColor = "#C6C5D9";
+    currentButton.style.color = "#0B2D59";
+}
 const category = {
     SUPPLIER: "SORT BY SUPPLIERS",
     PRODUCTS: "SORT BY PRODUCTS",
