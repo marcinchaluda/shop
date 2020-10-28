@@ -10,7 +10,7 @@ public class Cart extends BaseModel {
     @SerializedName(value="user")
     private User user;
 
-    @SerializedName(value="products", alternate="productList")
+    @SerializedName(value="products")
     private Map<Product, Integer> productList = new HashMap<>();
 
     public Cart(User user) {

@@ -1,3 +1,5 @@
+import { navButtonHandler } from "./buttons_handler.js";
+
 const container = document.querySelector(".container");
 
 export const layoutGenerator = {
@@ -6,9 +8,11 @@ export const layoutGenerator = {
 
         products.forEach(product => {
             cardContainer.appendChild(this.createProductCard(product));
+
         });
 
         container.appendChild(cardContainer);
+        handleAddToCartButton();
         return cardContainer;
     },
 
@@ -21,6 +25,7 @@ export const layoutGenerator = {
         const cardPrice = createPriceElement.call(this, product);
         const cardButton = createButtonElement.call(this);
 
+        cardDetails.id = product.id
         cardDetails.appendChild(cardTitle);
         cardDetails.appendChild(imageContainer);
         cardDetails.appendChild(cardHeader);
@@ -44,6 +49,16 @@ export const layoutGenerator = {
     }
 }
 
+function handleAddToCartButton() {
+    const addToCartButtons = document.querySelectorAll(".btn");
+    addToCartButtons.forEach(button => {
+        button.addEventListener("click", function() {
+            const productId = document.querySelector(".card-details").id
+            navButtonHandler.addProductToCart(productId)
+            // navButtonHandler.showProduct(productId);
+            })
+    })
+}
 function createNameElement(product) {
     const cardTitle = this.createElementWithClasses("h4", "card-title");
     cardTitle.innerHTML = product.name;

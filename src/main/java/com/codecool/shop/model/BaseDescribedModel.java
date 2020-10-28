@@ -1,8 +1,13 @@
 package com.codecool.shop.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public abstract class BaseDescribedModel extends BaseModel {
 
+    @SerializedName(value="name")
     protected String name;
+
+    @SerializedName(value="description")
     protected String description;
 
     public BaseDescribedModel(String name) {

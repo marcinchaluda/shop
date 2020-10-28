@@ -1,35 +1,35 @@
 package com.codecool.shop.model;
 
-import com.codecool.shop.logic.enumerators.*;
 import com.google.gson.annotations.SerializedName;
 
 import java.text.DecimalFormat;
 
 public class Product extends BaseDescribedModel {
 
-    @SerializedName(value="unitPrice", alternate="defaultPrice")
+    @SerializedName(value="unitPrice")
     private double defaultPrice;
 
-    @SerializedName(value="currency", alternate="defaultCurrency")
+    @SerializedName(value="currency")
     private String defaultCurrency;
 
-    @SerializedName(value="category", alternate="productCategory")
+    @SerializedName(value="category")
     private Category productCategory;
 
     @SerializedName(value="supplier")
     private Supplier supplier;
 
-    @SerializedName(value="image", alternate="imageSource")
+    @SerializedName(value="image")
     private String imageSource;
 
     transient private final DecimalFormat df = new DecimalFormat("#.##");
 
-    public Product(String name, double defaultPrice, String currencyString, String description, Category productCategory, Supplier supplier) {
+    public Product(String name, String description, double defaultPrice, String currencyString, Category productCategory, Supplier supplier, String imageSource) {
         super(name, description);
         this.defaultPrice = defaultPrice;
         this.defaultCurrency = currencyString;
         this.supplier = supplier;
         this.productCategory = productCategory;
+        this.imageSource = imageSource;
     }
 
     public double getDefaultPrice() {
@@ -77,16 +77,20 @@ public class Product extends BaseDescribedModel {
     public String toString() {
         return String.format("id: %1$d, " +
                         "name: %2$s, " +
-                        "defaultPrice: %3$f, " +
-                        "defaultCurrency: %4$s, " +
-                        "productCategory: %5$s, " +
-                        "supplier: %6$s",
+                        "getDescription: %3$s, " +
+                        "defaultPrice: %4$f, " +
+                        "defaultCurrency: %5$s, " +
+                        "productCategory: %6$s, " +
+                        "supplier: %7$s, " +
+                        "imageSource: %8$s",
                 this.id,
                 this.name,
+                this.getDescription(),
                 this.defaultPrice,
                 this.defaultCurrency,
                 this.productCategory.getName(),
-                this.supplier.getName()
+                this.supplier.getName(),
+                this.imageSource
         );
     }
 
