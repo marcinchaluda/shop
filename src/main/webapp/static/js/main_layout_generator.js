@@ -3,7 +3,7 @@ import { navButtonHandler } from "./buttons_handler.js";
 const container = document.querySelector(".container");
 
 export const layoutGenerator = {
-    createProductCards: function (products, category) {
+    createProductCards: function (products) {
         const cardContainer = this.createElementWithClasses("div", "flex-row");
 
         products.forEach(product => {

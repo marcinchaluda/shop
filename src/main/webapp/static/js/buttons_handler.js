@@ -12,17 +12,31 @@ const navButtons = document.querySelectorAll("ul li a");
 export const navButtonHandler = {
 
     init: function () {
-        showProducts();
-        this.productButtonHandler();
+        showProducts(category.product, products.tablets);
+        setInitStyles();
+        this.activateAllNavButtons();
         this.toggleNavMenuBySortOption();
     },
 
-    productButtonHandler: function () {
+    activateAllNavButtons: function () {
+        this.tabletsButtonHandler();
+        this.phonesButtonHandler();
+
+    },
+
+    tabletsButtonHandler: function () {
         tabletsBtn.addEventListener("click", function () {
             layoutGenerator.removeContent(content);
             markButtonAsCurrent(tabletsBtn);
-            showProducts();
+            showProducts(category.product, products.tablets);
         })
+    },
+
+    phonesButtonHandler: function () {
+        const phonesBtn = document.querySelector(".phones");
+        phonesBtn.addEventListener("click", () => {
+            markButtonAsCurrent(phonesBtn);
+        });
     },
 
     addProductToCart: function (productId) {
@@ -37,9 +51,9 @@ export const navButtonHandler = {
     }
 }
 
-function showProducts() {
-    dataHandler.getProducts( function (products) {
-        layoutGenerator.createProductCards(products, category.tablets);
+function showProducts(category, sortOption) {
+    dataHandler.getProducts(category, sortOption, function (products) {
+        layoutGenerator.createProductCards(products);
     });
 }
 
@@ -52,19 +66,23 @@ function getProduct(productId) {
 function switchSortOption() {
     sortOptionBtn.addEventListener("click", () => {
         displaySortOptionOnButton();
-        if (sortOptionBtn.innerText === category.SUPPLIER) {
+        let button;
+        if (sortOptionBtn.innerText === categoryBtnDescription.SUPPLIER) {
             ulProducts.style.display = "flex";
             ulSupplies.style.display = "none";
+            button = tabletsBtn;
         } else {
             ulProducts.style.display = "none";
             ulSupplies.style.display = "flex";
+            button = document.querySelector(".amazon");
         }
+        markButtonAsCurrent(button);
     });
 }
 
 function displaySortOptionOnButton() {
-    sortOptionBtn.innerText === category.SUPPLIER ? sortOptionBtn.innerText = category.PRODUCTS
-        : sortOptionBtn.innerText = category.SUPPLIER;
+    sortOptionBtn.innerText === categoryBtnDescription.SUPPLIER ? sortOptionBtn.innerText = categoryBtnDescription.PRODUCTS
+        : sortOptionBtn.innerText = categoryBtnDescription.SUPPLIER;
 }
 
 function markButtonAsCurrent(currentButton) {
@@ -75,8 +93,33 @@ function markButtonAsCurrent(currentButton) {
     currentButton.style.backgroundColor = "#C6C5D9";
     currentButton.style.color = "#0B2D59";
 }
-const category = {
+
+function setInitStyles() {
+    tabletsBtn.style.backgroundColor = "#C6C5D9";
+    tabletsBtn.style.color = "#0B2D59";
+    ulProducts.style.display = "flex";
+    ulSupplies.style.display = "none";
+}
+
+const categoryBtnDescription = {
     SUPPLIER: "SORT BY SUPPLIERS",
     PRODUCTS: "SORT BY PRODUCTS",
 }
 
+const category = {
+    product: "product",
+    supplier: "supplier",
+}
+
+const products = {
+    tablets: "tablets",
+    phones: "phones",
+    notebooks: "notebooks",
+    webDevices: "web-devices",
+}
+
+const suppliers = {
+    amazon: "amazon",
+    lenovo: "lenovo",
+    apple: "apple",
+}
