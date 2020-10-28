@@ -1,10 +1,14 @@
 package com.codecool.shop.logic;
 
+import com.codecool.shop.dao.ShopDatabaseManager;
+import com.codecool.shop.dao.SortDao;
 import com.codecool.shop.model.Product;
 
 import java.util.List;
 
 public class ProductLogic implements Sortable<Product> {
+    SortDao productDao = ShopDatabaseManager.Instance.getProductDao();
+
     @Override
     public void addElement(Product product) {
         throw new RuntimeException("Not implemented yet!");
@@ -25,8 +29,8 @@ public class ProductLogic implements Sortable<Product> {
         throw new RuntimeException("Not implemented yet! - getElement " + id);
     }
 
+    @Override
     public List<Product> getAllElements(String sortType, String sortBy) {
         throw new RuntimeException("Not implemented yet! - getAllElements");
     }
-
 }

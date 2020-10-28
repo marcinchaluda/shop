@@ -2,35 +2,35 @@ package com.codecool.shop.logic;
 
 import com.codecool.shop.dao.GetAllDao;
 import com.codecool.shop.dao.ShopDatabaseManager;
-import com.codecool.shop.model.Supplier;
+import com.codecool.shop.model.Category;
 
 import java.util.List;
 
-public class SupplierLogic implements NotSortable<Supplier> {
-    GetAllDao<Supplier> supplierDao = ShopDatabaseManager.Instance.getSupplierDao();
+public class CategoryLogic implements NotSortable<Category> {
+    GetAllDao<Category> categoryDao = ShopDatabaseManager.Instance.getCategoryDao();
 
     @Override
-    public void addElement(Supplier supplier) {
+    public void addElement(Category category) {
         throw new RuntimeException("Not implemented yet!");
     }
 
     @Override
-    public void updateElement(Supplier supplier) {
+    public void updateElement(Category category) {
         throw new RuntimeException("Not implemented yet!");
     }
 
     @Override
-    public void removeElement(Supplier element) {
+    public void removeElement(Category category) {
         throw new RuntimeException("Not implemented yet!");
     }
 
     @Override
-    public Supplier getElement(int id) {
+    public Category getElement(int id) {
         throw new RuntimeException("Not implemented yet!");
     }
 
     @Override
-    public List<Supplier> getAllElements() {
+    public List<Category> getAllElements() {
         throw new RuntimeException("Not implemented yet!");
     }
 }

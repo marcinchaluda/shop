@@ -20,10 +20,28 @@ public class ShopDatabaseManager {
     private ModifyDao<Cart> cartDao;
     private ModifyDao<Order> orderDao;
 
+    private static ShopDatabaseManager instance = null;
+    public static ShopDatabaseManager Instance;
+
+    static {
+        try {
+            Instance = ShopDatabaseManager.getInstance();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static ShopDatabaseManager getInstance() throws SQLException {
+        if (instance == null) {
+            instance = new ShopDatabaseManager();
+        }
+        return instance;
+    }
+
     /**
      * Constructor that runs setup right after creating instance of ShopDatabaseManager
      */
-    public ShopDatabaseManager() throws SQLException {
+    private ShopDatabaseManager() throws SQLException {
         setup();
     }
 
@@ -66,6 +84,34 @@ public class ShopDatabaseManager {
         System.out.println("Connection ok.");
 
         return dataSource;
+    }
+
+    public GetAllDao<Category> getCategoryDao() {
+        return categoryDao;
+    }
+
+    public GetAllDao<Supplier> getSupplierDao() {
+        return supplierDao;
+    }
+
+    public SortDao getProductDao() {
+        return productDao;
+    }
+
+    public ModifyDao<Address> getAddressDao() {
+        return addressDao;
+    }
+
+    public ModifyDao<User> getUserDao() {
+        return userDao;
+    }
+
+    public ModifyDao<Cart> getCartDao() {
+        return cartDao;
+    }
+
+    public ModifyDao<Order> getOrderDao() {
+        return orderDao;
     }
 
     /**
