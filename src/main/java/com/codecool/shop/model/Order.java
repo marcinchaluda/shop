@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Order extends BaseModel {
 
-    @SerializedName(value="status", alternate="paid")
+    @SerializedName(value="paid")
     private boolean paid;
 
     @SerializedName(value="cart")

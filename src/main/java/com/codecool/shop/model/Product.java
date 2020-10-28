@@ -1,25 +1,24 @@
 package com.codecool.shop.model;
 
-import com.codecool.shop.logic.enumerators.*;
 import com.google.gson.annotations.SerializedName;
 
 import java.text.DecimalFormat;
 
 public class Product extends BaseDescribedModel {
 
-    @SerializedName(value="unitPrice", alternate="defaultPrice")
+    @SerializedName(value="unitPrice")
     private double defaultPrice;
 
-    @SerializedName(value="currency", alternate="defaultCurrency")
+    @SerializedName(value="currency")
     private String defaultCurrency;
 
-    @SerializedName(value="category", alternate="productCategory")
+    @SerializedName(value="category")
     private Category productCategory;
 
     @SerializedName(value="supplier")
     private Supplier supplier;
 
-    @SerializedName(value="image", alternate="imageSource")
+    @SerializedName(value="image")
     private String imageSource;
 
     transient private final DecimalFormat df = new DecimalFormat("#.##");
