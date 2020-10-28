@@ -63,19 +63,19 @@ public class HelpServlet {
         final int MODEL_ID_INDEX = 1;
 
         PrintWriter out = HelpServlet.createPrintWriterAndSetItUp(response);
-        String pathInfo = request.getPathInfo();
-        if (pathInfo == null || pathInfo.equals("/")) {
-            if (classType == Sortable.class) {
-                getAllSortedElements(request, out, (Sortable<T>) logic);
+        try {
+            getAllSortedElements(request, out, (Sortable<T>) logic);
+        } catch (ClassCastException e) {
+            String pathInfo = request.getPathInfo();
+            if (pathInfo == null || pathInfo.equals("/")) {
+                getAllUnsortedElements((GetAllLogic<T>) logic, out);
                 return;
             }
-            getAllUnsortedElements((GetAllLogic<T>) logic, out);
-            return;
-        }
 
-        String[] splits = HelpServlet.getSplitUrlIfLengthIsEqual2(response, pathInfo);
-        int productId = parseParameterIdToInteger(splits[MODEL_ID_INDEX]);
-        createJsonFromElement(logic, productId, out);
+            String[] splits = HelpServlet.getSplitUrlIfLengthIsEqual2(response, pathInfo);
+            int productId = parseParameterIdToInteger(splits[MODEL_ID_INDEX]);
+            createJsonFromElement(logic, productId, out);
+        }
     }
 
     public static <T> void createInstanceAndAddElement(HttpServletRequest request, HttpServletResponse response, BusinessLogic<T> logic, Class<T> classType) throws IOException {

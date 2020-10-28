@@ -67,10 +67,7 @@ public class SupplierDaoJdbc implements GetAllDao<Supplier> {
             statement.setInt(1, id);
             statement.executeUpdate();
             ResultSet result = statement.getGeneratedKeys();
-            if (result.next()) {
-                return getSupplier(result);
-            }
-            return null;
+            return !result.next() ? null : getSupplier(result);
         } catch (SQLException error) {
             throw new RuntimeException("Error while getting a Supplier.", error);
         }
