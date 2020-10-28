@@ -6,7 +6,7 @@ import com.codecool.shop.model.Supplier;
 
 import java.util.List;
 
-public class SupplierLogic implements NotSortable<Supplier> {
+public class SupplierLogic implements GetAllLogic<Supplier> {
     GetAllDao<Supplier> supplierDao = ShopDatabaseManager.Instance.getSupplierDao();
 
     private static SupplierLogic instance = null;
@@ -20,26 +20,26 @@ public class SupplierLogic implements NotSortable<Supplier> {
 
     @Override
     public void addElement(Supplier supplier) {
-        throw new RuntimeException("Not implemented yet!");
+        supplierDao.add(supplier);
     }
 
     @Override
     public void updateElement(Supplier supplier) {
-        throw new RuntimeException("Not implemented yet!");
+        supplierDao.update(supplier);
     }
 
     @Override
-    public void removeElement(Supplier element) {
-        throw new RuntimeException("Not implemented yet!");
+    public void removeElement(Supplier supplier) {
+        supplierDao.remove(supplier.getId());
     }
 
     @Override
     public Supplier getElement(int id) {
-        throw new RuntimeException("Not implemented yet!");
+        return supplierDao.get(id);
     }
 
     @Override
     public List<Supplier> getAllElements() {
-        throw new RuntimeException("Not implemented yet!");
+        return supplierDao.getAll();
     }
 }
