@@ -6,7 +6,7 @@ import com.codecool.shop.model.Category;
 
 import java.util.List;
 
-public class CategoryLogic implements NotSortable<Category> {
+public class CategoryLogic implements GetAllLogic<Category> {
     GetAllDao<Category> categoryDao = ShopDatabaseManager.Instance.getCategoryDao();
 
     private static CategoryLogic instance = null;
@@ -20,26 +20,26 @@ public class CategoryLogic implements NotSortable<Category> {
 
     @Override
     public void addElement(Category category) {
-        throw new RuntimeException("Not implemented yet!");
+        categoryDao.add(category);
     }
 
     @Override
     public void updateElement(Category category) {
-        throw new RuntimeException("Not implemented yet!");
+        categoryDao.update(category);
     }
 
     @Override
     public void removeElement(Category category) {
-        throw new RuntimeException("Not implemented yet!");
+        categoryDao.remove(category.getId());
     }
 
     @Override
     public Category getElement(int id) {
-        throw new RuntimeException("Not implemented yet!");
+        return categoryDao.get(id);
     }
 
     @Override
     public List<Category> getAllElements() {
-        throw new RuntimeException("Not implemented yet!");
+        return categoryDao.getAll();
     }
 }
