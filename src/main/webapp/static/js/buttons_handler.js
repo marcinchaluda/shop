@@ -14,8 +14,14 @@ export const navButtonHandler = {
         productsBtn.addEventListener("click", function () {
             layoutGenerator.removeContent(content);
             showProducts();
-        });
-    }
+        })
+    },
+
+    showProduct: function (productId) {
+        dataHandler.getProduct(productId, function (response) {
+            console.log(productId);
+        })
+    },
 }
 
 function showProducts() {

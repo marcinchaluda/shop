@@ -30,4 +30,10 @@ export const dataHandler = {
         })
     },
 
+    getProduct: function (productId, callback) {
+        this._api_get("api/products/" + productId, response => {
+            callback(response)
+        })
+    }
+
 }
