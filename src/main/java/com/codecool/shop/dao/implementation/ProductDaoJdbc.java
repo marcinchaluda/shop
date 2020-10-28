@@ -157,7 +157,7 @@ public class ProductDaoJdbc implements GetAllDao<Product>, SortDao {
     @Override
     public List<Product> getBy(Supplier supplier) {
         try (Connection connection = dataSource.getConnection()) {
-            String sqlQuery = "SELECT id, product_name, description, unit_price, currency, category, image_source FROM product WHERE supplier = ?";
+            String sqlQuery = "SELECT id, product_name, description, unit_price, currency, category, supplier, image_source FROM product WHERE supplier = ?";
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
             statement.setInt(1, supplier.getId());
             ResultSet result = statement.executeQuery();
@@ -184,14 +184,14 @@ public class ProductDaoJdbc implements GetAllDao<Product>, SortDao {
     @Override
     public List<Product> getBy(Category category) {
         try (Connection connection = dataSource.getConnection()) {
-            String sqlQuery = "SELECT id, product_name, description, unit_price, currency, supplier, image_source FROM product WHERE category = ?";
+            String sqlQuery = "SELECT id, product_name, description, unit_price, currency, category, supplier, image_source FROM product WHERE category = ?";
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
             statement.setInt(1, category.getId());
             ResultSet result = statement.executeQuery();
 
             List<Product> data = new LinkedList<>();
             while (result.next()) {
-                Supplier supplier = supplierDao.get(result.getInt(7));
+                Supplier supplier = supplierDao.get(result.getInt(6));
                 Product product = getProduct(result, category, supplier);
                 product.setId(result.getInt(1));
                 data.add(product);

@@ -1,7 +1,7 @@
 package com.codecool.shop.api;
 
 import com.codecool.shop.logic.BusinessLogic;
-import com.codecool.shop.logic.NotSortable;
+import com.codecool.shop.logic.GetAllLogic;
 import com.codecool.shop.logic.Sortable;
 import com.google.gson.Gson;
 
@@ -44,7 +44,7 @@ public class HelpServlet {
     public static String[] getSplitUrlIfLengthIsEqual2(HttpServletResponse response, String pathInfo) throws IOException {
         String[] splits = pathInfo.split("/");
 
-        if(splits.length != 2) {
+        if (splits.length != 2) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
 
@@ -53,29 +53,28 @@ public class HelpServlet {
 
     public static String getPathInfoWhenUriContainsIdParameter(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String pathInfo = request.getPathInfo();
-        if (pathInfo == null || pathInfo.equals("/")){
+        if (pathInfo == null || pathInfo.equals("/")) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
         return pathInfo;
     }
 
-    public static <T> void sendRequestForAllElementsAndCheckSortAbility(HttpServletRequest request, HttpServletResponse response, BusinessLogic<T> logic, Class<T> classType) throws IOException, ServletException {
+    public static <T> void sendRequestForAllElementsAndCheckSortAbility(HttpServletRequest request, HttpServletResponse response, BusinessLogic<T> logic) throws IOException, ServletException {
         final int MODEL_ID_INDEX = 1;
 
         PrintWriter out = HelpServlet.createPrintWriterAndSetItUp(response);
         String pathInfo = request.getPathInfo();
         if (pathInfo == null || pathInfo.equals("/")) {
-            if (classType == Sortable.class) {
+            if (logic instanceof Sortable) {
                 getAllSortedElements(request, out, (Sortable<T>) logic);
-                return;
+            } else if (logic instanceof GetAllLogic) {
+                getAllUnsortedElements((GetAllLogic<T>) logic, out);
             }
-            getAllUnsortedElements((NotSortable<T>) logic, out);
-            return;
+        } else {
+            String[] splits = HelpServlet.getSplitUrlIfLengthIsEqual2(response, pathInfo);
+            int productId = parseParameterIdToInteger(splits[MODEL_ID_INDEX]);
+            createJsonFromElement(logic, productId, out);
         }
-
-        String[] splits = HelpServlet.getSplitUrlIfLengthIsEqual2(response, pathInfo);
-        int productId = parseParameterIdToInteger(splits[MODEL_ID_INDEX]);
-        createJsonFromElement(logic, productId, out);
     }
 
     public static <T> void createInstanceAndAddElement(HttpServletRequest request, HttpServletResponse response, BusinessLogic<T> logic, Class<T> classType) throws IOException {
@@ -124,7 +123,7 @@ public class HelpServlet {
         out.flush();
     }
 
-    public static <T> void getAllUnsortedElements(NotSortable<T> businessClass, PrintWriter out) {
+    public static <T> void getAllUnsortedElements(GetAllLogic<T> businessClass, PrintWriter out) {
         List<T> elements = businessClass.getAllElements();
         out.print(new Gson().toJson(elements));
         out.flush();

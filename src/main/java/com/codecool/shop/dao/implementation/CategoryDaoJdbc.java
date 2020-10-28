@@ -63,14 +63,15 @@ public class CategoryDaoJdbc implements GetAllDao<Category> {
             String sqlQuery = "SELECT id, name FROM product_category WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
             statement.setInt(1, id);
-            statement.executeUpdate();
-            ResultSet result = statement.getGeneratedKeys();
+            ResultSet result = statement.executeQuery();
+
             if (result.next()) {
                 return getCategory(result);
             }
             return null;
+
         } catch (SQLException error) {
-            throw new RuntimeException("Error while getting a Supplier.", error);
+            throw new RuntimeException("Error while getting a Category.", error);
         }
     }
 
@@ -81,16 +82,17 @@ public class CategoryDaoJdbc implements GetAllDao<Category> {
     public List<Category> getAll() {
         try (Connection connection = dataSource.getConnection()) {
             List<Category> categories = new LinkedList<>();
-            String sqlQuery = "SELECT id, name, description, country FROM supplier";
+            String sqlQuery = "SELECT id, name FROM product_category";
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
-            statement.executeUpdate();
-            ResultSet result = statement.getGeneratedKeys();
+            ResultSet result = statement.executeQuery();
+
             while (result.next()) {
                 categories.add(getCategory(result));
             }
             return categories;
+
         } catch (SQLException error) {
-            throw new RuntimeException("Error while getting all Suppliers.", error);
+            throw new RuntimeException("Error while getting all Categories.", error);
         }
     }
 

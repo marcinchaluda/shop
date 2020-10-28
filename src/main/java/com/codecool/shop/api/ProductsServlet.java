@@ -13,25 +13,27 @@ import java.io.IOException;
 @WebServlet(urlPatterns = {"/api/products/*"})
 public class ProductsServlet extends HttpServlet {
 
-    ProductLogic productLogic = new ProductLogic();
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HelpServlet.sendRequestForAllElementsAndCheckSortAbility(request, response, productLogic, Product.class);
+        ProductLogic productLogic = ProductLogic.getInstance();
+        HelpServlet.sendRequestForAllElementsAndCheckSortAbility(request, response, productLogic);
     }
 
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ProductLogic productLogic = ProductLogic.getInstance();
         HelpServlet.createInstanceAndUpdateElement(request, response, productLogic, Product.class);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ProductLogic productLogic = ProductLogic.getInstance();
         HelpServlet.createInstanceAndAddElement(request, response, productLogic, Product.class);
     }
 
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ProductLogic productLogic = ProductLogic.getInstance();
         HelpServlet.createInstanceAndRemoveElement(request, response, productLogic, Product.class);
     }
 }

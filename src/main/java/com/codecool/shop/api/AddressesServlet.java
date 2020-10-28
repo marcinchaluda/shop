@@ -13,25 +13,27 @@ import java.io.IOException;
 @WebServlet(urlPatterns = {"/api/addresses/*"})
 public class AddressesServlet extends HttpServlet {
 
-    AddressLogic addressLogic = new AddressLogic();
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        HelpServlet.sendRequestForAllElementsAndCheckSortAbility(request, response, addressLogic, Address.class);
+        AddressLogic addressLogic = AddressLogic.getInstance();
+        HelpServlet.sendRequestForAllElementsAndCheckSortAbility(request, response, addressLogic);
     }
 
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        AddressLogic addressLogic = AddressLogic.getInstance();
         HelpServlet.createInstanceAndUpdateElement(request, response, addressLogic, Address.class);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        AddressLogic addressLogic = AddressLogic.getInstance();
         HelpServlet.createInstanceAndAddElement(request, response, addressLogic, Address.class);
     }
 
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        AddressLogic addressLogic = AddressLogic.getInstance();
         HelpServlet.createInstanceAndRemoveElement(request, response, addressLogic, Address.class);
     }
 }
