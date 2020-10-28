@@ -8,6 +8,7 @@ import com.codecool.shop.model.Product;
 import com.codecool.shop.model.Supplier;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ProductLogic implements Sortable<Product> {
     SortDao productDao = ShopDatabaseManager.Instance.getProductDao();
@@ -53,6 +54,9 @@ public class ProductLogic implements Sortable<Product> {
                         .filter(cat -> cat.getName().equals(sortBy))
                         .findFirst()
                         .orElse(null);
+                if (category == null) {
+                    throw new RuntimeException("Bad type of category!");
+                }
                 return productDao.getBy(category);
             } else {
                 GetAllDao<Supplier> supplierDao = ShopDatabaseManager.Instance.getSupplierDao();
@@ -61,6 +65,9 @@ public class ProductLogic implements Sortable<Product> {
                         .filter(cat -> cat.getName().equals(sortBy))
                         .findFirst()
                         .orElse(null);
+                if (supplier == null) {
+                    throw new RuntimeException("Bad type of category!");
+                }
                 return productDao.getBy(supplier);
             }
         }
