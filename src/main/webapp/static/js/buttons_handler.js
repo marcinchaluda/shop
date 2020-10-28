@@ -3,17 +3,21 @@ import {layoutGenerator} from "./main_layout_generator.js";
 import {cartGenerator} from "./cart_layout_generator.js";
 
 const content = document.querySelector(".container");
-const productsBtn = document.querySelector(".tablets");
+const tabletsBtn = document.querySelector(".tablets");
+const sortOptionBtn = document.getElementById("toggle-sort-option");
+const ulProducts = document.querySelector(".products");
+const ulSupplies = document.querySelector(".suppliers");
 
 export const navButtonHandler = {
 
     init: function () {
         showProducts();
         this.productButtonHandler();
+        this.toggleNavMenuBySortOption();
     },
 
     productButtonHandler: function () {
-        productsBtn.addEventListener("click", function () {
+        tabletsBtn.addEventListener("click", function () {
             layoutGenerator.removeContent(content);
             showProducts();
         })
@@ -26,6 +30,9 @@ export const navButtonHandler = {
         });
     },
 
+    toggleNavMenuBySortOption: function () {
+        switchSortOption();
+    }
 }
 
 function showProducts() {
@@ -40,10 +47,26 @@ function getProduct(productId) {
     });
 }
 
+function switchSortOption() {
+    sortOptionBtn.addEventListener("click", () => {
+        displaySortOptionOnButton();
+        if (sortOptionBtn.innerText === category.SUPPLIER) {
+            ulProducts.style.display = "flex";
+            ulSupplies.style.display = "none";
+        } else {
+            ulProducts.style.display = "none";
+            ulSupplies.style.display = "flex";
+        }
+    });
+}
+
+function displaySortOptionOnButton() {
+    sortOptionBtn.innerText === category.SUPPLIER ? sortOptionBtn.innerText = category.PRODUCTS
+        : sortOptionBtn.innerText = category.SUPPLIER;
+}
+
 const category = {
-    tablets: "Tablets",
-    phones: "Phones",
-    notebooks: "Notebooks",
-    webComponents: "Web-components",
+    SUPPLIER: "SORT BY SUPPLIERS",
+    PRODUCTS: "SORT BY PRODUCTS",
 }
 
