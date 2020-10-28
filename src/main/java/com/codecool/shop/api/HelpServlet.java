@@ -59,7 +59,7 @@ public class HelpServlet {
         return pathInfo;
     }
 
-    public static <T> void sendRequestForAllElementsAndCheckSortAbility(HttpServletRequest request, HttpServletResponse response, BusinessLogic<T> logic, Class<T> classType) throws IOException, ServletException {
+    public static <T> void sendRequestForAllElementsAndCheckSortAbility(HttpServletRequest request, HttpServletResponse response, BusinessLogic<T> logic) throws IOException, ServletException {
         final int MODEL_ID_INDEX = 1;
 
         PrintWriter out = HelpServlet.createPrintWriterAndSetItUp(response);

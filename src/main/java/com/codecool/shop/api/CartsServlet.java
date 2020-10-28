@@ -16,7 +16,7 @@ public class CartsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         CartLogic cartLogic = CartLogic.getInstance();
-        HelpServlet.sendRequestForAllElementsAndCheckSortAbility(request, response, cartLogic, Cart.class);
+        HelpServlet.sendRequestForAllElementsAndCheckSortAbility(request, response, cartLogic);
     }
 
     @Override

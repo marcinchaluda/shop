@@ -16,7 +16,7 @@ public class OrdersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         OrderLogic orderLogic = OrderLogic.getInstance();
-        HelpServlet.sendRequestForAllElementsAndCheckSortAbility(request, response, orderLogic, Order.class);
+        HelpServlet.sendRequestForAllElementsAndCheckSortAbility(request, response, orderLogic);
     }
 
     @Override

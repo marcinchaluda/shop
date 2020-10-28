@@ -16,7 +16,7 @@ public class AddressesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         AddressLogic addressLogic = AddressLogic.getInstance();
-        HelpServlet.sendRequestForAllElementsAndCheckSortAbility(request, response, addressLogic, Address.class);
+        HelpServlet.sendRequestForAllElementsAndCheckSortAbility(request, response, addressLogic);
     }
 
     @Override

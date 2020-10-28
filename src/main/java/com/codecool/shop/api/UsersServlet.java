@@ -16,7 +16,7 @@ public class UsersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         UserLogic userLogic = UserLogic.getInstance();
-        HelpServlet.sendRequestForAllElementsAndCheckSortAbility(request, response, userLogic, User.class);
+        HelpServlet.sendRequestForAllElementsAndCheckSortAbility(request, response, userLogic);
     }
 
     @Override

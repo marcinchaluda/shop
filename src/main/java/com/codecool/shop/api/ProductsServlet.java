@@ -16,7 +16,7 @@ public class ProductsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ProductLogic productLogic = ProductLogic.getInstance();
-        HelpServlet.sendRequestForAllElementsAndCheckSortAbility(request, response, productLogic, Product.class);
+        HelpServlet.sendRequestForAllElementsAndCheckSortAbility(request, response, productLogic);
     }
 
     @Override
