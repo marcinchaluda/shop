@@ -4,9 +4,7 @@ import com.codecool.shop.dao.ModifyDao;
 import com.codecool.shop.dao.ShopDatabaseManager;
 import com.codecool.shop.model.User;
 
-import java.util.List;
-
-public class UserLogic implements NotSortable<User> {
+public class UserLogic implements BusinessLogic<User> {
     ModifyDao<User> userDao = ShopDatabaseManager.Instance.getUserDao();
 
     private static UserLogic instance = null;
@@ -20,26 +18,21 @@ public class UserLogic implements NotSortable<User> {
 
     @Override
     public void addElement(User user) {
-        throw new RuntimeException("Not implemented yet!");
+        userDao.add(user);
     }
 
     @Override
     public void updateElement(User user) {
-        throw new RuntimeException("Not implemented yet!");
+        userDao.update(user);
     }
 
     @Override
-    public void removeElement(User element) {
-        throw new RuntimeException("Not implemented yet!");
+    public void removeElement(User user) {
+        userDao.remove(user.getId());
     }
 
     @Override
     public User getElement(int id) {
-        throw new RuntimeException("Not implemented yet! - getElement " + id);
-    }
-
-    @Override
-    public List<User> getAllElements() {
-        throw new RuntimeException("Not implemented yet!");
+        return userDao.get(id);
     }
 }
