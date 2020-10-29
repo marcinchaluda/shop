@@ -3,6 +3,7 @@ import {layoutGenerator} from "./main_layout_generator.js";
 import {cartGenerator} from "./cart_layout_generator.js";
 import {products, category, categoryBtnDescription} from "./enumerators.js";
 import {productsNavBar} from "./product_nav_bar.js";
+import {suppliersNavBar} from "./supplier_nav_bar.js";
 
 const tabletsBtn = document.querySelector(".tablets");
 const sortOptionBtn = document.getElementById("toggle-sort-option");
@@ -16,6 +17,7 @@ export const buttonHandler = {
         this.showProducts(category.product, products.tablets);
         setInitStyles();
         productsNavBar.activateAllProductButtons();
+        suppliersNavBar.activateAllSuppliersButtons();
         this.toggleNavMenuBySortOption();
     },
 
