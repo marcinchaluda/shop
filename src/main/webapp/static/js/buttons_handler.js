@@ -1,7 +1,7 @@
 import {dataHandler} from "./data_handler.js";
 import {layoutGenerator} from "./main_layout_generator.js";
 import {cartGenerator} from "./cart_layout_generator.js";
-import {products, category, categoryBtnDescription} from "./enumerators.js";
+import {products, category, categoryBtnDescription, suppliers} from "./enumerators.js";
 import {productsNavBar} from "./product_nav_bar.js";
 import {suppliersNavBar} from "./supplier_nav_bar.js";
 
@@ -70,16 +70,31 @@ function switchSortOption() {
         displaySortOptionOnButton();
         let button;
         if (sortOptionBtn.innerText === categoryBtnDescription.SUPPLIER) {
-            ulProducts.style.display = "flex";
-            ulSupplies.style.display = "none";
+            showSelectedOptionNavBar(category.product);
             button = tabletsBtn;
+            displayDefaultProducts(category.product, products.tablets);
         } else {
-            ulProducts.style.display = "none";
-            ulSupplies.style.display = "flex";
+            showSelectedOptionNavBar(category.supplier);
             button = document.querySelector(".amazon");
+            displayDefaultProducts(category.supplier, suppliers.amazon);
         }
         buttonHandler.markButtonAsCurrent(button);
     });
+}
+
+function showSelectedOptionNavBar(option) {
+    if (option === category.product) {
+        ulProducts.style.display = "flex";
+        ulSupplies.style.display = "none";
+    } else {
+        ulProducts.style.display = "none";
+        ulSupplies.style.display = "flex";
+    }
+}
+
+function displayDefaultProducts(category, sortOption) {
+    layoutGenerator.removeContent(content);
+    buttonHandler.showProducts(category, sortOption);
 }
 
 function displaySortOptionOnButton() {
