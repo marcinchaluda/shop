@@ -59,9 +59,9 @@ const payment = {
 }
 function updateOrder(order) {
     const jsonData = {
-        "id": order.id,
-        "cart_id": order.cart.id,
-        "paid": "true",
+        id: order.id,
+        cart_id: order.cart.id,
+        paid: true,
     }
     console.log(jsonData);
     dataHandler.updateOrder(order.id, jsonData);
