@@ -1,4 +1,4 @@
-.button, .content li form a {
+.pay-button, .login-button, .content li form a {
   text-decoration: none;
   text-transform: uppercase; }
 
@@ -24,11 +24,11 @@ body {
   justify-content: space-around;
   height: 100%; }
 
-.button {
-  margin: 1em auto;
-  width: 20%;
+.pay-button, .login-button {
+  width: 100%;
   padding: 0.5em 2em;
   text-transform: uppercase;
+  text-align: center;
   font-size: 1.2em;
   background-color: #0B2D59;
   color: #EAE9F2;
@@ -96,5 +96,8 @@ body {
   text-align: center;
   text-transform: uppercase;
   font-size: 1.5em; }
+
+.input-btn {
+  margin: 0 auto; }
 
 /*# sourceMappingURL=payment.css.map */

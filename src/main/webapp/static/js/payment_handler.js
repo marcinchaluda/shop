@@ -2,54 +2,68 @@ import {buttonDescription} from "./enumerators.js";
 
 const creditCardBtn = document.querySelector(".credit-card a");
 const payPalBtn = document.querySelector(".paypal a");
-const submitBtn = document.querySelector(".button");
+const payBtn = document.querySelector(".pay-button");
+const loginBtn = document.querySelector(".login-button");
 const creditCartInfo = document.querySelector(".credit-card .personal-info");
 const paypalInfo = document.querySelector(".paypal .personal-info");
 const statusMessage = document.querySelector(".status-message");
 
 const payment = {
     init: function () {
-        submitBtn.innerText = buttonDescription.pay;
-        submitBtn.style.display = "none";
         this.showCreditCardContent();
         this.showPaypalContent();
-        this.submitPayment();
+        this.submitCreditCardPayment();
+        this.submitPayPalPayment();
     },
 
     showCreditCardContent: function () {
         creditCardBtn.addEventListener("click", () => {
-            submitBtn.style.display = "block";
             creditCartInfo.style.display = "flex";
             paypalInfo.style.display = "none";
-            submitBtn.innerText = buttonDescription.pay;
+            clearStatusMessageContent();
         });
     },
 
     showPaypalContent: function () {
         payPalBtn.addEventListener("click", () => {
-            submitBtn.style.display = "block";
             creditCartInfo.style.display = "none";
             paypalInfo.style.display = "flex";
-            submitBtn.innerText = buttonDescription.login;
+            clearStatusMessageContent();
         });
     },
 
-    submitPayment: function () {
-        submitBtn.addEventListener("click", () => {
-            sendActivePayment();
+    submitCreditCardPayment: function () {
+        payBtn.addEventListener("click", () => {
+            document.querySelector(".credit-card .details").submit();
+            if (creditCardFieldsValid(creditCartInfo)) {
+                statusMessage.textContent = generatePaymentStatus();
+            }
+        });
+    },
+
+    submitPayPalPayment: function () {
+        loginBtn.addEventListener("click", () => {
+            document.querySelector(".credit-card .details").submit();
+            if (creditCardFieldsValid(paypalInfo)) {
+                statusMessage.textContent = generatePaymentStatus();
+            }
         });
     },
 }
 
-function sendActivePayment() {
-    let message = generatePaymentStatus()
-    if (submitBtn.innerText == buttonDescription.pay) {
-        statusMessage.textContent = message;
-        document.querySelector(".credit-card .details").submit();
-    } else {
-        statusMessage.textContent = message;
-        document.querySelector(".paypal .details").submit();
+function clearStatusMessageContent() {
+    statusMessage.textContent = "";
+    statusMessage.style.backgroundColor = "#EAE9F2";
+}
+
+function creditCardFieldsValid(formToCheck) {
+    let allFields = formToCheck.childNodes;
+    for (let i=1; i < allFields.length - 2; i += 2) {
+        if (allFields[i].children[1].value === "") {
+            return false;
+        }
     }
+    return true;
 }
 
 function generatePaymentStatus() {
