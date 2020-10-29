@@ -22,7 +22,7 @@ public class SupplierDaoJdbc implements GetAllDao<Supplier> {
      * @param supplier - supplier instance with defined all fields without ID
      */
     @Override
-    public void add(Supplier supplier) {
+    public int add(Supplier supplier) {
         try (Connection connection = dataSource.getConnection()) {
             String sqlQuery = "INSERT INTO supplier (name, description, country) VALUES (?, ?, ?);";
             PreparedStatement statement = connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
@@ -33,6 +33,7 @@ public class SupplierDaoJdbc implements GetAllDao<Supplier> {
             ResultSet result = statement.getGeneratedKeys();
             result.next();
             supplier.setId(result.getInt(1));
+            return result.getInt(1);
         } catch (SQLException error) {
             throw new RuntimeException("Error while adding a new Supplier.", error);
         }

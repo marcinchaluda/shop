@@ -22,7 +22,7 @@ public class OrderDaoJdbc implements ModifyDao<Order> {
      * @param order - order instance with defined all fields without id
      */
     @Override
-    public void add(Order order) {
+    public int add(Order order) {
         try (Connection conn = dataSource.getConnection()) {
             String sql = "INSERT INTO user_order VALUES (DEFAULT, ?, ?)";
             PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -32,7 +32,7 @@ public class OrderDaoJdbc implements ModifyDao<Order> {
             ResultSet rs = st.getGeneratedKeys();
             rs.next();
             order.setId(rs.getInt(1));
-
+            return rs.getInt(1);
         } catch (SQLException throwable) {
             throw new RuntimeException("Error while adding new cart.", throwable);
         }
@@ -51,7 +51,6 @@ public class OrderDaoJdbc implements ModifyDao<Order> {
             st.setBoolean(2, order.isPaid());
             st.setInt(3, order.getId());
             st.executeUpdate();
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

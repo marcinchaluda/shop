@@ -22,7 +22,7 @@ public class CategoryDaoJdbc implements GetAllDao<Category> {
      * @param category - category instance with defined all fields without id
      */
     @Override
-    public void add(Category category) {
+    public int add(Category category) {
         try (Connection connection = dataSource.getConnection()) {
             String sqlQuery = "INSERT INTO product_category (name) VALUES (?);";
             PreparedStatement statement = connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
@@ -31,6 +31,7 @@ public class CategoryDaoJdbc implements GetAllDao<Category> {
             ResultSet result = statement.getGeneratedKeys();
             result.next();
             category.setId(result.getInt(1));
+            return result.getInt(1);
         } catch (SQLException error) {
             throw new RuntimeException("Error while adding a new Category.", error);
         }
