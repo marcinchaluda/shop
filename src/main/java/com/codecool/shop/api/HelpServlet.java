@@ -1,8 +1,10 @@
 package com.codecool.shop.api;
 
 import com.codecool.shop.logic.BusinessLogic;
+import com.codecool.shop.logic.CartLogic;
 import com.codecool.shop.logic.GetAllLogic;
 import com.codecool.shop.logic.Sortable;
+import com.codecool.shop.model.ProductInCart;
 import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
@@ -63,6 +65,22 @@ public class HelpServlet {
         T element = createElementFromJson(request, response, classType);
         logic.removeElement(element);
         response.setStatus(200);
+    }
+
+    public static void createInstanceAndUpdateCartContent(HttpServletRequest request, HttpServletResponse response, CartLogic cartLogic) throws IOException, ServletException {
+        final int modelIdIndex = 1;
+        ProductInCart productInCart = createElementFromJson(request, response, ProductInCart.class);
+        String pathInfo = request.getPathInfo();
+
+        if (pathInfo == null || pathInfo.equals("/")) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        } else {
+            String action = request.getParameter("action");
+            String[] splits = HelpServlet.getSplitUrlIfLengthIsEqual2(response, pathInfo);
+            int cardId = parseParameterIdToInteger(splits[modelIdIndex]);
+            cartLogic.updateProductInCart(productInCart, cardId, action);
+            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+        }
     }
 
     private static <T> T createElementFromJson(HttpServletRequest request, HttpServletResponse response, Class<T> classType) throws IOException {

@@ -54,7 +54,10 @@ function handleAddToCartButton() {
     addToCartButtons.forEach(button => {
         button.addEventListener("click", function () {
             const productId = document.querySelector(".card-details").id
-            buttonHandler.addProductToCart(productId, 1, 1, 1)
+            const input = document.querySelector(`div[id='${productId}'] input`);
+            const quantity = parseInt(input.getAttribute("value"));
+
+            buttonHandler.addProductToCart(1, productId, quantity) //TODO hardcode cartID
         })
     })
 }
@@ -121,6 +124,7 @@ function createQuantityChooser(product) {
     inputQuantity.setAttribute("name", "quantity");
     inputQuantity.setAttribute("min", "1");
     inputQuantity.setAttribute("value", "1");
+    inputQuantity.disabled = true;
 
     const leftButton = document.createElement("button");
     leftButton.innerText = "-";
