@@ -8,12 +8,22 @@
 </div>
 
 <div th:fragment="main-page-nav-bar" xmlns:th="http://www.w3.org/1999/xhtml">
-    <div class="nav-bar">
-        <ul class="flex-row">
-            <li><a class="tablets" href="#">Tablets</a></li>
-            <li><a class="phones" href="#">Phones</a></li>
-            <li><a class="notebooks" href="#">Notebooks</a></li>
-            <li><a class="web-devives" href="#">Web devices</a></li>
-        </ul>
+    <div class="nav-bar flex-row">
+        <div class="categories flex-col">
+            <ul class="flex-row products">
+                <li><a class="tablets" href="#">Tablets</a></li>
+                <li><a class="phones" href="#">Phones</a></li>
+                <li><a class="notebooks" href="#">Notebooks</a></li>
+                <li><a class="web-devices" href="#">Web devices</a></li>
+            </ul>
+            <ul class="flex-row suppliers">
+                <li><a class="amazon" href="#">Amazon</a></li>
+                <li><a class="lenovo" href="#">Lenovo</a></li>
+                <li><a class="apple" href="#">Apple</a></li>
+            </ul>
+        </div>
+        <div class="sort-option">
+            <a id="toggle-sort-option" href="#">sort by suppliers</a>
+        </div>
     </div>
 </div>
