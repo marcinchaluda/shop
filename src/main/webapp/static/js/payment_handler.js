@@ -39,7 +39,7 @@ const payment = {
                 //TODO get order id from database
                 const orderId = 1;
                 statusMessage.textContent = generatePaymentStatus();
-                console.log(updateOrder(orderId));
+                getOrder(orderId);
             }
         });
     },
@@ -58,12 +58,13 @@ const payment = {
 
 }
 function updateOrder(order) {
-    const data = {
+    const jsonData = {
         "id": order.id,
         "cart_id": order.cart.id,
         "paid": "true",
     }
-    console.log(order.paid + ", " + order.cart.id + ", " + order.id);
+    console.log(jsonData);
+    dataHandler.updateOrder(order.id, jsonData);
 }
 
 function getOrder(orderId) {
