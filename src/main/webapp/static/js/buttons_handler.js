@@ -95,7 +95,6 @@ const showTotalPriceAndQuantity = cartId => {
 }
 
 const updateTotalPriceAndQuantity = data => {
-    console.log(data)
     let quantity = 0;
     let totalPrice = 0;
     const currency = data.products[0].product.currency;

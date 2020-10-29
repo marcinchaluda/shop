@@ -8,6 +8,6 @@ export const util = {
     },
 
     removeContent: function (element) {
-        element.innerHTML = '';
+        element.innerHTML = "";
     }
 }

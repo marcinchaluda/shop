@@ -21,7 +21,7 @@ export const layoutGenerator = {
         const card = util.createElementWithClasses("div", "card");
         const cardDetails = util.createElementWithClasses("div", "card-details", "flex-col");
         const cardTitle = createNameElement.call(this, product);
-        const imageContainer = createImageElement.call(this);
+        const imageContainer = createImageElement.call(this, product);
         const cardHeader = createDescriptionElement.call(this, product);
         const cardPrice = createPriceElement.call(this, product);
         const cardAddingBar = createAddingBar.call(this, product);
@@ -57,10 +57,10 @@ function createNameElement(product) {
     return cardTitle;
 }
 
-function createImageElement() {
+function createImageElement(product) {
     const imageContainer = util.createElementWithClasses("div", "image-container");
     const image = util.createElementWithClasses("img", "image");
-    // image.src = product.image_path;
+    image.src = product.image;
     imageContainer.appendChild(image);
     return imageContainer;
 }

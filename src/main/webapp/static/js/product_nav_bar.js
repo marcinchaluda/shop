@@ -42,7 +42,8 @@ export const productsNavBar = {
 }
 
 function displayProducts(category, product, currentBtn) {
-    layoutGenerator.removeContent(content);
+    content.innerHTML = "";
+    // layoutGenerator.removeContent(content); // method not working :(
     buttonHandler.markButtonAsCurrent(currentBtn);
     buttonHandler.showProducts(category, product);
 }
