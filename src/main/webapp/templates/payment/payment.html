@@ -17,12 +17,8 @@
     <div class="container flex-col">
         <h1 class="header">Payment Methods</h1>
         <ul class="content flex-col">
-            <li class="credit-card">
-
-            </li>
-            <li class="paypal">
-
-            </li>
+            <div th:replace="payment/payment-fragments.html :: credit-card"></div>
+            <div th:replace="payment/payment-fragments.html :: paypal"></div>
         </ul>
         <a class=button href="#">Pay</a>
     </div>
