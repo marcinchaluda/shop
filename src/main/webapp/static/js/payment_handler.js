@@ -1,4 +1,4 @@
-import {buttonDescription} from "./enumerators.js";
+import {dataHandler} from "./data_handler.js";
 
 const creditCardBtn = document.querySelector(".credit-card a");
 const payPalBtn = document.querySelector(".paypal a");
@@ -36,7 +36,10 @@ const payment = {
         payBtn.addEventListener("click", () => {
             document.querySelector(".credit-card .details").submit();
             if (creditCardFieldsValid(creditCartInfo)) {
+                //TODO get order id from database
+                const orderId = 1;
                 statusMessage.textContent = generatePaymentStatus();
+                console.log(updateOrder(orderId));
             }
         });
     },
@@ -45,10 +48,28 @@ const payment = {
         loginBtn.addEventListener("click", () => {
             document.querySelector(".credit-card .details").submit();
             if (creditCardFieldsValid(paypalInfo)) {
+                //TODO get order id from database
+                const orderId = 1;
                 statusMessage.textContent = generatePaymentStatus();
+                getOrder(orderId);
             }
         });
     },
+
+}
+function updateOrder(order) {
+    const data = {
+        "id": order.id,
+        "cart_id": order.cart.id,
+        "paid": "true",
+    }
+    console.log(order.paid + ", " + order.cart.id + ", " + order.id);
+}
+
+function getOrder(orderId) {
+    dataHandler.getOrder(orderId, function (response) {
+        updateOrder(response);
+    });
 }
 
 function clearStatusMessageContent() {

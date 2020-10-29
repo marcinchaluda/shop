@@ -51,4 +51,11 @@ export const dataHandler = {
             callback(response);
         });
     },
+
+    getOrder: function (orderId, callback) {
+        this._api_get("api/orders/" + orderId, response => {
+            this._data['order'] = response;
+            callback(response);
+        })
+    }
 }

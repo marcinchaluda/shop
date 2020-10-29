@@ -50,12 +50,6 @@ export const buttonHandler = {
     },
 }
 
-function getProduct(productId) {
-    dataHandler.getProduct(productId, function (response) {
-       return response;
-    });
-}
-
 function switchSortOption() {
     sortOptionBtn.addEventListener("click", () => {
         displaySortOptionOnButton();
