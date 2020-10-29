@@ -149,3 +149,6 @@ SELECT pg_catalog.setval('cart_id_seq', 1, true);
 INSERT INTO cart_content VALUES (DEFAULT, 1, 1, 3);
 INSERT INTO cart_content VALUES (DEFAULT, 2, 1, 2);
 SELECT pg_catalog.setval('cart_content_id_seq', 3, true);
+
+INSERT INTO user_order VALUES (DEFAULT, 1, false);
+SELECT pg_catalog.setval('user_order_id_seq', 1, true);
