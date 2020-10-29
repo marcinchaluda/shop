@@ -86,4 +86,7 @@ body {
 .personal-info div {
   padding: 1em 0; }
 
+.personal-info {
+  display: none; }
+
 /*# sourceMappingURL=payment.css.map */
