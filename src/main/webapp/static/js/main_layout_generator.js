@@ -54,7 +54,10 @@ function handleAddToCartButton() {
     addToCartButtons.forEach(button => {
         button.addEventListener("click", function () {
             const productId = document.querySelector(".card-details").id
-            buttonHandler.addProductToCart(productId, 1, 1, 1)
+            const input = document.querySelector(`div[id='${productId}'] input`);
+            const quantity = parseInt(input.getAttribute("value"));
+
+            buttonHandler.addProductToCart(1, productId, quantity) //TODO hardcode cartID
         })
     })
 }

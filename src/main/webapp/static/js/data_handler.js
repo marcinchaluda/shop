@@ -24,6 +24,19 @@ export const dataHandler = {
             .then(json_response => callback(json_response))
     },
 
+    _api_patch: function (url, data, callback) {
+        fetch(url, {
+            method: 'PATCH',
+            credentials: 'same-origin',
+            body: JSON.stringify(data),
+            cache: "no-cache",
+            headers: new Headers({
+                "content-type": "application/json",
+            })
+        })
+            .then(response => callback(response));
+    },
+
     getAllProducts: function (callback) {
         this._api_get("api/products", response => {
             this._data['products'] = response;
@@ -45,10 +58,15 @@ export const dataHandler = {
         });
     },
 
-    sendProductToCart: function (productDetails, callback) {
-        this._api_post("api/cart", productDetails, response => {
+    increaseAmountOfProductInCart: function (productDetails, cartId) {
+        this._api_patch(`api/carts/${cartId}?action=add`, productDetails, response => {
             this._data['product-details'] = response;
-            callback(response);
+        });
+    },
+
+    updateAmountOfProductInCart: function (productDetails, cartId) {
+        this._api_patch(`api/carts/${cartId}?action=update`, productDetails, response => {
+            this._data['product-details'] = response;
         });
     },
 }
