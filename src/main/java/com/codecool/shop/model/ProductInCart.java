@@ -10,17 +10,11 @@ public class ProductInCart extends BaseDescribedModel {
     @SerializedName(value="quantity")
     private int quantity;
 
-    transient private int productId;
+    private int productId;
 
     public ProductInCart(String name, Product product, int quantity) {
         super(name);
         this.product = product;
-        this.quantity = quantity;
-    }
-
-    public ProductInCart(int productId, int quantity) {
-        super("");
-        this.productId = productId;
         this.quantity = quantity;
     }
 
