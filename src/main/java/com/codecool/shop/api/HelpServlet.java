@@ -14,51 +14,6 @@ import java.io.PrintWriter;
 import java.util.List;
 
 public class HelpServlet {
-    public static String getParameterIfExist(ServletRequest request, String paramName, String defaultValue) {
-        if (request.getParameter(paramName) != null) {
-            return request.getParameter(paramName);
-        } else {
-            return defaultValue;
-        }
-    }
-
-    public static void setResponseTypeToJson(HttpServletResponse response) {
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-    }
-
-    public static int parseParameterIdToInteger(String element) throws ServletException {
-        try {
-            return Integer.parseInt(element);
-        } catch (NumberFormatException e) {
-            throw new ServletException("Id parameter is not valid.", e);
-        }
-    }
-
-    public static PrintWriter createPrintWriterAndSetItUp(HttpServletResponse response) throws IOException {
-        PrintWriter out = response.getWriter();
-        HelpServlet.setResponseTypeToJson(response);
-        return out;
-    }
-
-    public static String[] getSplitUrlIfLengthIsEqual2(HttpServletResponse response, String pathInfo) throws IOException {
-        String[] splits = pathInfo.split("/");
-
-        if (splits.length != 2) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-        }
-
-        return splits;
-    }
-
-    public static String getPathInfoWhenUriContainsIdParameter(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String pathInfo = request.getPathInfo();
-        if (pathInfo == null || pathInfo.equals("/")) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-        }
-        return pathInfo;
-    }
-
     public static <T> void sendRequestForAllElementsAndCheckSortAbility(HttpServletRequest request, HttpServletResponse response, BusinessLogic<T> logic) throws IOException, ServletException {
         final int MODEL_ID_INDEX = 1;
 
@@ -108,7 +63,7 @@ public class HelpServlet {
         return new Gson().fromJson(json, classType);
     }
 
-    public static <T> void createJsonFromElement(BusinessLogic<T> businessClass, int elementId, PrintWriter out) {
+    private static <T> void createJsonFromElement(BusinessLogic<T> businessClass, int elementId, PrintWriter out) {
         T element = businessClass.getElement(elementId);
         out.print(new Gson().toJson(element));
         out.flush();
@@ -123,9 +78,54 @@ public class HelpServlet {
         out.flush();
     }
 
-    public static <T> void getAllUnsortedElements(GetAllLogic<T> businessClass, PrintWriter out) {
+    private static <T> void getAllUnsortedElements(GetAllLogic<T> businessClass, PrintWriter out) {
         List<T> elements = businessClass.getAllElements();
         out.print(new Gson().toJson(elements));
         out.flush();
+    }
+
+    private static String getParameterIfExist(ServletRequest request, String paramName, String defaultValue) {
+        if (request.getParameter(paramName) != null) {
+            return request.getParameter(paramName);
+        } else {
+            return defaultValue;
+        }
+    }
+
+    private static void setResponseTypeToJson(HttpServletResponse response) {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+    }
+
+    private static int parseParameterIdToInteger(String element) throws ServletException {
+        try {
+            return Integer.parseInt(element);
+        } catch (NumberFormatException e) {
+            throw new ServletException("Id parameter is not valid.", e);
+        }
+    }
+
+    private static PrintWriter createPrintWriterAndSetItUp(HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
+        HelpServlet.setResponseTypeToJson(response);
+        return out;
+    }
+
+    private static String[] getSplitUrlIfLengthIsEqual2(HttpServletResponse response, String pathInfo) throws IOException {
+        String[] splits = pathInfo.split("/");
+
+        if (splits.length != 2) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+
+        return splits;
+    }
+
+    private static String getPathInfoWhenUriContainsIdParameter(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String pathInfo = request.getPathInfo();
+        if (pathInfo == null || pathInfo.equals("/")) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        return pathInfo;
     }
 }
