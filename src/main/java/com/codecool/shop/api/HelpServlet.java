@@ -1,8 +1,10 @@
 package com.codecool.shop.api;
 
 import com.codecool.shop.logic.BusinessLogic;
+import com.codecool.shop.logic.CartLogic;
 import com.codecool.shop.logic.GetAllLogic;
 import com.codecool.shop.logic.Sortable;
+import com.codecool.shop.model.ProductInCart;
 import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HelpServlet {
     public static <T> void sendRequestForAllElementsAndCheckSortAbility(HttpServletRequest request, HttpServletResponse response, BusinessLogic<T> logic) throws IOException, ServletException {
@@ -56,10 +59,26 @@ public class HelpServlet {
         response.setStatus(200);
     }
 
+    public static void createInstanceAndUpdateCartContent(HttpServletRequest request, HttpServletResponse response, CartLogic cartLogic) throws IOException, ServletException {
+        final int modelIdIndex = 1;
+        ProductInCart productInCart = createElementFromJson(request, response, ProductInCart.class);
+        String pathInfo = request.getPathInfo();
+
+        if (pathInfo == null || pathInfo.equals("/")) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        } else {
+            String action = request.getParameter("action");
+            String[] splits = HelpServlet.getSplitUrlIfLengthIsEqual2(response, pathInfo);
+            int cardId = parseParameterIdToInteger(splits[modelIdIndex]);
+            cartLogic.updateProductInCart(productInCart, cardId, action);
+            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+        }
+    }
+
     private static <T> T createElementFromJson(HttpServletRequest request, HttpServletResponse response, Class<T> classType) throws IOException {
         String pathInfo = getPathInfoWhenUriContainsIdParameter(request, response);
         getSplitUrlIfLengthIsEqual2(response, pathInfo);
-        String json = request.getParameter("jsondata");
+        String json = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         return new Gson().fromJson(json, classType);
     }
 

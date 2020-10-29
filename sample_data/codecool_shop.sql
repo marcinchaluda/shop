@@ -128,6 +128,9 @@ SELECT pg_catalog.setval('address_id_seq', 1, true);
 INSERT INTO user_account VALUES (DEFAULT, 'Bob', 'soriusz15@gmail.com', '111221222', 1, 1);
 SELECT pg_catalog.setval('user_account_id_seq', 1, true);
 
+INSERT INTO cart VALUES (DEFAULT, 1);
+SELECT pg_catalog.setval('cart_id_seq', 1, true);
+
 INSERT INTO supplier VALUES (DEFAULT, 'Amazon', 'Description of the Amazon', 'America');
 INSERT INTO supplier VALUES (DEFAULT, 'Lenovo', 'Description of the Lenovo', 'China');
 INSERT INTO supplier VALUES (DEFAULT, 'Apple', 'Description of the Apple', 'America');

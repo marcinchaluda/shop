@@ -2,10 +2,12 @@ package com.codecool.shop.logic;
 
 import com.codecool.shop.dao.ModifyDao;
 import com.codecool.shop.dao.ShopDatabaseManager;
+import com.codecool.shop.dao.implementation.CartDaoJdbc;
 import com.codecool.shop.model.Cart;
+import com.codecool.shop.model.ProductInCart;
 
 public class CartLogic implements BusinessLogic<Cart> {
-    ModifyDao<Cart> cartDao = ShopDatabaseManager.Instance.getCartDao();
+    CartDaoJdbc cartDao = ShopDatabaseManager.Instance.getCartDao();
 
     private static CartLogic instance = null;
 
@@ -34,5 +36,9 @@ public class CartLogic implements BusinessLogic<Cart> {
     @Override
     public Cart getElement(int id) {
         return cartDao.get(id);
+    }
+
+    public void updateProductInCart(ProductInCart productInCart, int cartId, String action) {
+        cartDao.updateProductInCart(productInCart, cartId, action);
     }
 }
