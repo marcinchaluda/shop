@@ -9,7 +9,6 @@ const sortOptionBtn = document.getElementById("toggle-sort-option");
 const ulProducts = document.querySelector(".products");
 const ulSupplies = document.querySelector(".suppliers");
 const navButtons = document.querySelectorAll("ul li a");
-const content = document.querySelector(".container");
 
 export const buttonHandler = {
     init: function () {
@@ -19,21 +18,18 @@ export const buttonHandler = {
         this.toggleNavMenuBySortOption();
     },
 
-    addProductToCart: function (productId, cartId, userId, quantity) {
-        const data = {
-            productId: productId,
-            cartId: cartId,
-            userId: userId,
-            quantity: quantity
-        }
+    addProductToCart: function (productId) {
+        const data = getProduct(productId);
         dataHandler.sendProductToCart(data, function (response) {
             cartGenerator.createProductInfo(response);
         });
     },
 
     showProducts: function (category, sortOption) {
+        console.log(category, sortOption);
         dataHandler.getProducts(category, sortOption, function (products) {
             layoutGenerator.createProductCards(products);
+            console.log(products);
         });
     },
 
@@ -48,12 +44,6 @@ export const buttonHandler = {
         });
         currentButton.style.backgroundColor = "#C6C5D9";
         currentButton.style.color = "#0B2D59";
-    },
-
-    displayProducts: function(category, product, currentBtn) {
-        layoutGenerator.removeContent(content);
-        buttonHandler.markButtonAsCurrent(currentBtn);
-        buttonHandler.showProducts(category, product);
     },
 }
 
