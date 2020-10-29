@@ -17,8 +17,8 @@ public class CartLogic implements BusinessLogic<Cart> {
     }
 
     @Override
-    public void addElement(Cart cart) {
-        cartDao.add(cart);
+    public int addElement(Cart cart) {
+        return cartDao.add(cart);
     }
 
     @Override

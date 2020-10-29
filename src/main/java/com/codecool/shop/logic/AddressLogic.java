@@ -17,8 +17,8 @@ public class AddressLogic implements BusinessLogic<Address> {
     }
 
     @Override
-    public void addElement(Address address) {
-        addressDao.add(address);
+    public int addElement(Address address) {
+        return addressDao.add(address);
     }
 
     @Override

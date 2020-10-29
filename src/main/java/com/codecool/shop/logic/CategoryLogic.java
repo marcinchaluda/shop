@@ -19,8 +19,8 @@ public class CategoryLogic implements GetAllLogic<Category> {
     }
 
     @Override
-    public void addElement(Category category) {
-        categoryDao.add(category);
+    public int addElement(Category category) {
+        return categoryDao.add(category);
     }
 
     @Override

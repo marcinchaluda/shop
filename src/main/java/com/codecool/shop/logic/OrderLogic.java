@@ -17,8 +17,8 @@ public class OrderLogic implements BusinessLogic<Order> {
     }
 
     @Override
-    public void addElement(Order order) {
-        orderDao.add(order);
+    public int addElement(Order order) {
+        return orderDao.add(order);
     }
 
     @Override
