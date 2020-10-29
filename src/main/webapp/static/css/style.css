@@ -124,4 +124,22 @@ i {
 .card-header {
   color: #0B2D59; }
 
+.categories {
+  width: 80%; }
+
+#toggle-sort-option {
+  color: #0B2D59;
+  background-color: #C6C5D9;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.3em 0.8em;
+  border-radius: 15px; }
+
+#toggle-sort-option:hover {
+  color: black;
+  background-color: ghostwhite; }
+
+.sort-option {
+  margin: auto; }
+
 /*# sourceMappingURL=style.css.map */

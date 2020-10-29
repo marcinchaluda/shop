@@ -1,9 +1,9 @@
-import { navButtonHandler } from "./buttons_handler.js";
+import { buttonHandler } from "./buttons_handler.js";
 
 const container = document.querySelector(".container");
 
 export const layoutGenerator = {
-    createProductCards: function (products, category) {
+    createProductCards: function (products) {
         const cardContainer = this.createElementWithClasses("div", "flex-row");
 
         products.forEach(product => {
@@ -54,8 +54,8 @@ function handleAddToCartButton() {
     addToCartButtons.forEach(button => {
         button.addEventListener("click", function() {
             const productId = document.querySelector(".card-details").id
-            navButtonHandler.addProductToCart(productId)
-            // navButtonHandler.showProduct(productId);
+            buttonHandler.addProductToCart(productId)
+            // buttonHandler.showProduct(productId);
             })
     })
 }
