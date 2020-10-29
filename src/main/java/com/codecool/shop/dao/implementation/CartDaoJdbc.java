@@ -86,7 +86,7 @@ public class CartDaoJdbc implements ModifyDao<Cart> {
      * @param cart - cart instance with defined all fields without id
      */
     @Override
-    public void add(Cart cart) {
+    public int add(Cart cart) {
         try (Connection conn = dataSource.getConnection()) {
             String sql = "INSERT INTO cart VALUES (DEFAULT, ?)";
             PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -95,8 +95,8 @@ public class CartDaoJdbc implements ModifyDao<Cart> {
             ResultSet rs = st.getGeneratedKeys();
             rs.next();
             cart.setId(rs.getInt(1));
-
             cartContentJdbc.add(cart.getProductList(), cart.getId());
+            return rs.getInt(1);
 
         } catch (SQLException throwable) {
             throw new RuntimeException("Error while adding new cart.", throwable);
