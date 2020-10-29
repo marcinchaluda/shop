@@ -1,45 +1,39 @@
-<div th:fragment="credit-card" xmlns:th="http://www.w3.org/1999/xhtml">
-    <li class="credit-card">
-        <div class="details flex-col">
-            <h3>credit card</h3>
-            <div class="personal-info">
-                <div class="number flex-row">
-                    <label for="card-number">card number</label>
-                    <input id="card-number" class="card-number" type="text">
-                </div>
-                <div class="card-holder flex-row">
-                    <label for="holder">card holder</label>
-                    <input id="holder" type="text" class="holder">
-                </div>
-                <div class="date flex-row">
-                    <div class="expiry-date flex-row">
-                        <label for="exp-date">card holder</label>
-                        <input id="exp-date" type="text" class="exp-date">
-                    </div>
-                    <div class="validation-code">
-                        <label for="code">card holder</label>
-                        <input id="code" type="text" class="code">
-                    </div>
-                </div>
+<li th:fragment="credit-card" class="credit-card" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="details flex-col">
+        <a href="#"><h3>credit card</h3></a>
+        <div class="personal-info">
+            <div class="number flex-row">
+                <label for="card-number">card number</label>
+                <input id="card-number" placeholder="card number" class="card-number" type="text" size="16">
+            </div>
+            <div class="card-holder flex-row">
+                <label for="holder">card holder</label>
+                <input id="holder" type="text" placeholder="first and last name" class="holder" size="16">
+            </div>
+            <div class="expiry-date flex-row">
+                <label for="exp-date">card holder</label>
+                <input id="exp-date" type="date" placeholder="dd-mm-yyyy" class="exp-date" size="10">
+            </div>
+            <div class="validation-code flex-row">
+                <label for="code">validation code</label>
+                <input id="code" type="text" placeholder="code" class="code" size="16">
             </div>
         </div>
-    </li>
-</div>
+    </div>
+</li>
 
-<div th:fragment="paypal" xmlns:th="http://www.w3.org/1999/xhtml">
-    <li class="paypal">
-        <div class="details flex-col">
-            <h3>paypal</h3>
-            <div class="personal-info">
-                <div class="name flex-row">
-                    <label for="username">card number</label>
-                    <input id="username" class="username" type="text">
-                </div>
-                <div class="password flex-row">
-                    <label for="pass">card holder</label>
-                    <input id="pass" type="text" class="pass">
-                </div>
+<li th:fragment="paypal" class="paypal" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="details flex-col">
+        <a href="#"><h3>paypal</h3></a>
+        <div class="personal-info flex-col">
+            <div class="name flex-row">
+                <label for="username">username</label>
+                <input id="username" class="username" type="text" size="16">
+            </div>
+            <div class="password flex-row">
+                <label for="pass">password</label>
+                <input id="pass" type="text" class="pass" size="16">
             </div>
         </div>
-    </li>
-</div>
+    </div>
+</li>

@@ -14,13 +14,13 @@
     <div class="status-message">
         <p class="message"></p>
     </div>
-    <div class="container flex-col">
+    <form class="container flex-col">
         <h1 class="header">Payment Methods</h1>
         <ul class="content flex-col">
             <div th:replace="payment/payment-fragments.html :: credit-card"></div>
             <div th:replace="payment/payment-fragments.html :: paypal"></div>
         </ul>
-        <a class=button href="#">Pay</a>
-    </div>
+        <a type="submit" class=button href="#">Pay</a>
+    </form>
 </body>
 </html>

@@ -1,6 +1,9 @@
-.button {
+.button, .content li div a {
   text-decoration: none;
   text-transform: uppercase; }
+
+.content li {
+  border: 2px solid #C6C5D9; }
 
 * {
   margin: 0;
@@ -12,7 +15,7 @@ body {
 
 .flex-row {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap; }
 
 .flex-col {
@@ -38,7 +41,7 @@ body {
 
 .container {
   margin: 10vh auto;
-  width: 50vw;
+  width: 40vw;
   text-align: center;
   border: 2px solid #0B2D59;
   border-radius: 20px;
@@ -51,6 +54,36 @@ body {
   color: #EAE9F2; }
 
 .content {
+  padding-top: 1em;
   list-style: none; }
+
+.content li {
+  width: 90%;
+  margin: 0.5em auto; }
+
+.content li h3 {
+  color: #0B2D59;
+  text-transform: uppercase; }
+
+.content li div a {
+  background-color: #C6C5D9;
+  padding: 0.5em 0; }
+
+.content li div a:hover {
+  background-color: #0B2D59; }
+
+.content li div a:hover h3 {
+  color: #EAE9F2; }
+
+.content input {
+  margin-right: 5vw; }
+
+.content label {
+  margin-left: 5vw;
+  color: #0B2D59;
+  text-transform: uppercase; }
+
+.personal-info div {
+  padding: 1em 0; }
 
 /*# sourceMappingURL=payment.css.map */

@@ -28,7 +28,7 @@ body
 
 .flex-row
   display: flex
-  justify-content: space-around
+  justify-content: space-between
   flex-wrap: wrap
 
 .flex-col
@@ -55,7 +55,7 @@ body
 
 .container
   margin: 10vh auto
-  width: 50vw
+  width: 40vw
   text-align: center
   border: 2px solid $darkSkyColor
   border-radius: 20px
@@ -67,6 +67,37 @@ body
   background-color: $darkSkyColor
   color: $silver
 
-
 .content
+  padding-top: 1em
   list-style: none
+
+.content li
+  width: 90%
+  @extend %border
+  margin: 0.5em auto
+
+.content li h3
+  color: $darkSkyColor
+  text-transform: uppercase
+
+.content li div a
+  @extend %remove-decoration
+  background-color: $lightGrey
+  padding: 0.5em 0
+
+.content li div a:hover
+  background-color: $darkSkyColor
+
+.content li div a:hover h3
+  color: $silver
+
+.content input
+  margin-right: 5vw
+
+.content label
+  margin-left: 5vw
+  color: $darkSkyColor
+  text-transform: uppercase
+
+.personal-info div
+  padding: 1em 0
