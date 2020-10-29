@@ -142,3 +142,10 @@ SELECT pg_catalog.setval('product_category_id_seq', 2, true);
 INSERT INTO product VALUES (DEFAULT, 'x100', 'moj opis', '50.0', 'EURO', 2, 2, '');
 INSERT INTO product VALUES (DEFAULT, 'abc', 'moj opis 2', '10.0', 'EURO', 1, 1, '');
 SELECT pg_catalog.setval('product_id_seq', 2, true);
+
+INSERT INTO cart VALUES (DEFAULT, 1);
+SELECT pg_catalog.setval('cart_id_seq', 1, true);
+
+INSERT INTO cart_content VALUES (DEFAULT, 1, 1, 3);
+INSERT INTO cart_content VALUES (DEFAULT, 2, 1, 2);
+SELECT pg_catalog.setval('cart_content_id_seq', 3, true);
