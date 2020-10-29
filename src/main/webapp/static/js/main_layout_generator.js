@@ -1,10 +1,11 @@
 import { buttonHandler } from "./buttons_handler.js";
+import { util } from "./util.js";
 
 const container = document.querySelector(".container");
 
 export const layoutGenerator = {
     createProductCards: function (products) {
-        const cardContainer = this.createElementWithClasses("div", "flex-row");
+        const cardContainer = util.createElementWithClasses("div", "flex-row");
 
         products.forEach(product => {
             cardContainer.appendChild(this.createProductCard(product));
@@ -17,8 +18,8 @@ export const layoutGenerator = {
     },
 
     createProductCard: function (product) {
-        const card = this.createElementWithClasses("div", "card");
-        const cardDetails = this.createElementWithClasses("div", "card-details", "flex-col");
+        const card = util.createElementWithClasses("div", "card");
+        const cardDetails = util.createElementWithClasses("div", "card-details", "flex-col");
         const cardTitle = createNameElement.call(this, product);
         const imageContainer = createImageElement.call(this);
         const cardHeader = createDescriptionElement.call(this, product);
@@ -34,18 +35,6 @@ export const layoutGenerator = {
         card.appendChild(cardDetails);
 
         return card;
-    },
-
-    createElementWithClasses: function (element, ...args) {
-        const newElement = document.createElement(element);
-        args.forEach(arg => {
-            newElement.classList.add(arg);
-        });
-        return newElement;
-    },
-
-    removeContent: function (element) {
-        element.innerHTML = '';
     }
 }
 
@@ -54,36 +43,39 @@ function handleAddToCartButton() {
     addToCartButtons.forEach(button => {
         button.addEventListener("click", function () {
             const productId = document.querySelector(".card-details").id
-            buttonHandler.addProductToCart(productId, 1, 1, 1)
+            const input = document.querySelector(`div[id='${productId}'] input`);
+            const quantity = parseInt(input.getAttribute("value"));
+
+            buttonHandler.addProductToCart(1, productId, quantity) //TODO hardcode cartID
         })
     })
 }
 
 function createNameElement(product) {
-    const cardTitle = this.createElementWithClasses("h4", "card-title");
+    const cardTitle = util.createElementWithClasses("h4", "card-title");
     cardTitle.innerHTML = product.name;
     return cardTitle;
 }
 
 function createImageElement() {
-    const imageContainer = this.createElementWithClasses("div", "image-container");
-    const image = this.createElementWithClasses("img", "image");
+    const imageContainer = util.createElementWithClasses("div", "image-container");
+    const image = util.createElementWithClasses("img", "image");
     // image.src = product.image_path;
     imageContainer.appendChild(image);
     return imageContainer;
 }
 
 function createDescriptionElement(product) {
-    const cardHeader = this.createElementWithClasses("div", "card-header");
-    const cardText = this.createElementWithClasses("p", "card-text");
+    const cardHeader = util.createElementWithClasses("div", "card-header");
+    const cardText = util.createElementWithClasses("p", "card-text");
     cardText.textContent = product.description;
     cardHeader.appendChild(cardText);
     return cardHeader;
 }
 
 function createPriceElement(product) {
-    const cardPrice = this.createElementWithClasses("div", "card-price");
-    const lead = this.createElementWithClasses("p", "lead");
+    const cardPrice = util.createElementWithClasses("div", "card-price");
+    const lead = util.createElementWithClasses("p", "lead");
     // const price = product.defaultPrice + product.currency;
     lead.textContent = product.currency;
     cardPrice.appendChild(lead)
@@ -91,7 +83,7 @@ function createPriceElement(product) {
 }
 
 function createAddingBar(product) {
-    const addingBar = this.createElementWithClasses("div", "adding-bar");
+    const addingBar = util.createElementWithClasses("div", "adding-bar");
     const cardButton = createButtonElement.call(this);
     const quantity = createQuantityChooser.call(this, product);
 
@@ -102,10 +94,10 @@ function createAddingBar(product) {
 }
 
 function createButtonElement() {
-    const cardButton = this.createElementWithClasses("div", "card-button");
-    const button = this.createElementWithClasses("a", "btn");
+    const cardButton = util.createElementWithClasses("div", "card-button");
+    const button = util.createElementWithClasses("a", "btn");
     button.href = "#";
-    // const buttonIcon = this.createElementWithClasses("i", "fas", "fa-shopping-cart");
+    // const buttonIcon = util.createElementWithClasses("i", "fas", "fa-shopping-cart");
     button.innerHTML = "<i class=\"fas fa-shopping-cart\"></i>";
     // button.appendChild(buttonIcon);
     button.textContent += "Add to cart";
@@ -114,13 +106,14 @@ function createButtonElement() {
 }
 
 function createQuantityChooser(product) {
-    const quantity = this.createElementWithClasses("div", "quantity-container");
+    const quantity = util.createElementWithClasses("div", "quantity-container");
 
     const inputQuantity = document.createElement("input");
     inputQuantity.setAttribute("type", "number");
     inputQuantity.setAttribute("name", "quantity");
     inputQuantity.setAttribute("min", "1");
     inputQuantity.setAttribute("value", "1");
+    inputQuantity.disabled = true;
 
     const leftButton = document.createElement("button");
     leftButton.innerText = "-";

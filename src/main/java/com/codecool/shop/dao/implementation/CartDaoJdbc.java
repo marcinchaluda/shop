@@ -4,6 +4,7 @@ import com.codecool.shop.dao.Dao;
 import com.codecool.shop.dao.ModifyDao;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
+import com.codecool.shop.model.ProductInCart;
 import com.codecool.shop.model.User;
 
 import javax.sql.DataSource;
@@ -21,6 +22,9 @@ public class CartDaoJdbc implements ModifyDao<Cart> {
         this.dataSource = dataSource;
         this.userDao = userDao;
         this.productDao = productDao;
+    }
+
+    public void increaseQuantityOfProduct(ProductInCart productInCart, int cartId) {
     }
 
     /**
@@ -79,10 +83,12 @@ public class CartDaoJdbc implements ModifyDao<Cart> {
                 throw new RuntimeException("Error while reading products belongs to cart of id " + cartId, e);
             }
         }
+
     }
 
     /**
      * {@inheritDoc}
+     *
      * @param cart - cart instance with defined all fields without id
      */
     @Override
@@ -105,6 +111,7 @@ public class CartDaoJdbc implements ModifyDao<Cart> {
 
     /**
      * {@inheritDoc}
+     *
      * @param cart - cart instance with defined all fields
      */
     @Override
@@ -115,6 +122,7 @@ public class CartDaoJdbc implements ModifyDao<Cart> {
 
     /**
      * {@inheritDoc}
+     *
      * @param id - id of cart instance to remove from database
      */
     @Override
@@ -134,6 +142,7 @@ public class CartDaoJdbc implements ModifyDao<Cart> {
 
     /**
      * {@inheritDoc}
+     *
      * @param id - id of cart instance to get from database
      */
     @Override
@@ -155,6 +164,39 @@ public class CartDaoJdbc implements ModifyDao<Cart> {
 
         } catch (SQLException e) {
             throw new RuntimeException("Error while reading cart with id: " + id, e);
+        }
+    }
+
+    public void updateProductInCart(ProductInCart productInCart, int cartId, String action) {
+        try (Connection connection = dataSource.getConnection()) {
+
+            String sqlUpdateQuery;
+            if (action.toUpperCase().equals("ADD")) {
+                sqlUpdateQuery = "UPDATE cart_content SET quantity = quantity + ? WHERE product_id = ? AND cart_id = ?; ";
+            } else {
+                sqlUpdateQuery = "UPDATE cart_content SET quantity = ? WHERE product_id = ? AND cart_id = ?; ";
+            }
+
+            PreparedStatement updateStatement = connection.prepareStatement(sqlUpdateQuery);
+
+            updateStatement.setInt(1, productInCart.getQuantity());
+            updateStatement.setInt(2, productInCart.getProductId());
+            updateStatement.setInt(3, cartId);
+            updateStatement.executeUpdate();
+
+            String sqlInsertQuery = "INSERT INTO cart_content (product_id, cart_id, quantity)" +
+                    "    SELECT ?, ?, ? WHERE NOT EXISTS (SELECT 1 FROM cart_content WHERE product_id = ? AND cart_id = ?);";
+
+            PreparedStatement insertStatement = connection.prepareStatement(sqlInsertQuery);
+            insertStatement.setInt(1, productInCart.getProductId());
+            insertStatement.setInt(2, cartId);
+            insertStatement.setInt(3, productInCart.getQuantity());
+            insertStatement.setInt(4, productInCart.getProductId());
+            insertStatement.setInt(5, cartId);
+            insertStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while updating a Product.", e);
         }
     }
 }

@@ -19,16 +19,20 @@ export const buttonHandler = {
         showTotalPriceAndQuantity(1);
     },
 
-    addProductToCart: function (productId, cartId, userId, quantity) {
+    addProductToCart: function (cartId, productId, quantity) {
         const data = {
             productId: productId,
-            cartId: cartId,
-            userId: userId,
             quantity: quantity
         }
-        dataHandler.sendProductToCart(data, function (response) {
-            cartGenerator.createProductInfo(response);
-        });
+        dataHandler.increaseAmountOfProductInCart(data, cartId);
+    },
+
+    updateProductInCart: function (cartId, productId, quantity) {
+        const data = {
+            productId: productId,
+            quantity: quantity
+        }
+        dataHandler.updateAmountOfProductInCart(data, cartId);
     },
 
     showProducts: function (category, sortOption) {

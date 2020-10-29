@@ -10,6 +10,8 @@ public class ProductInCart extends BaseDescribedModel {
     @SerializedName(value="quantity")
     private int quantity;
 
+    private int productId;
+
     public ProductInCart(String name, Product product, int quantity) {
         super(name);
         this.product = product;
@@ -24,6 +26,14 @@ public class ProductInCart extends BaseDescribedModel {
         this.product = product;
     }
 
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+
     public int getQuantity() {
         return quantity;
     }
@@ -32,4 +42,14 @@ public class ProductInCart extends BaseDescribedModel {
         this.quantity = quantity;
     }
 
+    @Override
+    public String toString() {
+        return String.format("id: %1$d, " +
+                        "productId: %2$s, " +
+                        "quantity: %3$s, ",
+                this.id,
+                this.productId,
+                this.quantity
+        );
+    }
 }
