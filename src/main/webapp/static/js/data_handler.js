@@ -51,4 +51,11 @@ export const dataHandler = {
             callback(response);
         });
     },
+
+    getCart: function (cartId, callback) {
+        this._api_get("api/carts/" + cartId, response => {
+            this._data['cart-details'] = response;
+            callback(response);
+        })
+    }
 }
