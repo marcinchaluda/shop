@@ -24,8 +24,15 @@ export const dataHandler = {
             .then(json_response => callback(json_response))
     },
 
-    getProducts: function (callback) {
+    getAllProducts: function (callback) {
         this._api_get("api/products", response => {
+            this._data['products'] = response;
+            callback(response)
+        });
+    },
+
+    getProducts: function (category, sortOption, callback) {
+        this._api_get("/?sort=" + category + "&by=" + sortOption, response => {
             this._data['products'] = response;
             callback(response)
         });
