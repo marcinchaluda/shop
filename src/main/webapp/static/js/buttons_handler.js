@@ -26,8 +26,10 @@ export const buttonHandler = {
     },
 
     showProducts: function (category, sortOption) {
+        console.log(category, sortOption);
         dataHandler.getProducts(category, sortOption, function (products) {
             layoutGenerator.createProductCards(products);
+            console.log(products);
         });
     },
 

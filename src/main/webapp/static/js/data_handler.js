@@ -32,7 +32,8 @@ export const dataHandler = {
     },
 
     getProducts: function (category, sortOption, callback) {
-        this._api_get("/?sort=" + category + "&by=" + sortOption, response => {
+        console.log(category, sortOption);
+        this._api_get("api/products?sort=" + category + "&by=" + sortOption, response => {
             this._data['products'] = response;
             callback(response)
         });
