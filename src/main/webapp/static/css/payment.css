@@ -1,4 +1,4 @@
-.button, .content li div a {
+.button, .content li form a {
   text-decoration: none;
   text-transform: uppercase; }
 
@@ -65,14 +65,14 @@ body {
   color: #0B2D59;
   text-transform: uppercase; }
 
-.content li div a {
+.content li form a {
   background-color: #C6C5D9;
   padding: 0.5em 0; }
 
-.content li div a:hover {
+.content li form a:hover {
   background-color: #0B2D59; }
 
-.content li div a:hover h3 {
+.content li form a:hover h3 {
   color: #EAE9F2; }
 
 .content input {
@@ -88,5 +88,13 @@ body {
 
 .personal-info {
   display: none; }
+
+.status-message {
+  margin: 1em auto 0 auto;
+  padding: 0.5em 0;
+  width: 60vw;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 1.5em; }
 
 /*# sourceMappingURL=payment.css.map */

@@ -5,7 +5,7 @@
     <meta name="author" content="Codecool" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <title>Codecool Shop || Cart</title>
+    <title>Codecool Shop || Payment</title>
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/static/css/payment.css" />
@@ -15,13 +15,13 @@
     <div class="status-message">
         <p class="message"></p>
     </div>
-    <form class="container flex-col">
+    <div class="container flex-col">
         <h1 class="header">Payment Methods</h1>
         <ul class="content flex-col">
             <div th:replace="payment/payment-fragments.html :: credit-card"></div>
             <div th:replace="payment/payment-fragments.html :: paypal"></div>
         </ul>
-        <a type="submit" class=button href="#">Pay</a>
-    </form>
+        <input type="submit" class=button value="pay">
+    </div>
 </body>
 </html>
