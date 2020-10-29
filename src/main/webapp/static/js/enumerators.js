@@ -4,19 +4,19 @@ export const categoryBtnDescription = {
 }
 
 export const category = {
-    product: "product",
+    product: "category",
     supplier: "supplier",
 }
 
 export const products = {
-    tablets: "tablets",
-    phones: "phones",
-    notebooks: "notebooks",
-    webDevices: "web-devices",
+    tablets: "Tablet",
+    phones: "Phone",
+    notebooks: "Notebook",
+    webDevices: "Web-device",
 }
 
 export const suppliers = {
-    amazon: "amazon",
-    lenovo: "lenovo",
-    apple: "apple",
+    amazon: "Amazon",
+    lenovo: "Lenovo",
+    apple: "Apple",
 }

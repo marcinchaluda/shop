@@ -32,21 +32,21 @@ export const dataHandler = {
     },
 
     getProducts: function (category, sortOption, callback) {
-        this._api_get("/?sort=" + category + "&by=" + sortOption, response => {
+        this._api_get("api/products?sort=" + category + "&by=" + sortOption, response => {
             this._data['products'] = response;
             callback(response)
         });
     },
 
     getProduct: function (productId, callback) {
-        this._api_get("api/products" + productId, response => {
+        this._api_get("api/products/" + productId, response => {
             this._data['product'] = response;
             callback(response)
         });
     },
 
     sendProductToCart: function (productDetails, callback) {
-        this._api_post("/api/cart", productDetails, response => {
+        this._api_post("api/cart", productDetails, response => {
             this._data['product-details'] = response;
             callback(response);
         });

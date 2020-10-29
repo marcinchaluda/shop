@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="Codecool" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title>Codecool Shop || Cart</title>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/static/css/cart.css" />
+<!--    <script type="module" src='/static/js/main.js' defer></script>-->
+</head>
+<body>
+<div class="content flex-col">
+    <form class="flex-col" action="#">
+        <div class="cart">
+            <div class="user-items flex-col">
+                <div class="cart-header flex-row">
+                    <h1>UserName Cart</h1>
+                    <a href="#"><i class="fas fa-trash-alt"></i>Remove Basket</a>
+                </div>
+                <div class="items flex-col">
+                    <div class="card-details item flex-row">
+                        <p class="item-name">Item1 name</p>
+                        <div class="quantity flex-row">
+                            <a class="plus-minus" href="#"><i class="fas fa-minus"></i></a>
+                            <p class="number">1</p>
+                            <a class="plus-minus" href="#"><i class="fas fa-plus"></i></a>
+                        </div>
+                        <p class="total-cost">Total Cost</p>
+                        <a href="#"><i class="fas fa-trash-alt"></i>Remove Item</a>
+                    </div>
+                    <div class="card-details item flex-row">
+                        <p class="item-name">Item2 name</p>
+                        <div class="quantity flex-row">
+                            <a class="plus-minus" href="#"><i class="fas fa-minus"></i></a>
+                            <p class="number">1</p>
+                            <a class="plus-minus" href="#"><i class="fas fa-plus"></i></a>
+                        </div>
+                        <p class="total-cost">Total Cost</p>
+                        <a href="#"><i class="fas fa-trash-alt"></i>Remove Item</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:replace="cart-fragment.html :: billing-address"></div>
+        <div th:replace="cart-fragment.html :: shipping-address"></div>
+        <div class="button">
+            <input class="submit-button" type="submit" value="Submit">
+        </div>
+    </form>
+</div>
+</body>
+</html>

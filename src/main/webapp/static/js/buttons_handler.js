@@ -18,8 +18,13 @@ export const buttonHandler = {
         this.toggleNavMenuBySortOption();
     },
 
-    addProductToCart: function (productId) {
-        const data = getProduct(productId);
+    addProductToCart: function (productId, cartId, userId, quantity) {
+        const data = {
+            productId: productId,
+            cartId: cartId,
+            userId: userId,
+            quantity: quantity
+        }
         dataHandler.sendProductToCart(data, function (response) {
             cartGenerator.createProductInfo(response);
         });
