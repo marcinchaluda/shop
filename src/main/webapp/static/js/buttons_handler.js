@@ -96,5 +96,10 @@ const showTotalPriceAndQuantity = cartId => {
 
 const updateTotalPriceAndQuantity = data => {
     console.log(data)
-    document.querySelector("#total-price-and-quantity").innerHTML = `(` + data.quantity + `) (` + data.totalPrice + `)`;
+    let quantity = 0;
+    let totalPrice = 0;
+    const currency = data.products[0].product.currency;
+    data.products.forEach(product => quantity += product.quantity);
+    data.products.forEach(product => totalPrice += product.product.unitPrice * product.quantity);
+    document.querySelector("#total-price-and-quantity").innerHTML = `(` + quantity + ` items) (` + totalPrice + " " + currency + `)`;
 }
