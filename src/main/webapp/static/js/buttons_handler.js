@@ -16,6 +16,7 @@ export const buttonHandler = {
         setInitStyles();
         productsNavBar.activateAllProductButtons();
         this.toggleNavMenuBySortOption();
+        showTotalPriceAndQuantity(1);
     },
 
     addProductToCart: function (productId, cartId, userId, quantity) {
@@ -83,4 +84,13 @@ function setInitStyles() {
     tabletsBtn.style.color = "#0B2D59";
     ulProducts.style.display = "flex";
     ulSupplies.style.display = "none";
+}
+
+const showTotalPriceAndQuantity = cartId => {
+    dataHandler.getCart(cartId, updateTotalPriceAndQuantity);
+}
+
+const updateTotalPriceAndQuantity = data => {
+    console.log(data)
+    document.querySelector("#total-price-and-quantity").innerHTML = `(` + data.quantity + `) (` + data.totalPrice + `)`;
 }
