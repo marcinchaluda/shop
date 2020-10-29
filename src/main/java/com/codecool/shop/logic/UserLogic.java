@@ -22,7 +22,8 @@ public class UserLogic implements BusinessLogic<User> {
     }
 
     @Override
-    public void updateElement(User user) {
+    public void updateElement(User user, int id) {
+        user.setId(id);
         userDao.update(user);
     }
 

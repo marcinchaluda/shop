@@ -22,7 +22,8 @@ public class CartLogic implements BusinessLogic<Cart> {
     }
 
     @Override
-    public void updateElement(Cart cart) {
+    public void updateElement(Cart cart, int id) {
+        cart.setId(id);
         cartDao.update(cart);
     }
 

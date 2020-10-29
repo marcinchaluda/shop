@@ -2,6 +2,9 @@ package com.codecool.shop.api;
 
 import com.codecool.shop.logic.AddressLogic;
 import com.codecool.shop.model.Address;
+import com.codecool.shop.model.Product;
+import com.codecool.shop.model.User;
+import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @WebServlet(urlPatterns = {"/api/addresses/*"})
 public class AddressesServlet extends HttpServlet {

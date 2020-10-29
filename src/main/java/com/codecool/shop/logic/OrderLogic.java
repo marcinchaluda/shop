@@ -22,7 +22,8 @@ public class OrderLogic implements BusinessLogic<Order> {
     }
 
     @Override
-    public void updateElement(Order order) {
+    public void updateElement(Order order, int id) {
+        order.setId(id);
         orderDao.update(order);
     }
 

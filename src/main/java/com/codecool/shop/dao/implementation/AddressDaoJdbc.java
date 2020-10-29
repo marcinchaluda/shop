@@ -55,6 +55,7 @@ public class AddressDaoJdbc implements ModifyDao<Address> {
             statement.setString(4, address.getStreet());
             statement.setInt(5, address.getLocalNumber());
             statement.setInt(6, address.getId());
+            statement.executeUpdate();
         } catch (SQLException error) {
             throw new RuntimeException("Error while updating an Address.", error);
         }
@@ -71,6 +72,7 @@ public class AddressDaoJdbc implements ModifyDao<Address> {
             String sqlQuery = "DELETE FROM address WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
             statement.setInt(1, id);
+            statement.executeUpdate();
         } catch (SQLException error) {
             throw new RuntimeException("Error while removing an Address.", error);
         }

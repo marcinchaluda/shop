@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HelpServlet {
     public static <T> void sendRequestForAllElementsAndCheckSortAbility(HttpServletRequest request, HttpServletResponse response, BusinessLogic<T> logic) throws IOException, ServletException {
@@ -35,9 +37,11 @@ public class HelpServlet {
     public static <T> void createInstanceAndAddElement(HttpServletRequest request, HttpServletResponse response, BusinessLogic<T> logic, Class<T> classType) throws IOException {
         String pathInfo = request.getPathInfo();
         if (pathInfo == null || pathInfo.equals("/")) {
-            String json = request.getParameter("jsondata");
-            T element = new Gson().fromJson(json, classType);
-            logic.addElement(element);
+            T element = createElementFromJson(request, response, classType);
+            int id = logic.addElement(element);
+            PrintWriter out = HelpServlet.createPrintWriterAndSetItUp(response);
+            out.print(id);
+            out.flush();
             response.setStatus(200);
         } else {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
@@ -46,7 +50,10 @@ public class HelpServlet {
 
     public static <T> void createInstanceAndUpdateElement(HttpServletRequest request, HttpServletResponse response, BusinessLogic<T> logic, Class<T> classType) throws IOException {
         T element = createElementFromJson(request, response, classType);
-        logic.updateElement(element);
+        if (request.getPathInfo() != null) {
+            String[] splits = getSplitUrlIfLengthIsEqual2(response, request.getPathInfo());
+            logic.updateElement(element, Integer.parseInt(splits[1]));
+        }
         response.setStatus(200);
     }
 
@@ -58,14 +65,17 @@ public class HelpServlet {
 
     private static <T> T createElementFromJson(HttpServletRequest request, HttpServletResponse response, Class<T> classType) throws IOException {
         String pathInfo = getPathInfoWhenUriContainsIdParameter(request, response);
-        getSplitUrlIfLengthIsEqual2(response, pathInfo);
-        String json = request.getParameter("jsondata");
+        if (pathInfo != null) {
+            getSplitUrlIfLengthIsEqual2(response, pathInfo);
+        }
+        String json = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         return new Gson().fromJson(json, classType);
     }
 
     private static <T> void createJsonFromElement(BusinessLogic<T> businessClass, int elementId, PrintWriter out) {
         T element = businessClass.getElement(elementId);
-        out.print(new Gson().toJson(element));
+        String output = new Gson().toJson(element);
+        out.print(output);
         out.flush();
     }
 
@@ -74,13 +84,15 @@ public class HelpServlet {
         String sortBy = HelpServlet.getParameterIfExist(request, "by", "default");
 
         List<T> elements = logic.getAllElements(sortType, sortBy);
-        out.print(new Gson().toJson(elements));
+        String output = new Gson().toJson(elements);
+        out.print(output);
         out.flush();
     }
 
     private static <T> void getAllUnsortedElements(GetAllLogic<T> businessClass, PrintWriter out) {
         List<T> elements = businessClass.getAllElements();
-        out.print(new Gson().toJson(elements));
+        String output = new Gson().toJson(elements);
+        out.print(output);
         out.flush();
     }
 
@@ -112,13 +124,14 @@ public class HelpServlet {
     }
 
     private static String[] getSplitUrlIfLengthIsEqual2(HttpServletResponse response, String pathInfo) throws IOException {
-        String[] splits = pathInfo.split("/");
-
-        if (splits.length != 2) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        if (pathInfo.contains("/")) {
+            String[] splits = pathInfo.split("/");
+            if (splits.length != 2) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            }
+            return splits;
         }
-
-        return splits;
+        return null;
     }
 
     private static String getPathInfoWhenUriContainsIdParameter(HttpServletRequest request, HttpServletResponse response) throws IOException {

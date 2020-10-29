@@ -16,10 +16,10 @@ const streetShip = document.querySelector("#ship-street");
 const localShip = document.querySelector("#ship-local");
 
 export const cartButtonHandler = {
-    init: (cart) => {
+    init: cart => {
         setUpAllFieldsFromDatabase(cart.user.shippingAddress.id, cart.user.billingAddress.id);
         setSameButton.addEventListener("click", setAllFieldsWithSameValues);
-        submitButton.addEventListener("click", (cart) => {
+        submitButton.addEventListener("click", () => {
             checkFieldsAndCreateNewOrder(cart.user.shippingAddress.id, cart.id);
         });
     }
@@ -35,7 +35,7 @@ const setUpShipAddress = data => {
     cityShip.setAttribute("value", data.city);
     zipCodeShip.setAttribute("value", data.zipCode);
     streetShip.setAttribute("value", data.street);
-    localShip.setAttribute("value", data.local);
+    localShip.setAttribute("value", data.localNumber);
 }
 
 const setUpBillAddress = data => {
@@ -43,7 +43,7 @@ const setUpBillAddress = data => {
     cityBill.setAttribute("value", data.city);
     zipCodeBill.setAttribute("value", data.zipCode);
     streetBill.setAttribute("value", data.street);
-    localBill.setAttribute("value", data.local);
+    localBill.setAttribute("value", data.localNumber);
 }
 
 const setAllFieldsWithSameValues = () => {
@@ -55,20 +55,16 @@ const setAllFieldsWithSameValues = () => {
 }
 
 const checkFieldsAndCreateNewOrder = (addressId, cartId) => {
-    const address = `{"country": "`+countryShip.value+`", "city": `+cityShip.value+`, "zipCode": "`+cityShip.value+`", "street": "`+cityShip.value+`", "localNumber": `+cityShip.value+`, "id": `+addressId+`}`;
-    dataHandler.updateAddress(address, response => {});
+    const address = '{"country": "'+countryShip.value+'", "city": "'+cityShip.value+'", "zipCode": "'+zipCodeShip.value+'", "street": "'+streetShip.value+'", "localNumber": '+localShip.value+', "id": '+addressId+'}';
+    dataHandler.updateAddress(JSON.parse(address), addressId, response => {});
     dataHandler.getCart(cartId, response => {
         generateNewOrder(response);
     })
 }
 
 const generateNewOrder = response => {
-    const newOrder = `{"paid": false, "cart": `+ response +`"}`;
-    dataHandler.postOrder(newOrder, response => {
-        redirectToOrderDetails(response);
+    const newOrder = '{"paid": false, "cart": '+ JSON.stringify(response) +'}';
+    dataHandler.postOrder(JSON.parse(newOrder), response => {
+        console.log(response)
     })
-}
-
-const redirectToOrderDetails = orderId => {
-
 }

@@ -24,7 +24,8 @@ public class SupplierLogic implements GetAllLogic<Supplier> {
     }
 
     @Override
-    public void updateElement(Supplier supplier) {
+    public void updateElement(Supplier supplier, int id) {
+        supplier.setId(id);
         supplierDao.update(supplier);
     }
 

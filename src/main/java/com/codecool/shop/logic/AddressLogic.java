@@ -22,7 +22,8 @@ public class AddressLogic implements BusinessLogic<Address> {
     }
 
     @Override
-    public void updateElement(Address address) {
+    public void updateElement(Address address, int id) {
+        address.setId(id);
         addressDao.update(address);
     }
 

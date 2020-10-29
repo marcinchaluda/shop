@@ -27,7 +27,8 @@ public class ProductLogic implements Sortable<Product> {
     }
 
     @Override
-    public void updateElement(Product product) {
+    public void updateElement(Product product, int id) {
+        product.setId(id);
         productDao.update(product);
     }
 

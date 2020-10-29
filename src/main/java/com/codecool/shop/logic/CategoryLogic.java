@@ -24,7 +24,8 @@ public class CategoryLogic implements GetAllLogic<Category> {
     }
 
     @Override
-    public void updateElement(Category category) {
+    public void updateElement(Category category, int id) {
+        category.setId(id);
         categoryDao.update(category);
     }
 

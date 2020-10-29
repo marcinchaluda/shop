@@ -81,21 +81,21 @@ export const dataHandler = {
     },
 
     getAddress: function (id, callback) {
-        this._api_get("api/addresses/" + id, response => {
+        dataHandler._api_get("api/addresses/" + id, response => {
             this._data['address-details'] = response;
             callback(response);
         })
     },
 
-    updateAddress: function (newAddress, addressId, callback) {
-        this._api_put("api/addresses/" + addressId, response => {
+    updateAddress: (newAddress, addressId, callback) => {
+        dataHandler._api_put("api/addresses/" + addressId, newAddress, response => {
             this._data['address-details'] = response;
             callback(response);
         })
     },
 
     postOrder: function (orderDetails, callback) {
-        this._api_post("api/orders", response => {
+        dataHandler._api_post("api/orders", orderDetails, response => {
             this._data['order-details'] = response;
             callback(response);
         })
