@@ -39,12 +39,14 @@ public class HelpServlet {
         if (pathInfo == null || pathInfo.equals("/")) {
             T element = createElementFromJson(request, response, classType);
             int id = logic.addElement(element);
-            PrintWriter out = HelpServlet.createPrintWriterAndSetItUp(response);
-            out.print(id);
+            PrintWriter out = response.getWriter();
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            out.print("{\"id\": \""+id+"\"}");
+            response.setStatus(HttpServletResponse.SC_OK);
             out.flush();
-            response.setStatus(200);
         } else {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
         }
     }
 

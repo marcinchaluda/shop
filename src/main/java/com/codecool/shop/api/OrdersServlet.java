@@ -2,6 +2,7 @@ package com.codecool.shop.api;
 
 import com.codecool.shop.logic.OrderLogic;
 import com.codecool.shop.model.Order;
+import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet(urlPatterns = {"/api/orders/*"})
 public class OrdersServlet extends HttpServlet {
@@ -20,7 +22,7 @@ public class OrdersServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         OrderLogic orderLogic = OrderLogic.getInstance();
         HelpServlet.createInstanceAndUpdateElement(request, response, orderLogic, Order.class);
     }

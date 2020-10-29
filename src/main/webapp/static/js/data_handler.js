@@ -17,25 +17,38 @@ export const dataHandler = {
             body: JSON.stringify(data),
             cache: "no-cache",
             headers: new Headers({
-                "content-type": "application/json"
+                "content-type": "application/json",
+                'accept': 'application/json'
             })
         })
             .then(response => response.json())
             .then(json_response => callback(json_response))
     },
 
+    postDataGetResponse: (url, data, callback) => {
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'accept': 'application/json'
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(response => callback(response))
+    },
+
     _api_put: function (url, data, callback) {
         fetch(url, {
             method: 'PUT',
-            credentials: 'same-origin',
             body: JSON.stringify(data),
-            cache: "no-cache",
             headers: new Headers({
-                "content-type": "application/json"
+                "content-type": "application/json",
+                'accept': 'application/json'
             })
-        })
-            .then(response => response.json())
-            .then(json_response => callback(json_response))
+        }).then(response => response.json())
+            .then(response => callback(response))
+            .catch(error => console.error(`Error ${error}`));
     },
 
     getAllProducts: function (callback) {
@@ -88,14 +101,11 @@ export const dataHandler = {
     },
 
     updateAddress: (newAddress, addressId, callback) => {
-        dataHandler._api_put("api/addresses/" + addressId, newAddress, response => {
-            this._data['address-details'] = response;
-            callback(response);
-        })
+        dataHandler._api_put("api/addresses/" + addressId, newAddress, response => {})
     },
 
     postOrder: function (orderDetails, callback) {
-        dataHandler._api_post("api/orders", orderDetails, response => {
+        dataHandler.postDataGetResponse("api/orders", orderDetails, response => {
             this._data['order-details'] = response;
             callback(response);
         })

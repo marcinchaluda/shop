@@ -56,15 +56,16 @@ const setAllFieldsWithSameValues = () => {
 
 const checkFieldsAndCreateNewOrder = (addressId, cartId) => {
     const address = '{"country": "'+countryShip.value+'", "city": "'+cityShip.value+'", "zipCode": "'+zipCodeShip.value+'", "street": "'+streetShip.value+'", "localNumber": '+localShip.value+', "id": '+addressId+'}';
-    dataHandler.updateAddress(JSON.parse(address), addressId, response => {});
-    dataHandler.getCart(cartId, response => {
-        generateNewOrder(response);
-    })
+    if (address != null) {
+        let addressParsed = JSON.parse(address);
+        dataHandler.updateAddress(addressParsed, addressId, () => {});
+    }
+    dataHandler.getCart(cartId, response => generateNewOrder(response));
 }
 
 const generateNewOrder = response => {
-    const newOrder = '{"paid": false, "cart": '+ JSON.stringify(response) +'}';
+    const newOrder = "{\"paid\": false, \"cart\": "+ JSON.stringify(response) +"}";
     dataHandler.postOrder(JSON.parse(newOrder), response => {
-        console.log(response)
+        window.location.replace("/payment/2");
     })
 }
