@@ -4,6 +4,7 @@ import {cartGenerator} from "./cart_layout_generator.js";
 import {products, category, categoryBtnDescription, suppliers} from "./enumerators.js";
 import {productsNavBar} from "./product_nav_bar.js";
 import {suppliersNavBar} from "./supplier_nav_bar.js";
+import {util} from "./util.js";
 
 const tabletsBtn = document.querySelector(".tablets");
 const sortOptionBtn = document.getElementById("toggle-sort-option");
@@ -58,7 +59,7 @@ export const buttonHandler = {
     },
 
     displayProducts: function(category, product, currentBtn) {
-        layoutGenerator.removeContent(content);
+        util.removeContent(content);
         buttonHandler.markButtonAsCurrent(currentBtn);
         buttonHandler.showProducts(category, product);
     },
@@ -92,7 +93,7 @@ function showSelectedOptionNavBar(option) {
 }
 
 function displayDefaultProducts(category, sortOption) {
-    layoutGenerator.removeContent(content);
+    util.removeContent(content);
     buttonHandler.showProducts(category, sortOption);
 }
 
