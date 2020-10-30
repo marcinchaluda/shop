@@ -76,8 +76,8 @@ function createDescriptionElement(product) {
 function createPriceElement(product) {
     const cardPrice = util.createElementWithClasses("div", "card-price");
     const lead = util.createElementWithClasses("p", "lead");
-    // const price = product.defaultPrice + product.currency;
-    lead.textContent = product.currency;
+    const price = product.unitPrice + " " + product.currency;
+    lead.textContent = price;
     cardPrice.appendChild(lead)
     return cardPrice;
 }
