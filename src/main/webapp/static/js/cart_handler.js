@@ -28,13 +28,14 @@ const createListOfItems = data => {
             name: data.products[i].name,
             quantity: data.products[i].quantity,
             subTotalPrice: data.products[i].quantity * productDetails.unitPrice,
-            currency: productDetails.currency
+            currency: productDetails.currency,
+            unitPrice: productDetails.unitPrice
         }
         totalPrice += data.products[i].quantity * productDetails.unitPrice;
         addItemToDisplay(dataToInsert);
     }
     usernameTitleContainer.textContent = data.user.name + "'s cart";
-    addTotalPriceContainer(totalPrice + " " + data.products[0].product.currency);
+    addTotalPriceContainer(totalPrice + " " + data.products[0].product.currency); //TODO currency disappear
 }
 
 const addItemToDisplay = dataToInsert => {
@@ -50,11 +51,13 @@ const addItemToDisplay = dataToInsert => {
     const minusIcon = util.createElementWithClasses("i", "fas", "fa-minus");
     minusButton.appendChild(minusIcon);
 
+
     minusButton.addEventListener("click", function () {
         const quantityNumber = document.querySelector(`div[product_id='${dataToInsert.product_id}'] p`);
         let quantity = parseInt(quantityNumber.textContent);
         quantity = Math.max((quantity - 1), 1);
         quantityNumber.textContent = quantity.toString();
+        updatePrices();
 
         buttonHandler.updateProductInCart(1, dataToInsert.product_id, quantity) //TODO hardcode cartID
     })
@@ -72,6 +75,7 @@ const addItemToDisplay = dataToInsert => {
         let quantity = parseInt(quantityNumber.textContent);
         quantity = quantity + 1;
         quantityNumber.textContent = quantity.toString();
+        updatePrices();
 
         buttonHandler.updateProductInCart(1, dataToInsert.product_id, quantity) //TODO hardcode cartID
     })
@@ -80,8 +84,17 @@ const addItemToDisplay = dataToInsert => {
     quantityContainer.appendChild(quantityValue);
     quantityContainer.appendChild(plusButton);
 
-    const totalCost = util.createElementWithClasses("p", "total-cost");
-    totalCost.innerText = " " + dataToInsert.subTotalPrice + " " + dataToInsert.currency + " ";
+    const subCost = util.createElementWithClasses("span", "total-cost");
+    subCost.setAttribute("data-unitPrice", dataToInsert.unitPrice);
+
+    const subCostValue = util.createElementWithClasses("span", "total-cost-value");
+    subCostValue.innerText = dataToInsert.subTotalPrice;
+
+    const subCostCurrency = util.createElementWithClasses("span", "total-cost-currency");
+    subCostCurrency.innerText = dataToInsert.currency;
+
+    subCost.appendChild(subCostValue);
+    subCost.appendChild(subCostCurrency);
 
     const removeButton = util.createElementWithClasses("a", "remove-from-cart-button");
     const removeIcon = util.createElementWithClasses("i", "fas", "fa-trash-alt");
@@ -90,19 +103,45 @@ const addItemToDisplay = dataToInsert => {
 
     cardDetails.appendChild(name);
     cardDetails.appendChild(quantityContainer);
-    cardDetails.appendChild(totalCost);
+    cardDetails.appendChild(subCost);
     cardDetails.appendChild(removeButton);
 
     itemsContainer.appendChild(cardDetails);
 }
 
 const addTotalPriceContainer = totalPrice => {
-    const totalPriceBox = util.createElementWithClasses("div", "card-details", "item", "flex-row");
-    const number = util.createElementWithClasses("p", "number");
-    number.innerText = `Total price: ${totalPrice} `;
+    const totalPriceBox = util.createElementWithClasses("div", "card-total-price", "item", "flex-row");
+    const number = util.createElementWithClasses("span", "number");
+    const description = document.createElement("span");
+    description.textContent = "Total price: ";
+    const totalPriceValue = util.createElementWithClasses("span", "total-price-value");
+    totalPriceValue.innerText = totalPrice;
+
+    number.appendChild(description);
+    number.appendChild(totalPriceValue);
 
     totalPriceBox.appendChild(number);
     itemsContainer.appendChild(totalPriceBox);
+}
+
+function updatePrices() {
+    const cards = document.querySelectorAll(".card-details");
+
+    let totalPrice = 0;
+
+    cards.forEach(parent => {
+        const quantityValue = parseInt(parent.querySelector(".quantity .number").textContent);
+        const subTotalPriceElement = parent.querySelector(".total-cost");
+        const unitPriceValue = parseInt(subTotalPriceElement.getAttribute("data-unitprice"));
+
+        const subTotalPrice = quantityValue * unitPriceValue;
+
+        subTotalPriceElement.querySelector(".total-cost-value").textContent = subTotalPrice.toString();
+        totalPrice += subTotalPrice;
+    })
+
+    const totalPriceElement = document.querySelector(".total-price-value");
+    totalPriceElement.textContent = totalPrice.toString();
 }
 
 cartHandler.activate();
