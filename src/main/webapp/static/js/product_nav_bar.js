@@ -1,5 +1,5 @@
 import {products, category} from "./enumerators.js";
-import {layoutGenerator} from "./main_layout_generator.js";
+import {util} from "./util.js";
 import {buttonHandler} from "./buttons_handler.js";
 
 const tabletsBtn = document.querySelector(".tablets");
@@ -42,8 +42,7 @@ export const productsNavBar = {
 }
 
 function displayProducts(category, product, currentBtn) {
-    content.innerHTML = "";
-    // layoutGenerator.removeContent(content); // method not working :(
+    util.removeContent(content);
     buttonHandler.markButtonAsCurrent(currentBtn);
     buttonHandler.showProducts(category, product);
 }
