@@ -66,6 +66,6 @@ const checkFieldsAndCreateNewOrder = (addressId, cartId) => {
 const generateNewOrder = response => {
     const newOrder = "{\"paid\": false, \"cart\": "+ JSON.stringify(response) +"}";
     dataHandler.postOrder(JSON.parse(newOrder), response => {
-        window.location.replace("/payment/2");
+        window.location.replace("/payment");
     })
 }
