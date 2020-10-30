@@ -8,7 +8,6 @@ import com.codecool.shop.model.Product;
 import com.codecool.shop.model.Supplier;
 
 import java.util.List;
-import java.util.Optional;
 
 public class ProductLogic implements Sortable<Product> {
     SortDao productDao = ShopDatabaseManager.Instance.getProductDao();
@@ -23,12 +22,13 @@ public class ProductLogic implements Sortable<Product> {
     }
 
     @Override
-    public void addElement(Product product) {
-        productDao.add(product);
+    public int addElement(Product product) {
+        return productDao.add(product);
     }
 
     @Override
-    public void updateElement(Product product) {
+    public void updateElement(Product product, int id) {
+        product.setId(id);
         productDao.update(product);
     }
 

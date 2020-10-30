@@ -17,12 +17,13 @@ public class OrderLogic implements BusinessLogic<Order> {
     }
 
     @Override
-    public void addElement(Order order) {
-        orderDao.add(order);
+    public int addElement(Order order) {
+        return orderDao.add(order);
     }
 
     @Override
-    public void updateElement(Order order) {
+    public void updateElement(Order order, int id) {
+        order.setId(id);
         orderDao.update(order);
     }
 

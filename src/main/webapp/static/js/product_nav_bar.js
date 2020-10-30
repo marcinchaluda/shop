@@ -1,7 +1,9 @@
 import {products, category} from "./enumerators.js";
+import {util} from "./util.js";
 import {buttonHandler} from "./buttons_handler.js";
 
 const tabletsBtn = document.querySelector(".tablets");
+const content = document.querySelector(".container");
 
 export const productsNavBar = {
     activateAllProductButtons: function () {
@@ -13,28 +15,34 @@ export const productsNavBar = {
 
     tabletsButtonHandler: function () {
         tabletsBtn.addEventListener("click", function () {
-            buttonHandler.displayProducts(category.product, products.tablets, tabletsBtn);
+            displayProducts(category.product, products.tablets, tabletsBtn);
         });
     },
 
     phonesButtonHandler: function () {
         const phonesBtn = document.querySelector(".phones");
         phonesBtn.addEventListener("click", () => {
-            buttonHandler.displayProducts(category.product, products.phones, phonesBtn);
+            displayProducts(category.product, products.phones, phonesBtn);
         });
     },
 
     notebooksButtonHandler: function () {
         const notebooksBtn = document.querySelector(".notebooks");
         notebooksBtn.addEventListener("click", () => {
-            buttonHandler.displayProducts(category.product, products.notebooks, notebooksBtn);
+            displayProducts(category.product, products.notebooks, notebooksBtn);
         });
     },
 
     webDevicesButtonHandler: function () {
         const webDevicesBtn = document.querySelector(".web-devices");
         webDevicesBtn.addEventListener("click", () => {
-            buttonHandler.displayProducts(category.product, products.webDevices, webDevicesBtn);
+            displayProducts(category.product, products.webDevices, webDevicesBtn);
         });
     },
+}
+
+function displayProducts(category, product, currentBtn) {
+    util.removeContent(content);
+    buttonHandler.markButtonAsCurrent(currentBtn);
+    buttonHandler.showProducts(category, product);
 }

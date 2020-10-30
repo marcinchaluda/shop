@@ -26,7 +26,7 @@ public class UserDaoJdbc implements GetAllDao<User>, ModifyDao<User> {
      * @param user - user instance with defined all fields without ID
      */
     @Override
-    public void add(User user) {
+    public int add(User user) {
         try (Connection connection = dataSource.getConnection()) {
             String sqlQuery = "INSERT INTO user_account (full_name, email, phone_number, billing_address, shipping_address) VALUES (?, ?, ?, ?, ?);";
             PreparedStatement statement = connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
@@ -39,6 +39,7 @@ public class UserDaoJdbc implements GetAllDao<User>, ModifyDao<User> {
             ResultSet result = statement.getGeneratedKeys();
             result.next();
             user.setId(result.getInt(1));
+            return result.getInt(1);
         } catch (SQLException error) {
             throw new RuntimeException("Error while adding a new User.", error);
         }

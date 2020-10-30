@@ -5,7 +5,7 @@ public interface Dao<T> {
     /**
      * DAO's method that add element to database
      */
-    void add(T thing);
+    int add(T thing);
 
     /**
      * DAO's method that get element from database

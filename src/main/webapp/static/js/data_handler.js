@@ -17,11 +17,38 @@ export const dataHandler = {
             body: JSON.stringify(data),
             cache: "no-cache",
             headers: new Headers({
-                "content-type": "application/json"
+                "content-type": "application/json",
+                'accept': 'application/json'
             })
         })
             .then(response => response.json())
             .then(json_response => callback(json_response))
+    },
+
+    _api_patch: function (url, data, callback) {
+        fetch(url, {
+            method: 'PATCH',
+            credentials: 'same-origin',
+            body: JSON.stringify(data),
+            cache: "no-cache",
+            headers: new Headers({
+                "content-type": "application/json",
+            })
+        })
+            .then(response => callback(response));
+    },
+
+    postDataGetResponse: (url, data, callback) => {
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'accept': 'application/json'
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(response => callback(response))
     },
 
     _api_put: function (url, data, callback) {
@@ -57,9 +84,46 @@ export const dataHandler = {
         });
     },
 
-    sendProductToCart: function (productDetails, callback) {
-        this._api_post("api/cart", productDetails, response => {
+    increaseAmountOfProductInCart: function (productDetails, cartId) {
+        this._api_patch(`api/carts/${cartId}?action=add`, productDetails, response => {
             this._data['product-details'] = response;
+        });
+    },
+
+    updateAmountOfProductInCart: function (productDetails, cartId) {
+        this._api_patch(`api/carts/${cartId}?action=update`, productDetails, response => {
+            this._data['product-details'] = response;
+        });
+    },
+
+    getCart: function (cartId, callback) {
+        this._api_get("api/carts/" + cartId, response => {
+            this._data['cart-details'] = response;
+            callback(response);
+        })
+    },
+
+    postCart: function (cartDetails, callback) {
+        this._api_post("api/carts", response => {
+            this._data['cart-details'] = response;
+            callback(response);
+        })
+    },
+
+    getAddress: function (id, callback) {
+        dataHandler._api_get("api/addresses/" + id, response => {
+            this._data['address-details'] = response;
+            callback(response);
+        })
+    },
+
+    updateAddress: (newAddress, addressId, callback) => {
+        dataHandler._api_put("api/addresses/" + addressId, newAddress, response => {})
+    },
+
+    postOrder: function (orderDetails, callback) {
+        dataHandler.postDataGetResponse("api/orders", orderDetails, response => {
+            this._data['order-details'] = response;
             callback(response);
         });
     },

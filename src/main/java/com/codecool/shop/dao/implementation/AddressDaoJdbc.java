@@ -20,7 +20,7 @@ public class AddressDaoJdbc implements ModifyDao<Address> {
      * @param address - address instance with defined all fields without id
      */
     @Override
-    public void add(Address address) {
+    public int add(Address address) {
         try (Connection connection = dataSource.getConnection()) {
             String sqlQuery = "INSERT INTO address (country, city, zip_code, street, local_number) VALUES (?, ?, ?, ?, ?);";
             PreparedStatement statement = connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
@@ -33,6 +33,7 @@ public class AddressDaoJdbc implements ModifyDao<Address> {
             ResultSet result = statement.getGeneratedKeys();
             result.next();
             address.setId(result.getInt(1));
+            return result.getInt(1);
         } catch (SQLException error) {
             throw new RuntimeException("Error while adding a new Address.", error);
         }
@@ -54,6 +55,7 @@ public class AddressDaoJdbc implements ModifyDao<Address> {
             statement.setString(4, address.getStreet());
             statement.setInt(5, address.getLocalNumber());
             statement.setInt(6, address.getId());
+            statement.executeUpdate();
         } catch (SQLException error) {
             throw new RuntimeException("Error while updating an Address.", error);
         }
@@ -70,6 +72,7 @@ public class AddressDaoJdbc implements ModifyDao<Address> {
             String sqlQuery = "DELETE FROM address WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
             statement.setInt(1, id);
+            statement.executeUpdate();
         } catch (SQLException error) {
             throw new RuntimeException("Error while removing an Address.", error);
         }

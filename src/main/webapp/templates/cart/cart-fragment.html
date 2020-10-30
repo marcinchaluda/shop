@@ -3,23 +3,23 @@
         <h1>Billing Address</h1>
         <div class="flex-row">
             <label for="country">Country</label>
-            <input type="text" id="country" class="country">
+            <input type="text" id="country" class="country" pattern="[A-Za-z]{3,}" required>
         </div>
         <div class="flex-row">
             <label for="city">City</label>
-            <input type="text" id="city" class="city">
+            <input type="text" id="city" class="city" pattern="[A-Za-z]{3,}" required>
         </div>
         <div class="flex-row">
             <label for="zip-code">Zip Code</label>
-            <input type="text" id="zip-code" class="zip-code">
+            <input type="text" id="zip-code" class="zip-code" pattern="[0-9]{2}-[0-9]{3}" required>
         </div>
         <div class="flex-row">
             <label for="street">Street</label>
-            <input type="text" id="street" class="street">
+            <input type="text" id="street" class="street" pattern="[A-Za-z]{3,}" required>
         </div>
         <div class="flex-row">
             <label for="local">Local</label>
-            <input type="text" id="local" class="local">
+            <input type="text" id="local" class="local" pattern="[0-9]{1,}" min="1" max="10" required>
         </div>
     </div>
 </div>
@@ -29,23 +29,23 @@
         <h1>Shipping Address</h1>
         <div class="flex-row">
             <label for="ship-country">Country</label>
-            <input type="text" id="ship-country" class="ship-country">
+            <input type="text" id="ship-country" class="ship-country" pattern="[A-Za-z]{3,}" required>
         </div>
         <div class="flex-row">
             <label for="ship-city">City</label>
-            <input type="text" id="ship-city" class="ship-city">
+            <input type="text" id="ship-city" class="ship-city" pattern="[A-Za-z]{3,}" required>
         </div>
         <div class="flex-row">
             <label for="ship-zip-code">Zip Code</label>
-            <input type="text" id="ship-zip-code" class="ship-zip-code">
+            <input type="text" id="ship-zip-code" class="ship-zip-code" pattern="[0-9]{2}-[0-9]{3}" required>
         </div>
         <div class="flex-row">
             <label for="ship-street">Street</label>
-            <input type="text" id="ship-street" class="ship-street">
+            <input type="text" id="ship-street" class="ship-street" pattern="[A-Za-z]{3,}" required>
         </div>
         <div class="flex-row">
             <label for="ship-local">Local</label>
-            <input type="text" id="ship-local" class="ship-local">
+            <input type="text" id="ship-local" class="ship-local" pattern="[0-9]{1,}" min="1" max="10" required>
         </div>
     </div>
 </div>

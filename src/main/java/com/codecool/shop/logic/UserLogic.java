@@ -17,12 +17,13 @@ public class UserLogic implements BusinessLogic<User> {
     }
 
     @Override
-    public void addElement(User user) {
-        userDao.add(user);
+    public int addElement(User user) {
+        return userDao.add(user);
     }
 
     @Override
-    public void updateElement(User user) {
+    public void updateElement(User user, int id) {
+        user.setId(id);
         userDao.update(user);
     }
 

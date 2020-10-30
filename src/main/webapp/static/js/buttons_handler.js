@@ -4,6 +4,7 @@ import {cartGenerator} from "./cart_layout_generator.js";
 import {products, category, categoryBtnDescription, suppliers} from "./enumerators.js";
 import {productsNavBar} from "./product_nav_bar.js";
 import {suppliersNavBar} from "./supplier_nav_bar.js";
+import {util} from "./util.js";
 
 const tabletsBtn = document.querySelector(".tablets");
 const sortOptionBtn = document.getElementById("toggle-sort-option");
@@ -19,18 +20,23 @@ export const buttonHandler = {
         productsNavBar.activateAllProductButtons();
         suppliersNavBar.activateAllSuppliersButtons();
         this.toggleNavMenuBySortOption();
+        showTotalPriceAndQuantity(1);
     },
 
-    addProductToCart: function (productId, cartId, userId, quantity) {
+    addProductToCart: function (cartId, productId, quantity) {
         const data = {
             productId: productId,
-            cartId: cartId,
-            userId: userId,
             quantity: quantity
         }
-        dataHandler.sendProductToCart(data, function (response) {
-            cartGenerator.createProductInfo(response);
-        });
+        dataHandler.increaseAmountOfProductInCart(data, cartId);
+    },
+
+    updateProductInCart: function (cartId, productId, quantity) {
+        const data = {
+            productId: productId,
+            quantity: quantity
+        }
+        dataHandler.updateAmountOfProductInCart(data, cartId);
     },
 
     showProducts: function (category, sortOption) {
@@ -53,7 +59,7 @@ export const buttonHandler = {
     },
 
     displayProducts: function(category, product, currentBtn) {
-        layoutGenerator.removeContent(content);
+        util.removeContent(content);
         buttonHandler.markButtonAsCurrent(currentBtn);
         buttonHandler.showProducts(category, product);
     },
@@ -87,7 +93,7 @@ function showSelectedOptionNavBar(option) {
 }
 
 function displayDefaultProducts(category, sortOption) {
-    layoutGenerator.removeContent(content);
+    util.removeContent(content);
     buttonHandler.showProducts(category, sortOption);
 }
 
@@ -101,4 +107,17 @@ function setInitStyles() {
     tabletsBtn.style.color = "#0B2D59";
     ulProducts.style.display = "flex";
     ulSupplies.style.display = "none";
+}
+
+const showTotalPriceAndQuantity = cartId => {
+    dataHandler.getCart(cartId, updateTotalPriceAndQuantity);
+}
+
+const updateTotalPriceAndQuantity = data => {
+    let quantity = 0;
+    let totalPrice = 0;
+    const currency = data.products[0].product.currency;
+    data.products.forEach(product => quantity += product.quantity);
+    data.products.forEach(product => totalPrice += product.product.unitPrice * product.quantity);
+    document.querySelector("#total-price-and-quantity").innerHTML = `(` + quantity + ` items) (` + totalPrice + " " + currency + `)`;
 }

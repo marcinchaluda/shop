@@ -31,7 +31,7 @@ public class ProductDaoJdbc implements GetAllDao<Product>, SortDao {
      * @param product - product instance with defined all fields without id
      */
     @Override
-    public void add(Product product) {
+    public int add(Product product) {
         try (Connection connection = dataSource.getConnection()) {
             String sqlQuery = "INSERT INTO product VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
@@ -40,6 +40,7 @@ public class ProductDaoJdbc implements GetAllDao<Product>, SortDao {
             ResultSet result = statement.getGeneratedKeys();
             result.next();
             product.setId(result.getInt(1));
+            return result.getInt(1);
         } catch (SQLException throwable) {
             throw new RuntimeException("Error while adding new Product.", throwable);
         }

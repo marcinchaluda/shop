@@ -135,10 +135,26 @@ SELECT pg_catalog.setval('supplier_id_seq', 3, true);
 
 INSERT INTO product_category VALUES (DEFAULT, 'Tablet');
 INSERT INTO product_category VALUES (DEFAULT, 'Phone');
-INSERT INTO product_category VALUES (DEFAULT, 'PC');
-INSERT INTO product_category VALUES (DEFAULT, 'Laptop');
-SELECT pg_catalog.setval('product_category_id_seq', 2, true);
+INSERT INTO product_category VALUES (DEFAULT, 'Notebook');
+INSERT INTO product_category VALUES (DEFAULT, 'Web-device');
+SELECT pg_catalog.setval('product_category_id_seq', 4, true);
 
-INSERT INTO product VALUES (DEFAULT, 'x100', 'moj opis', '50.0', 'EURO', 2, 2, '');
-INSERT INTO product VALUES (DEFAULT, 'abc', 'moj opis 2', '10.0', 'EURO', 1, 1, '');
-SELECT pg_catalog.setval('product_id_seq', 2, true);
+INSERT INTO product VALUES (DEFAULT, 'IPhone 11', 'IPhone 11 description', '100', 'EURO', 2, 3, 'https://media-play.pl/ecommerce/medias/productimages/47708/TE-AP-1164G-PL1-GN/square.png');
+INSERT INTO product VALUES (DEFAULT, 'Mac Book Air', 'Mac Book Air description', '200', 'EURO', 3, 3, 'https://image.ceneostatic.pl/data/products/52404834/i-apple-macbook-air-13-3-i5-8gb-128gb-macos-srebrny-mqd32zea.jpg');
+INSERT INTO product VALUES (DEFAULT, 'IdeaPad3', 'IdeaPad3 description', '130', 'EURO', 3, 2, 'https://image.ceneostatic.pl/data/products/95943535/i-lenovo-ideapad-3-15ada05-15-6-ryzen5-8gb-256gb-noos-81w100b8pb.jpg');
+INSERT INTO product VALUES (DEFAULT, 'Lenovo K5', 'Lenovo K5 description', '10.0', 'EURO', 2, 2, 'https://lenovozone.pl/produkty/wp-content/uploads/2016/05/lenovo-smartphone-vibe-k5-hero-450x320.png');
+INSERT INTO product VALUES (DEFAULT, 'Kindle', 'Kindle description', '80', 'EURO', 4, 1, 'https://5.imimg.com/data5/RK/FL/MY-33422787/kindle-e-book-reader-500x500.jpg');
+INSERT INTO product VALUES (DEFAULT, 'Lenovo Yoga', 'Lenovo Yoga description', '140', 'EURO', 4, 2, 'https://i0.wp.com/cdnssl.ubergizmo.com/wp-content/uploads/2018/12/Lenovo-Yoga-Book-C930-29.jpg');
+INSERT INTO product VALUES (DEFAULT, 'Lenovo Tab', 'Lenovo Tab description', '35', 'EURO', 1, 2, 'https://image.ceneostatic.pl/data/products/91492431/i-lenovo-tab-m8-tb-8505f-8-2-32gb-lte-szary-za5h0062pl.jpg');
+INSERT INTO product VALUES (DEFAULT, 'IPhone 8', 'IPhone 8 description', '11', 'EURO', 2, 3, 'https://image.ceneostatic.pl/data/products/55424279/i-apple-iphone-8-64gb-srebrny.jpg');
+SELECT pg_catalog.setval('product_id_seq', 8, true);
+
+INSERT INTO cart VALUES (DEFAULT, 1);
+SELECT pg_catalog.setval('cart_id_seq', 1, true);
+
+INSERT INTO cart_content VALUES (DEFAULT, 1, 1, 3);
+INSERT INTO cart_content VALUES (DEFAULT, 2, 1, 2);
+SELECT pg_catalog.setval('cart_content_id_seq', 3, true);
+
+INSERT INTO user_order VALUES (DEFAULT, 1, false);
+SELECT pg_catalog.setval('user_order_id_seq', 1, true);

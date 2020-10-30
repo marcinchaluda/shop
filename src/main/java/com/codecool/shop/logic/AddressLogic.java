@@ -17,12 +17,13 @@ public class AddressLogic implements BusinessLogic<Address> {
     }
 
     @Override
-    public void addElement(Address address) {
-        addressDao.add(address);
+    public int addElement(Address address) {
+        return addressDao.add(address);
     }
 
     @Override
-    public void updateElement(Address address) {
+    public void updateElement(Address address, int id) {
+        address.setId(id);
         addressDao.update(address);
     }
 

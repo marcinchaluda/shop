@@ -2,7 +2,9 @@ package com.codecool.shop.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Cart extends BaseModel {
@@ -10,8 +12,10 @@ public class Cart extends BaseModel {
     @SerializedName(value="user")
     private User user;
 
+    transient private Map<Product, Integer> productList = new HashMap<>();
+
     @SerializedName(value="products")
-    private Map<Product, Integer> productList = new HashMap<>();
+    List<ProductInCart> products = new ArrayList<>();
 
     public Cart(User user) {
         this.user = user;
@@ -31,6 +35,17 @@ public class Cart extends BaseModel {
 
     public void setProductList(Map<Product, Integer> productList) {
         this.productList = productList;
+        for (Map.Entry<Product, Integer> entry : productList.entrySet()) {
+            products.add(new ProductInCart(entry.getKey().getName(), entry.getKey(), entry.getValue()));
+        }
+    }
+
+    public List<ProductInCart> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<ProductInCart> products) {
+        this.products = products;
     }
 
     @Override

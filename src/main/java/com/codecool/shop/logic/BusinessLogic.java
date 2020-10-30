@@ -1,8 +1,8 @@
 package com.codecool.shop.logic;
 
 public interface BusinessLogic<T> {
-    void addElement(T element);
-    void updateElement(T element);
+    int addElement(T element);
+    void updateElement(T element, int id);
     void removeElement(T element);
     T getElement(int id);
 }

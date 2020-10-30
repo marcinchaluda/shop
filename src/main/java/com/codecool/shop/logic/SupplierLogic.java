@@ -19,12 +19,13 @@ public class SupplierLogic implements GetAllLogic<Supplier> {
     }
 
     @Override
-    public void addElement(Supplier supplier) {
-        supplierDao.add(supplier);
+    public int addElement(Supplier supplier) {
+        return supplierDao.add(supplier);
     }
 
     @Override
-    public void updateElement(Supplier supplier) {
+    public void updateElement(Supplier supplier, int id) {
+        supplier.setId(id);
         supplierDao.update(supplier);
     }
 
