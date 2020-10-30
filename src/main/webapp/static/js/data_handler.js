@@ -59,9 +59,8 @@ export const dataHandler = {
                 "content-type": "application/json",
                 'accept': 'application/json'
             })
-        }).then(response => response.json())
-            .then(response => callback(response))
-            .catch(error => console.error(`Error ${error}`));
+        })
+            .then(response => callback(response));
     },
 
     getAllProducts: function (callback) {
@@ -72,14 +71,14 @@ export const dataHandler = {
     },
 
     getProducts: function (category, sortOption, callback) {
-        this._api_get("api/products?sort=" + category + "&by=" + sortOption, response => {
+        this._api_get(`api/products?sort=${category}&by=${sortOption}`, response => {
             this._data['products'] = response;
             callback(response)
         });
     },
 
     getProduct: function (productId, callback) {
-        this._api_get("api/products/" + productId, response => {
+        this._api_get(`api/products/${productId}`, response => {
             this._data['product'] = response;
             callback(response)
         });
@@ -126,6 +125,19 @@ export const dataHandler = {
         dataHandler.postDataGetResponse("api/orders", orderDetails, response => {
             this._data['order-details'] = response;
             callback(response);
+        });
+    },
+
+    getOrder: function (orderId, callback) {
+        this._api_get(`api/orders/${orderId}`, response => {
+            this._data['order'] = response;
+            callback(response);
         })
-    }
+    },
+
+    updateOrder: function (orderId, orderDetails) {
+        this._api_put(`api/orders/${orderId}`, orderDetails, response => {
+            this._data['order-details'] = response;
+        });
+    },
 }

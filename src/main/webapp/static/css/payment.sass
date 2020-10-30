@@ -1,0 +1,117 @@
+$basicBlack: #0D0D0D
+$color: #032340
+$darkSkyColor: #0B2D59
+$lightGrey: #C6C5D9
+$silver: #EAE9F2
+
+%remove-decoration
+  text-decoration: none
+  text-transform: uppercase
+
+%padding-1em
+  padding: 1em
+
+%border
+  border: 2px solid $lightGrey
+
+%set-basic-width
+  width: 50vw
+  margin: 1em auto
+
+*
+  margin: 0
+  padding: 0
+
+body
+  background-position: center top
+  background-color: $silver
+
+.flex-row
+  display: flex
+  justify-content: space-between
+  flex-wrap: wrap
+
+.flex-col
+  display: flex
+  flex-direction: column
+  justify-content: space-around
+  height: 100%
+
+.pay-button, .login-button
+  @extend %remove-decoration
+  width: 100%
+  padding: 0.5em 2em
+  text-transform: uppercase
+  text-align: center
+  font-size: 1.2em
+  background-color: $darkSkyColor
+  color: $silver
+  border: 2px solid $darkSkyColor
+
+.button:hover
+  cursor: pointer
+  color: $darkSkyColor
+  background-color: $lightGrey
+
+.container
+  margin: 10vh auto
+  width: 40vw
+  text-align: center
+  border: 2px solid $darkSkyColor
+  border-radius: 20px
+  overflow: hidden
+
+.header
+  padding: 1em 0
+  text-transform: uppercase
+  background-color: $darkSkyColor
+  color: $silver
+
+.content
+  padding-top: 1em
+  list-style: none
+
+.content li
+  width: 90%
+  @extend %border
+  margin: 0.5em auto
+
+.content li h3
+  color: $darkSkyColor
+  text-transform: uppercase
+
+.content li form a
+  @extend %remove-decoration
+  background-color: $lightGrey
+  padding: 0.5em 0
+
+.content li form a:hover
+  background-color: $darkSkyColor
+
+.content li form a:hover h3
+  color: $silver
+
+.content input
+  margin-right: 5vw
+
+.content label
+  margin-left: 5vw
+  color: $darkSkyColor
+  text-transform: uppercase
+
+.personal-info div
+  padding: 1em 0
+
+.personal-info
+  display: none
+
+.status-message
+  margin: 1em auto 0 auto
+  padding: 0.5em 0
+  width: 60vw
+  text-align: center
+  text-transform: uppercase
+  font-size: 1.5em
+
+.input-btn
+  margin: 0 auto
