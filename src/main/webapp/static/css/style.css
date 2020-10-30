@@ -15,20 +15,18 @@ body {
   color: #032340; }
 
 .footer-body {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 100vw;
+  margin-top: 5em;
   border-top: 1px solid #0D0D0D;
   padding: 1em 3em;
-  overflow: hidden;
-  text-align: right; }
+  text-align: right;
+  background-color: #EAE9F2; }
 
 .nav-bar {
   background-color: #0B2D59;
   font-size: 1.2em;
   height: 7vh;
-  margin-bottom: 2em; }
+  margin-bottom: 2em;
+  overflow: hidden; }
 
 .nav-bar ul {
   margin: 0 auto;
@@ -61,7 +59,8 @@ body {
 
 .container {
   width: 90%;
-  margin: 0 auto; }
+  margin: 0 auto;
+  overflow: hidden; }
 
 .card strong {
   padding: 1em 2em;
