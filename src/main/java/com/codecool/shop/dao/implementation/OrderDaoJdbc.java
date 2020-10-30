@@ -47,7 +47,7 @@ public class OrderDaoJdbc implements ModifyDao<Order> {
         try (Connection conn = dataSource.getConnection()) {
             String sql = "UPDATE user_order SET cart_id = ?, paid = ? WHERE id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
-            st.setInt(1, order.getCart().getId());
+            st.setInt(1, order.getCart_id());
             st.setBoolean(2, order.isPaid());
             st.setInt(3, order.getId());
             st.executeUpdate();

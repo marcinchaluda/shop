@@ -20,3 +20,8 @@ export const suppliers = {
     lenovo: "Lenovo",
     apple: "Apple",
 }
+
+export const buttonDescription = {
+    pay: "PAY",
+    login: "LOGIN",
+}

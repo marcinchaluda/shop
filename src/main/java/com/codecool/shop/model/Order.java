@@ -10,6 +10,8 @@ public class Order extends BaseModel {
     @SerializedName(value="cart")
     private Cart cart;
 
+    private int cart_id;
+
     public Order(Cart cart) {
         this.cart = cart;
     }
@@ -30,11 +32,21 @@ public class Order extends BaseModel {
         this.cart = cart;
     }
 
+    public int getCart_id() {
+        return cart_id;
+    }
+
+    public void setCart_id(int cart_id) {
+        this.cart_id = cart_id;
+    }
+
     @Override
     public String toString() {
         return String.format("id: %1$d, " +
-                        "paid status: %2$b",
+                        "paid status: %2$b, " +
+                        "cart id: %3$d",
                 this.id,
-                this.paid);
+                this.paid,
+                this.cart_id);
     }
 }

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="Codecool" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title>Codecool Shop || Payment</title>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/static/css/payment.css" />
+    <script type="module" src='/static/js/payment_handler.js' defer></script>
+</head>
+<body>
+    <div class="status-message">
+        <p class="message"></p>
+    </div>
+    <div class="container flex-col">
+        <h1 class="header">Payment Methods</h1>
+        <ul class="content flex-col">
+            <div th:replace="payment/payment-fragments.html :: credit-card"></div>
+            <div th:replace="payment/payment-fragments.html :: paypal"></div>
+        </ul>
+    </div>
+</body>
+</html>

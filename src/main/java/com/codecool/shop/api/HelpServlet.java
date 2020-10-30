@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HelpServlet {
     public static <T> void sendRequestForAllElementsAndCheckSortAbility(HttpServletRequest request, HttpServletResponse response, BusinessLogic<T> logic) throws IOException, ServletException {
@@ -58,8 +59,10 @@ public class HelpServlet {
 
     private static <T> T createElementFromJson(HttpServletRequest request, HttpServletResponse response, Class<T> classType) throws IOException {
         String pathInfo = getPathInfoWhenUriContainsIdParameter(request, response);
-        getSplitUrlIfLengthIsEqual2(response, pathInfo);
-        String json = request.getParameter("jsondata");
+        if (pathInfo != null) {
+            getSplitUrlIfLengthIsEqual2(response, pathInfo);
+        }
+        String json = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         return new Gson().fromJson(json, classType);
     }
 

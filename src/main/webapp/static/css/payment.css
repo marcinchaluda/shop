@@ -1,0 +1,103 @@
+.pay-button, .login-button, .content li form a {
+  text-decoration: none;
+  text-transform: uppercase; }
+
+.content li {
+  border: 2px solid #C6C5D9; }
+
+* {
+  margin: 0;
+  padding: 0; }
+
+body {
+  background-position: center top;
+  background-color: #EAE9F2; }
+
+.flex-row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; }
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%; }
+
+.pay-button, .login-button {
+  width: 100%;
+  padding: 0.5em 2em;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 1.2em;
+  background-color: #0B2D59;
+  color: #EAE9F2;
+  border: 2px solid #0B2D59; }
+
+.button:hover {
+  cursor: pointer;
+  color: #0B2D59;
+  background-color: #C6C5D9; }
+
+.container {
+  margin: 10vh auto;
+  width: 40vw;
+  text-align: center;
+  border: 2px solid #0B2D59;
+  border-radius: 20px;
+  overflow: hidden; }
+
+.header {
+  padding: 1em 0;
+  text-transform: uppercase;
+  background-color: #0B2D59;
+  color: #EAE9F2; }
+
+.content {
+  padding-top: 1em;
+  list-style: none; }
+
+.content li {
+  width: 90%;
+  margin: 0.5em auto; }
+
+.content li h3 {
+  color: #0B2D59;
+  text-transform: uppercase; }
+
+.content li form a {
+  background-color: #C6C5D9;
+  padding: 0.5em 0; }
+
+.content li form a:hover {
+  background-color: #0B2D59; }
+
+.content li form a:hover h3 {
+  color: #EAE9F2; }
+
+.content input {
+  margin-right: 5vw; }
+
+.content label {
+  margin-left: 5vw;
+  color: #0B2D59;
+  text-transform: uppercase; }
+
+.personal-info div {
+  padding: 1em 0; }
+
+.personal-info {
+  display: none; }
+
+.status-message {
+  margin: 1em auto 0 auto;
+  padding: 0.5em 0;
+  width: 60vw;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 1.5em; }
+
+.input-btn {
+  margin: 0 auto; }
+
+/*# sourceMappingURL=payment.css.map */
