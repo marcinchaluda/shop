@@ -23,16 +23,16 @@ public class OrderLogic implements BusinessLogic<Order> {
     @Override
     public int addElement(Order order) {
         int orderId = orderDao.add(order);
-        try {
-            String userEmail = order.getCart().getUser().getEmail();
-            String emailSubject = "Order successfully created.";
-            String emailBody = "Your order " + order.getId() + " waiting for payment!";
-            sender.sendEmail(userEmail, emailSubject, emailBody);
-        } catch (MessagingException e) {
-            throw new RuntimeException("Can't connect with email service", e);
-        } catch (IOException e) {
-            throw new RuntimeException("Connection file not found.", e);
-        }
+//        try {
+//            String userEmail = order.getCart().getUser().getEmail();
+//            String emailSubject = "Order successfully created.";
+//            String emailBody = "Your order " + order.getId() + " waiting for payment!";
+//            sender.sendEmail(userEmail, emailSubject, emailBody);
+//        } catch (MessagingException e) {
+//            throw new RuntimeException("Can't connect with email service", e);
+//        } catch (IOException e) {
+//            throw new RuntimeException("Connection file not found.", e);
+//        }
         return orderId;
     }
 
