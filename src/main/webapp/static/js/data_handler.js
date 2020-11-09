@@ -109,15 +109,14 @@ export const dataHandler = {
         });
     },
 
-    getCart: function (cartId, callback) {
-        this._api_get("api/carts/" + cartId, response => {
-            this._data['cart-details'] = response;
-            callback(response);
-        })
+    removeAllProductsFromCart: function (cartDetails) {
+        this._api_put(`api/carts/${cartDetails.id}`, cartDetails, response => {
+            this._data['product-details'] = response;
+        });
     },
 
-    postCart: function (cartDetails, callback) {
-        this._api_post("api/carts", response => {
+    getCart: function (cartId, callback) {
+        this._api_get("api/carts/" + cartId, response => {
             this._data['cart-details'] = response;
             callback(response);
         })
