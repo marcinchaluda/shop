@@ -39,12 +39,16 @@ export const layoutGenerator = {
 }
 
 function handleAddToCartButton() {
-    const addToCartButtons = document.querySelectorAll(".btn");
-    addToCartButtons.forEach(button => {
+    const addToCartButtons = document.querySelectorAll(".card");
+    console.log(addToCartButtons)
+    addToCartButtons.forEach(card => {
+        const productId = card.querySelector(`.card-details`).id
+        const button = card.querySelector(".btn");
         button.addEventListener("click", function () {
-            const productId = document.querySelector(".card-details").id
-            const input = document.querySelector(`div[id='${productId}'] input`);
+            const input = card.querySelector(`input`);
             const quantity = parseInt(input.getAttribute("value"));
+            console.log(productId)
+            console.log(quantity)
 
             buttonHandler.addProductToCart(1, productId, quantity) //TODO hardcode cartID
         })
@@ -97,11 +101,10 @@ function createButtonElement() {
     const cardButton = util.createElementWithClasses("div", "card-button");
     const button = util.createElementWithClasses("a", "btn");
     button.href = "#";
-    // const buttonIcon = util.createElementWithClasses("i", "fas", "fa-shopping-cart");
-    button.innerHTML = "<i class=\"fas fa-shopping-cart\"></i>";
-    // button.appendChild(buttonIcon);
+    button.innerHTML = "<i class=\"fas fa-shopping-cart\"></i>";;
     button.textContent += "Add to cart";
     cardButton.appendChild(button);
+
     return cardButton;
 }
 
