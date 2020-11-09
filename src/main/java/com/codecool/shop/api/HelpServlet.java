@@ -6,6 +6,7 @@ import com.codecool.shop.logic.GetAllLogic;
 import com.codecool.shop.logic.Sortable;
 import com.codecool.shop.model.ProductInCart;
 import com.google.gson.Gson;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -160,5 +161,9 @@ public class HelpServlet {
             return null;
         }
         return pathInfo;
+    }
+
+    public static String decryptPassword(String password) {
+        return BCrypt.hashpw(password, BCrypt.gensalt(12));
     }
 }
