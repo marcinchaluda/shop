@@ -2,7 +2,6 @@ package com.codecool.shop.dao;
 
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.*;
-import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -49,8 +48,13 @@ public class ShopDatabaseManager {
      * Start method that establish connection with database and set up all DAO's instances
      */
     private void setup() throws SQLException {
-        DataSource dataSource = connect();
-        setUpAllDAOs(dataSource);
+        DataSource dataSource = DataSourceFactory.getPostgreSQLShopDataSource();
+        if (dataSource != null) {
+            connect(dataSource);
+            setUpAllDAOs(dataSource);
+        } else {
+            throw new SQLException("Can't connect to database!");
+        }
     }
 
     /**
@@ -69,21 +73,10 @@ public class ShopDatabaseManager {
     /**
      * Return DataSource instance based on environment variables
      */
-    private DataSource connect() throws SQLException {
-        PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        String dbName = System.getenv("PSQL_DB_NAME");
-        String user = System.getenv("PSQL_USER_NAME");
-        String password = System.getenv("PSQL_PASSWORD");
-
-        dataSource.setDatabaseName(dbName);
-        dataSource.setUser(user);
-        dataSource.setPassword(password);
-
+    private void connect(DataSource dataSource) throws SQLException {
         System.out.println("Trying to connect");
         dataSource.getConnection().close();
         System.out.println("Connection ok.");
-
-        return dataSource;
     }
 
     public GetAllDao<Category> getCategoryDao() {

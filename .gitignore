@@ -20,3 +20,5 @@ target/
 hs_err_pid*
 
 .fuse_hidden*
+
+src/main/resources/connection.properties
