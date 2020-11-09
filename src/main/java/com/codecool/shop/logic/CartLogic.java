@@ -40,6 +40,10 @@ public class CartLogic implements BusinessLogic<Cart> {
     }
 
     public void updateProductInCart(ProductInCart productInCart, int cartId, String action) {
-        cartDao.updateProductInCart(productInCart, cartId, action);
+        if (productInCart.getQuantity() == 0) {
+            cartDao.removeProductFromCart(productInCart, cartId);
+        } else {
+            cartDao.updateProductInCart(productInCart, cartId, action);
+        }
     }
 }

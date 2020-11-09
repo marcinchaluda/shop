@@ -38,6 +38,19 @@ export const dataHandler = {
             .then(response => callback(response));
     },
 
+    _api_delete: function (url, data, callback) {
+        fetch(url, {
+            method: 'DELETE',
+            credentials: 'same-origin',
+            body: JSON.stringify(data),
+            cache: "no-cache",
+            headers: new Headers({
+                "content-type": "application/json",
+            })
+        })
+            .then(response => callback(response));
+    },
+
     postDataGetResponse: (url, data, callback) => {
         fetch(url, {
             method: 'POST',
