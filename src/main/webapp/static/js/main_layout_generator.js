@@ -40,15 +40,12 @@ export const layoutGenerator = {
 
 function handleAddToCartButton() {
     const addToCartButtons = document.querySelectorAll(".card");
-    console.log(addToCartButtons)
     addToCartButtons.forEach(card => {
         const productId = card.querySelector(`.card-details`).id
         const button = card.querySelector(".btn");
         button.addEventListener("click", function () {
             const input = card.querySelector(`input`);
             const quantity = parseInt(input.getAttribute("value"));
-            console.log(productId)
-            console.log(quantity)
 
             buttonHandler.addProductToCart(1, productId, quantity) //TODO hardcode cartID
         })
