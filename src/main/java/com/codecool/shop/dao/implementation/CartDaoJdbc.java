@@ -117,7 +117,9 @@ public class CartDaoJdbc implements ModifyDao<Cart> {
     @Override
     public void update(Cart cart) {
         cartContentJdbc.remove(cart.getId());
-        cartContentJdbc.add(cart.getProductList(), cart.getId());
+        if (cart.getProductList() != null) {
+            cartContentJdbc.add(cart.getProductList(), cart.getId());
+        }
     }
 
     /**
