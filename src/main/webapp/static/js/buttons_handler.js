@@ -39,6 +39,14 @@ export const buttonHandler = {
         dataHandler.updateAmountOfProductInCart(data, cartId);
     },
 
+    removeProductFromCart: function (cartId, productId) {
+        const data = {
+            productId: productId,
+            quantity: 0
+        }
+        dataHandler.updateAmountOfProductInCart(data, cartId);
+    },
+
     showProducts: function (category, sortOption) {
         dataHandler.getProducts(category, sortOption, function (products) {
             layoutGenerator.createProductCards(products);
@@ -116,8 +124,12 @@ const showTotalPriceAndQuantity = cartId => {
 const updateTotalPriceAndQuantity = data => {
     let quantity = 0;
     let totalPrice = 0;
-    const currency = data.products[0].product.currency;
-    data.products.forEach(product => quantity += product.quantity);
-    data.products.forEach(product => totalPrice += product.product.unitPrice * product.quantity);
+    let currency = "EURO";
+    if (data.products[0] != null) {
+        currency = data.products[0].product.currency;
+        data.products.forEach(product => quantity += product.quantity);
+        data.products.forEach(product => totalPrice += product.product.unitPrice * product.quantity);
+    }
+
     document.querySelector("#total-price-and-quantity").innerHTML = `(` + quantity + ` items) (` + totalPrice + " " + currency + `)`;
 }

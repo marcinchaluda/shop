@@ -199,4 +199,16 @@ public class CartDaoJdbc implements ModifyDao<Cart> {
             throw new RuntimeException("Error while updating a Product.", e);
         }
     }
+
+    public void removeProductFromCart(ProductInCart productInCart, int cartId) {
+        try (Connection connection = dataSource.getConnection()) {
+            String sqlQuery = "DELETE FROM cart_content WHERE product_id = ? AND cart_id = ?;";
+            PreparedStatement deleteStatement = connection.prepareStatement(sqlQuery);
+            deleteStatement.setInt(1, productInCart.getProductId());
+            deleteStatement.setInt(2, cartId);
+            deleteStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while removing a Product from cart.", e);
+        }
+    }
 }

@@ -60,7 +60,8 @@ CREATE TABLE "user_account"
  "id"               serial PRIMARY KEY,
  "full_name"        text NOT NULL,
  "email"            text NOT NULL,
- "phone_number"     text NOT NULL,
+ "password"         text NOT NULL,
+ "phone_number"     text,
  "billing_address"  integer NOT NULL,
  "shipping_address" integer NOT NULL,
  CONSTRAINT "FK_47" FOREIGN KEY ( "billing_address" ) REFERENCES "address" ( "id" ),
@@ -122,10 +123,11 @@ CREATE INDEX "fkIdx_62" ON "user_order"
  "cart_id"
 );
 
+INSERT INTO address VALUES (DEFAULT, '', '', '00-000', '', 0);
 INSERT INTO address VALUES (DEFAULT, 'Poland', 'Cracov', '31-476', 'Grodzka', 1);
-SELECT pg_catalog.setval('address_id_seq', 1, true);
+SELECT pg_catalog.setval('address_id_seq', 2, true);
 
-INSERT INTO user_account VALUES (DEFAULT, 'Bob', 'soriusz15@gmail.com', '111221222', 1, 1);
+INSERT INTO user_account VALUES (DEFAULT, 'Bob', 'soriusz15@gmail.com', '123', '111221222', 1, 1);
 SELECT pg_catalog.setval('user_account_id_seq', 1, true);
 
 INSERT INTO supplier VALUES (DEFAULT, 'Amazon', 'Description of the Amazon', 'America');

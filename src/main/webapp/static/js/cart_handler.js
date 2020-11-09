@@ -35,7 +35,11 @@ const createListOfItems = data => {
         addItemToDisplay(dataToInsert);
     }
     usernameTitleContainer.textContent = data.user.name + "'s cart";
-    addTotalPriceContainer(totalPrice + " " + data.products[0].product.currency); //TODO currency disappear
+    let currency = "EURO";
+    if (data.products[0] != null) {
+        currency = data.products[0].product.currency;
+    }
+    addTotalPriceContainer(totalPrice + " " + currency); //TODO currency disappear
 }
 
 const addItemToDisplay = dataToInsert => {
@@ -100,6 +104,7 @@ const addItemToDisplay = dataToInsert => {
     const removeIcon = util.createElementWithClasses("i", "fas", "fa-trash-alt");
     removeButton.appendChild(removeIcon);
     removeButton.innerText = "Remove Item";
+    removeButton.addEventListener("click", () => removeButtonEvent(dataToInsert, removeButton));
 
     cardDetails.appendChild(name);
     cardDetails.appendChild(quantityContainer);
@@ -107,6 +112,12 @@ const addItemToDisplay = dataToInsert => {
     cardDetails.appendChild(removeButton);
 
     itemsContainer.appendChild(cardDetails);
+}
+
+const removeButtonEvent = (dataToInsert, removeButton) => {
+    removeButton.parentElement.parentElement.removeChild(removeButton.parentElement);
+    updatePrices();
+    buttonHandler.removeProductFromCart(1, dataToInsert.product_id) //TODO hardcode cartID
 }
 
 const addTotalPriceContainer = totalPrice => {
@@ -141,7 +152,7 @@ function updatePrices() {
     })
 
     const totalPriceElement = document.querySelector(".total-price-value");
-    totalPriceElement.textContent = totalPrice.toString();
+    totalPriceElement.textContent = totalPrice.toString() + " EURO";
 }
 
 cartHandler.activate();
