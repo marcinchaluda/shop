@@ -1,6 +1,5 @@
 import {dataHandler} from "./data_handler.js";
 import {layoutGenerator} from "./main_layout_generator.js";
-import {cartGenerator} from "./cart_layout_generator.js";
 import {products, category, categoryBtnDescription, suppliers} from "./enumerators.js";
 import {productsNavBar} from "./product_nav_bar.js";
 import {suppliersNavBar} from "./supplier_nav_bar.js";
@@ -29,6 +28,7 @@ export const buttonHandler = {
             quantity: quantity
         }
         dataHandler.increaseAmountOfProductInCart(data, cartId);
+        showTotalPriceAndQuantity(cartId);
     },
 
     updateProductInCart: function (cartId, productId, quantity) {
