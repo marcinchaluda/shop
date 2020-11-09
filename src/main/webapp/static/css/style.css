@@ -1,3 +1,7 @@
+.user-panel a {
+  text-decoration: none;
+  text-transform: uppercase; }
+
 * {
   margin: 0;
   padding: 0; }
@@ -140,5 +144,18 @@ i {
 
 .sort-option {
   margin: auto; }
+
+.user-panel {
+  align-items: center;
+  line-height: 2em; }
+
+.user-panel a {
+  color: #0B2D59; }
+
+.user-panel a:hover {
+  border-bottom: 2px solid #0B2D59; }
+
+.sign-up-btn {
+  margin-left: 2em; }
 
 /*# sourceMappingURL=style.css.map */
