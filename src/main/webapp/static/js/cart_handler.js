@@ -108,7 +108,11 @@ const addItemToDisplay = dataToInsert => {
     const subCostCurrency = util.createElementWithClasses("span", "total-cost-currency");
     subCostCurrency.innerText = dataToInsert.currency;
 
+    const space = util.createElementWithClasses("span");
+    space.innerText = " ";
+
     subCost.appendChild(subCostValue);
+    subCost.appendChild(space);
     subCost.appendChild(subCostCurrency);
 
     const removeButton = util.createElementWithClasses("a", "remove-from-cart-button");
