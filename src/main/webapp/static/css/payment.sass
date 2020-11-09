@@ -37,7 +37,7 @@ body
   justify-content: space-around
   height: 100%
 
-.pay-button, .login-button
+.pay-button, .login-button, .register-button
   @extend %remove-decoration
   width: 100%
   padding: 0.5em 2em
@@ -47,6 +47,11 @@ body
   background-color: $darkSkyColor
   color: $silver
   border: 2px solid $darkSkyColor
+
+.login-button:hover, .pay-button:hover, .register-button:hover
+  cursor: pointer
+  color: $darkSkyColor
+  background-color: $lightGrey
 
 .button:hover
   cursor: pointer
@@ -61,7 +66,7 @@ body
   border-radius: 20px
   overflow: hidden
 
-.header
+.header, .user-header
   padding: 1em 0
   text-transform: uppercase
   background-color: $darkSkyColor
@@ -91,15 +96,15 @@ body
 .content li form a:hover h3
   color: $silver
 
-.content input
+.content input, .container input
   margin-right: 5vw
 
-.content label
+.content label, .container label
   margin-left: 5vw
   color: $darkSkyColor
   text-transform: uppercase
 
-.personal-info div
+.personal-info div, .user-info
   padding: 1em 0
 
 .personal-info
@@ -115,3 +120,14 @@ body
 
 .input-btn
   margin: 0 auto
+
+.login-redirect
+  margin: 0 auto 1em auto
+  width: 14vw
+  font-size: 0.8em
+
+i
+  padding-right: 1em
+
+.user-info div
+  padding: 0.7em

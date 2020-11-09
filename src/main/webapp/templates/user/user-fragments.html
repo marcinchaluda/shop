@@ -1,0 +1,23 @@
+<form  th:fragment="user-registration" class="registration" xmlns:th="http://www.w3.org/1999/xhtml" action="#">
+    <div class="user-info flex-col">
+        <div class="name flex-row">
+            <label for="user-name">Name</label>
+            <input id="user-name" placeholder="user name" class="user-name" type="text" size="16" required>
+        </div>
+        <div class="email flex-row">
+            <label for="email">card holder</label>
+            <input id="email" type="text" placeholder="email" class="user-email" size="16" required>
+        </div>
+        <div class="password flex-row">
+            <label for="password">card holder</label>
+            <input id="password" type="password" placeholder="password" class="user-password" min="6" size="16" required>
+        </div>
+        <div class="input-btn flex-col">
+            <input type="submit" class="register-button" value="Join">
+        </div>
+    </div>
+    <div class="login-redirect flex-row">
+        <p>Already Have An Account?</p>
+        <a href="/login">Sign In</a>
+    </div>
+</form>
