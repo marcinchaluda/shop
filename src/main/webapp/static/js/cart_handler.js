@@ -100,6 +100,7 @@ const addItemToDisplay = dataToInsert => {
     const removeIcon = util.createElementWithClasses("i", "fas", "fa-trash-alt");
     removeButton.appendChild(removeIcon);
     removeButton.innerText = "Remove Item";
+    removeButton.addEventListener("click", () => removeButtonEvent(dataToInsert, removeButton));
 
     cardDetails.appendChild(name);
     cardDetails.appendChild(quantityContainer);
@@ -107,6 +108,12 @@ const addItemToDisplay = dataToInsert => {
     cardDetails.appendChild(removeButton);
 
     itemsContainer.appendChild(cardDetails);
+}
+
+const removeButtonEvent = (dataToInsert, removeButton) => {
+    removeButton.parentElement.parentElement.removeChild(removeButton.parentElement);
+    updatePrices();
+    buttonHandler.removeProductFromCart(1, dataToInsert.product_id) //TODO hardcode cartID
 }
 
 const addTotalPriceContainer = totalPrice => {

@@ -39,6 +39,13 @@ export const buttonHandler = {
         dataHandler.updateAmountOfProductInCart(data, cartId);
     },
 
+    removeProductFromCart: function (cartId, productId) {
+        const data = {
+            productId: productId
+        }
+        dataHandler.removeProductFromCart(data, cartId);
+    },
+
     showProducts: function (category, sortOption) {
         dataHandler.getProducts(category, sortOption, function (products) {
             layoutGenerator.createProductCards(products);
