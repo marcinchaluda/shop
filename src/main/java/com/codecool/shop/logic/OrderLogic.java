@@ -4,8 +4,11 @@ import com.codecool.shop.dao.ModifyDao;
 import com.codecool.shop.dao.ShopDatabaseManager;
 import com.codecool.shop.model.Order;
 
+import javax.mail.MessagingException;
+
 public class OrderLogic implements BusinessLogic<Order> {
-    ModifyDao<Order> orderDao = ShopDatabaseManager.Instance.getOrderDao();
+    private ModifyDao<Order> orderDao = ShopDatabaseManager.Instance.getOrderDao();
+    private MailSender sender = MailSender.getInstance();
 
     private static OrderLogic instance = null;
 
@@ -18,7 +21,16 @@ public class OrderLogic implements BusinessLogic<Order> {
 
     @Override
     public int addElement(Order order) {
-        return orderDao.add(order);
+        int orderId = orderDao.add(order);
+        try {
+            String userEmail = order.getCart().getUser().getEmail();
+            String emailSubject = "Order successfully created.";
+            String emailBody = "Your order " + order.getId() + " waiting for payment!";
+            sender.sendEmail(userEmail, emailSubject, emailBody);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        return orderId;
     }
 
     @Override
