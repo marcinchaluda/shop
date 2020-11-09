@@ -158,7 +158,7 @@ public class CartDaoJdbc implements ModifyDao<Cart> {
                 return null;
             }
 
-            Cart cart = new Cart(userDao.get(rs.getInt(1)));
+            Cart cart = new Cart(userDao.get(rs.getInt("user_id")));
             cart.setId(id);
             cart.setProductList(cartContentJdbc.getAllProducts(id));
 
