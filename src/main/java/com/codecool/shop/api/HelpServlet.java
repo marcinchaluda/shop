@@ -84,7 +84,7 @@ public class HelpServlet {
     }
 
     private static <T> T createElementFromJson(HttpServletRequest request, HttpServletResponse response, Class<T> classType) throws IOException {
-        String pathInfo = getPathInfoWhenUriContainsIdParameter(request, response);
+        String pathInfo = getPathInfoWhenUriContainsIdParameter(request);
         if (pathInfo != null) {
             getSplitUrlIfLengthIsEqual2(response, pathInfo);
         }
@@ -154,10 +154,10 @@ public class HelpServlet {
         return null;
     }
 
-    private static String getPathInfoWhenUriContainsIdParameter(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private static String getPathInfoWhenUriContainsIdParameter(HttpServletRequest request){
         String pathInfo = request.getPathInfo();
         if (pathInfo == null || pathInfo.equals("/")) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return null;
         }
         return pathInfo;
     }
