@@ -5,6 +5,7 @@ import com.codecool.shop.dao.ShopDatabaseManager;
 import com.codecool.shop.model.Order;
 
 import javax.mail.MessagingException;
+import java.io.IOException;
 
 public class OrderLogic implements BusinessLogic<Order> {
     private ModifyDao<Order> orderDao = ShopDatabaseManager.Instance.getOrderDao();
@@ -28,7 +29,9 @@ public class OrderLogic implements BusinessLogic<Order> {
             String emailBody = "Your order " + order.getId() + " waiting for payment!";
             sender.sendEmail(userEmail, emailSubject, emailBody);
         } catch (MessagingException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Can't connect with email service", e);
+        } catch (IOException e) {
+            throw new RuntimeException("Connection file not found.", e);
         }
         return orderId;
     }

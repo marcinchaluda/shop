@@ -1,13 +1,23 @@
 package com.codecool.shop.logic;
 
+import com.codecool.shop.dao.DataSourceFactory;
+
 import javax.mail.*;
-import javax.mail.internet.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Properties;
 
 public class MailSender {
+    private static final Properties properties = new Properties();
+    private static final ClassLoader loader = DataSourceFactory.class.getClassLoader();
+    private static final File file = new File(loader.getResource("connection.properties").getFile());
+
     private static MailSender instance = null;
-    private final String username = "abc.codecool.shop@gmail.com";
-    private final String password = "1qaZ2wsX";
 
     public static MailSender getInstance() {
         if (instance == null) {
@@ -16,7 +26,12 @@ public class MailSender {
         return instance;
     }
 
-    public void sendEmail(String userEmail, String mailSubject, String mailBody) throws MessagingException {
+    public void sendEmail(String userEmail, String mailSubject, String mailBody) throws MessagingException, IOException {
+        properties.load(new FileInputStream(file));
+
+        String username = properties.getProperty("mail.username");
+        String password = properties.getProperty("mail.password");
+
         Properties prop = new Properties();
         prop.put("mail.smtp.auth", true);
         prop.put("mail.smtp.starttls.enable", "true");
