@@ -35,7 +35,11 @@ const createListOfItems = data => {
         addItemToDisplay(dataToInsert);
     }
     usernameTitleContainer.textContent = data.user.name + "'s cart";
-    addTotalPriceContainer(totalPrice + " " + data.products[0].product.currency); //TODO currency disappear
+    let currency = "EURO";
+    if (data.products[0] != null) {
+        currency = data.products[0].product.currency;
+    }
+    addTotalPriceContainer(totalPrice + " " + currency); //TODO currency disappear
 }
 
 const addItemToDisplay = dataToInsert => {
@@ -148,7 +152,7 @@ function updatePrices() {
     })
 
     const totalPriceElement = document.querySelector(".total-price-value");
-    totalPriceElement.textContent = totalPrice.toString();
+    totalPriceElement.textContent = totalPrice.toString() + " EURO";
 }
 
 cartHandler.activate();
