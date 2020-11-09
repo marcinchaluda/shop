@@ -4,6 +4,10 @@ $darkSkyColor: #0B2D59
 $lightGrey: #C6C5D9
 $silver: #EAE9F2
 
+%remove-decoration
+  text-decoration: none
+  text-transform: uppercase
+
 *
   margin: 0
   padding: 0
@@ -147,3 +151,17 @@ i
 
 .sort-option
   margin: auto
+
+.user-panel
+  align-items: center
+  line-height: 2em
+
+.user-panel a
+  @extend %remove-decoration
+  color: $darkSkyColor
+
+.user-panel a:hover
+  border-bottom: 2px solid $darkSkyColor
+
+.sign-up-btn
+  margin-left: 2em
