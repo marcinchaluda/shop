@@ -109,12 +109,6 @@ export const dataHandler = {
         });
     },
 
-    removeProductFromCart: function (productDetails, cartId) {
-        this._api_delete(`api/carts/${cartId}`, productDetails, response => {
-            this._data['product-details'] = response;
-        });
-    },
-
     getCart: function (cartId, callback) {
         this._api_get("api/carts/" + cartId, response => {
             this._data['cart-details'] = response;
