@@ -63,7 +63,6 @@ function updateOrder(order) {
         cart_id: order.cart.id,
         paid: true,
     }
-    console.log(jsonData);
     dataHandler.updateOrder(order.id, jsonData);
 }
 
