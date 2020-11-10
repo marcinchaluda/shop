@@ -7,7 +7,7 @@ export const dataHandler = {
             credentials:'same-origin'
         })
             .then(response => response.json())
-            .then(json_response => callback(json_response))
+            .then(response => callback(response))
     },
 
     _api_post: function (url, data, callback) {
@@ -109,6 +109,20 @@ export const dataHandler = {
         });
     },
 
+    getUser: function (userId, callback) {
+        this._api_get("../api/users/" + userId, response => {
+            this._data['user-details'] = response;
+            callback(response);
+        })
+    },
+
+    updateUser: function (user, userId, callback) {
+        this._api_put("../api/users/" + userId, user, response => {
+            this._data['user-details'] = response;
+            callback(response);
+        })
+    },
+
     getCart: function (cartId, callback) {
         this._api_get("api/carts/" + cartId, response => {
             this._data['cart-details'] = response;
@@ -130,8 +144,12 @@ export const dataHandler = {
         })
     },
 
+    addNewAddress: (newAddress, callback) => {
+        dataHandler._api_post("../api/addresses", response => {})
+    },
+
     updateAddress: (newAddress, addressId, callback) => {
-        dataHandler._api_put("api/addresses/" + addressId, newAddress, response => {})
+        dataHandler._api_put("../api/addresses/" + addressId, newAddress, response => {})
     },
 
     postOrder: function (orderDetails, callback) {
@@ -143,6 +161,7 @@ export const dataHandler = {
 
     getOrder: function (orderId, callback) {
         this._api_get(`api/orders/` + orderId, response => {
+            this._data['order-details'] = response;
             callback(response);
         })
     },
