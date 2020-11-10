@@ -90,8 +90,6 @@ public class CartDaoJdbc implements ModifyDao<Cart> {
      */
     @Override
     public int add(Cart cart) {
-        userDao.update(cart.getUser());
-
         try (Connection conn = dataSource.getConnection()) {
             String sql = "INSERT INTO cart VALUES (DEFAULT, ?)";
             PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);

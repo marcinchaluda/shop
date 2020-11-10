@@ -10,12 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/payment"})
+@WebServlet(urlPatterns = {"/payment/*"})
 public class PaymentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        WebContext context = new WebContext(request, response, request.getServletContext());
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
-        engine.process("payment/payment.html", context, response.getWriter());
+        String pathInfo = request.getPathInfo();
+        if (pathInfo == null || pathInfo.equals("/")) {
+            response.sendRedirect("/");
+        } else {
+            TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
+            WebContext context = new WebContext(request, response, request.getServletContext());
+            engine.process("payment/payment.html", context, response.getWriter());
+        }
     }
 }
