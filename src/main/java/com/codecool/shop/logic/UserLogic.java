@@ -11,7 +11,7 @@ import java.util.List;
 
 public class UserLogic implements BusinessLogic<User> {
     UserDaoJdbc userDao = ShopDatabaseManager.Instance.getUserDao();
-    private MailSender sender = MailSender.getInstance();
+    private final MailSender sender = MailSender.getInstance();
 
     private static UserLogic instance = null;
 
@@ -38,13 +38,11 @@ public class UserLogic implements BusinessLogic<User> {
     private void sendWelcomeEmail(User user) {
         String userEmail = user.getEmail();
         String emailSubject = "Welcome to Codecool shop.";
-        String emailBody = "You received this email due to successful registration to our shop. " +
-                "You are now able to login to you account. Happy shopping!";
+        String emailBody = "You received this email due to successful registration to our shop.\n" +
+                "You are now able to login to you account.\nHappy shopping!";
         try {
             sender.sendEmail(userEmail, emailSubject, emailBody);
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (MessagingException | IOException e) {
             e.printStackTrace();
         }
     }
