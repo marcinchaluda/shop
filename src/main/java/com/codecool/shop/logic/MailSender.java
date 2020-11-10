@@ -14,8 +14,7 @@ import java.util.Properties;
 
 public class MailSender {
     private static final Properties properties = new Properties();
-    private static final ClassLoader loader = DataSourceFactory.class.getClassLoader();
-    private static final File file = new File(loader.getResource("src/connection.properties").getFile());
+    private static final File file = new File("src/connection.properties");
 
     private static MailSender instance = null;
 
