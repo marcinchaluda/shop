@@ -50,11 +50,7 @@ public class ShopDatabaseManager {
      */
     private void setup() throws SQLException {
         DataSource dataSource = null;
-        try {
-            dataSource = DataSourceFactory.getPostgreSQLShopDataSource();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        dataSource = DataSourceFactory.getPostgreSQLShopDataSource();
         if (dataSource != null) {
             connect(dataSource);
             setUpAllDAOs(dataSource);
