@@ -9,18 +9,18 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/static/css/order.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
     <script type="module" src='/static/js/order_handler.js' defer></script>
 </head>
 <body>
-<div class="status-message">
-    <p class="message"></p>
+<div xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="banner flex-row">
+        <h1>Codecool Shop</h1>
+    </div>
 </div>
-<!--<div class="container flex-col">-->
-<!--    <h1 class="header">Payment Methods</h1>-->
-<!--    <ul class="content flex-col">-->
-<!--        <div th:replace="payment/payment-fragments.html :: credit-card"></div>-->
-<!--        <div th:replace="payment/payment-fragments.html :: paypal"></div>-->
-<!--    </ul>-->
-<!--</div>-->
+
+<div class="container"></div>
+
+<div th:replace="footer.html :: card"></div>
 </body>
 </html>
