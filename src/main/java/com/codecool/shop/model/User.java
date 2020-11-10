@@ -7,6 +7,9 @@ public class User extends BaseDescribedModel {
     @SerializedName(value="email")
     private String email;
 
+    @SerializedName(value="password")
+    private String password;
+
     @SerializedName(value="phoneNumber")
     private String phoneNumber;
 
@@ -16,9 +19,10 @@ public class User extends BaseDescribedModel {
     @SerializedName(value="shippingAddress")
     private Address shippingAddress;
 
-    public User(String name, String email, String phoneNumber, Address billingAddress, Address shippingAddress) {
+    public User(String name, String email, String password, String phoneNumber, Address billingAddress, Address shippingAddress) {
         super(name);
         this.email = email;
+        this.password = password;
         this.phoneNumber = phoneNumber;
         this.billingAddress = billingAddress;
         this.shippingAddress = shippingAddress;
@@ -56,15 +60,27 @@ public class User extends BaseDescribedModel {
         this.shippingAddress = shippingAddress;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return String.format("id: %1$d, " +
                         "name: %2$s, " +
                         "email: %3$s, " +
-                        "phoneNumber: %4$s",
+                        "phoneNumber: %4$s " +
+                "pass: %5$s " + "billing: %6$s " + "shipp: %7$s ",
                 this.id,
                 this.name,
                 this.email,
-                this.phoneNumber);
+                this.phoneNumber,
+                this.password,
+                this.billingAddress,
+                this.shippingAddress);
     }
 }

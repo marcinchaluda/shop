@@ -28,13 +28,9 @@ public class UserDaoJdbc implements GetAllDao<User>, ModifyDao<User> {
     @Override
     public int add(User user) {
         try (Connection connection = dataSource.getConnection()) {
-            String sqlQuery = "INSERT INTO user_account (full_name, email, phone_number, billing_address, shipping_address) VALUES (?, ?, ?, ?, ?);";
+            String sqlQuery = "INSERT INTO user_account (full_name, email, password, phone_number, billing_address, shipping_address) VALUES (?, ?, ?, ?, ?, ?);";
             PreparedStatement statement = connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, user.getName());
-            statement.setString(2, user.getEmail());
-            statement.setString(3, user.getPhoneNumber());
-            statement.setInt(4, user.getBillingAddress().getId());
-            statement.setInt(5, user.getShippingAddress().getId());
+            setAllUserFields(user, statement);
             statement.executeUpdate();
             ResultSet result = statement.getGeneratedKeys();
             result.next();
@@ -45,6 +41,33 @@ public class UserDaoJdbc implements GetAllDao<User>, ModifyDao<User> {
         }
     }
 
+    public int addUserWithOutAddress(User user) {
+        try (Connection connection = dataSource.getConnection()) {
+            String sqlQuery = "INSERT INTO user_account (full_name, email, password, phone_number) VALUES (?, ?, ?, ?);";
+            PreparedStatement statement = connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getEmail());
+            statement.setString(3, user.getPassword());
+            statement.setString(4, user.getPhoneNumber());
+            statement.executeUpdate();
+            ResultSet result = statement.getGeneratedKeys();
+            result.next();
+            user.setId(result.getInt(1));
+            return result.getInt(1);
+        } catch (SQLException error) {
+            throw new RuntimeException("Error while adding a new User.", error);
+        }
+    }
+
+    private void setAllUserFields(User user, PreparedStatement statement) throws SQLException {
+        statement.setString(1, user.getName());
+        statement.setString(2, user.getEmail());
+        statement.setString(3, user.getPassword());
+        statement.setString(4, user.getPhoneNumber());
+        statement.setInt(5, user.getBillingAddress().getId());
+        statement.setInt(6, user.getShippingAddress().getId());
+    }
+
     /**
      * {@inheritDoc}
      *
@@ -53,14 +76,10 @@ public class UserDaoJdbc implements GetAllDao<User>, ModifyDao<User> {
     @Override
     public void update(User user) {
         try (Connection connection = dataSource.getConnection()) {
-            String sqlQuery = "UPDATE user_account SET full_name = ?, email = ?, phone_number = ?, billing_address = ?, shipping_address = ? WHERE id = ?;";
+            String sqlQuery = "UPDATE user_account SET full_name = ?, email = ?, password = ?, phone_number = ?, billing_address = ?, shipping_address = ? WHERE id = ?;";
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
-            statement.setString(1, user.getName());
-            statement.setString(2, user.getEmail());
-            statement.setString(3, user.getPhoneNumber());
-            statement.setInt(4, user.getBillingAddress().getId());
-            statement.setInt(5, user.getShippingAddress().getId());
-            statement.setInt(6, user.getId());
+            setAllUserFields(user, statement);
+            statement.setInt(7, user.getId());
         } catch (SQLException error) {
             throw new RuntimeException("Error while updating a User.", error);
         }
@@ -90,7 +109,7 @@ public class UserDaoJdbc implements GetAllDao<User>, ModifyDao<User> {
     @Override
     public User get(int id) {
         try (Connection connection = dataSource.getConnection()) {
-            String sqlQuery = "SELECT id, full_name, email, phone_number, billing_address, shipping_address FROM user_account WHERE id = ?;";
+            String sqlQuery = "SELECT id, full_name, email, password, phone_number, billing_address, shipping_address FROM user_account WHERE id = ?;";
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
@@ -107,7 +126,8 @@ public class UserDaoJdbc implements GetAllDao<User>, ModifyDao<User> {
     public List<User> getAll() {
         try (Connection connection = dataSource.getConnection()) {
             List<User> users = new LinkedList<>();
-            String sqlQuery = "SELECT id, full_name, email, phone_number, billing_address, shipping_address FROM user_account;";
+            String sqlQuery = "SELECT id, full_name, email, password, phone_number, billing_address, shipping_address" +
+                    " FROM user_account;";
             ResultSet result = connection.createStatement().executeQuery(sqlQuery);
             while (result.next()) {
                 User user = getUser(result);
@@ -123,10 +143,11 @@ public class UserDaoJdbc implements GetAllDao<User>, ModifyDao<User> {
         int id = result.getInt("id");
         String name = result.getString("full_name");
         String email = result.getString("email");
+        String password = result.getString("password");
         String phoneNumber = result.getString("phone_number");
         Address billingAddress = addressDao.get(result.getInt("billing_address"));
         Address shippingAddress = addressDao.get(result.getInt("shipping_address"));
-        User user = new User(name, email, phoneNumber, billingAddress, shippingAddress);
+        User user = new User(name, email, password, phoneNumber, billingAddress, shippingAddress);
         user.setId(id);
         return user;
     }
