@@ -69,12 +69,7 @@ public class OrderLogic implements BusinessLogic<Order> {
 
     public OrderHistory getOrdersHistoryBy(int userId) {
         User user = userDao.get(userId);
-        System.out.println(user);
         List<Order> userOrders = orderDao.getOrdersByUserId(userId);
-
-        for(Order order: userOrders){
-            System.out.println(order);
-        }
 
         return new OrderHistory(user, userOrders);
     }
