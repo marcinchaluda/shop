@@ -1,5 +1,14 @@
-const registrationForm = document.querySelector(".registration");
+const registerButton = document.querySelector(".register-button");
+const message = document.querySelector(".message");
+const messageContainer = document.querySelector(".status-message");
 
-registrationForm.addEventListener("submit", (event) => {
-   // event.preventDefault();
+function init() {
+    messageContainer.style.backgroundColor = "$silver";
+    message.textContent = "";
+}
+registerButton.addEventListener("click", () => {
+    messageContainer.style.backgroundColor = "red";
+    message.textContent = "This user already exist! Please input valid fields."
 });
+
+init();

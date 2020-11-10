@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class HelpServlet {
+    public static final int USER_ALREADY_RESENT = -1;
+
     public static <T> void sendRequestForAllElementsAndCheckSortAbility(HttpServletRequest request, HttpServletResponse response, BusinessLogic<T> logic) throws IOException, ServletException {
         final int MODEL_ID_INDEX = 1;
 
@@ -62,7 +64,7 @@ public class HelpServlet {
         if (pathInfo == null || pathInfo.equals("/")) {
             User user = new Gson().fromJson(userJSON.toJSONString(), User.class);
             int userId = userLogic.addElementWithOutAddress(user);
-            if (userId == -1) response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+            if (userId == USER_ALREADY_RESENT) response.setStatus(HttpServletResponse.SC_NO_CONTENT);
             else response.setStatus(HttpServletResponse.SC_CREATED);
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

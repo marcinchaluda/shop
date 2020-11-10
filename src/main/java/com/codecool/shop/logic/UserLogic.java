@@ -1,5 +1,6 @@
 package com.codecool.shop.logic;
 
+import com.codecool.shop.api.HelpServlet;
 import com.codecool.shop.dao.ShopDatabaseManager;
 import com.codecool.shop.dao.implementation.UserDaoJdbc;
 import com.codecool.shop.model.User;
@@ -8,7 +9,7 @@ import java.util.List;
 
 public class UserLogic implements BusinessLogic<User> {
     UserDaoJdbc userDao = ShopDatabaseManager.Instance.getUserDao();
-    private final int userNotPresent = -1;
+
 
     private static UserLogic instance = null;
 
@@ -28,7 +29,7 @@ public class UserLogic implements BusinessLogic<User> {
         if (getUserByName(user.getName()) == null) {
             return userDao.addUserWithOutAddress(user);
         }
-        return userNotPresent;
+        return HelpServlet.USER_ALREADY_RESENT;
     }
 
     @Override

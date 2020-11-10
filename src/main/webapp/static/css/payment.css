@@ -100,7 +100,8 @@ body {
   width: 60vw;
   text-align: center;
   text-transform: uppercase;
-  font-size: 1.5em; }
+  font-size: 1.5em;
+  background-color: #EAE9F2; }
 
 .input-btn {
   margin: 0 auto; }

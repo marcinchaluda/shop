@@ -11,6 +11,9 @@
     <script type="module" src='/static/js/form_handler.js' defer></script>
 </head>
 <body>
+<div class="status-message">
+    <p class="message"></p>
+</div>
 <div class="container flex-col">
     <h1 class="user-header"><i class="fas fa-user-plus"></i>Registration</h1>
     <div th:replace="user/user-fragments.html :: user-registration"></div>
