@@ -25,6 +25,7 @@ public class DataSourceFactory {
             e.printStackTrace();
         }
         return null;
+    }
 
     public static DataSource getPostgreSQLTestDataSource() {
         try {
