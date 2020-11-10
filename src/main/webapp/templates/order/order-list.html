@@ -19,7 +19,15 @@
     </div>
 </div>
 
-<div class="container"></div>
+<div class="container">
+    <div id="items" class="items flex-col">
+        <div class="card-details item flex-row" th:each="order: ${orders}">
+            <p>Date: <span th:text="${order.date}"/></p>
+            <p>Total Price: <span th:text="${order.totalPrice}"/></p>
+            <p>Paid: <span th:text="${order.paid}"/> <span/></p>
+        </div>
+    </div>
+</div>
 
 <div th:replace="footer.html :: card"></div>
 </body>

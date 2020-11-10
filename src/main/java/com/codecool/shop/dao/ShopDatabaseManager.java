@@ -17,7 +17,7 @@ public class ShopDatabaseManager {
     private ModifyDao<Address> addressDao;
     private ModifyDao<User> userDao;
     private CartDaoJdbc cartDao;
-    private ModifyDao<Order> orderDao;
+    private OrderDaoJdbc orderDao;
 
     private static ShopDatabaseManager instance = null;
     public static ShopDatabaseManager Instance;
@@ -103,7 +103,7 @@ public class ShopDatabaseManager {
         return cartDao;
     }
 
-    public ModifyDao<Order> getOrderDao() {
+    public OrderDaoJdbc getOrderDao() {
         return orderDao;
     }
 

@@ -4,17 +4,20 @@ import com.google.gson.annotations.SerializedName;
 
 public class Order extends BaseModel {
 
-    @SerializedName(value="paid")
+    @SerializedName(value = "paid")
     private boolean paid;
 
-    @SerializedName(value="cart")
+    @SerializedName(value = "cart")
     private Cart cart;
 
     private int cart_id;
+    private String date;
+    private double totalPrice;
 
     public Order(Cart cart) {
         this.cart = cart;
         this.cart_id = cart.getId();
+        totalPrice = countTotalPrice();
     }
 
     public boolean isPaid() {
@@ -41,13 +44,35 @@ public class Order extends BaseModel {
         this.cart_id = cart_id;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    private double countTotalPrice() {
+        double totalPrice = 0;
+        for (ProductInCart productInCart : cart.getProducts()) {
+            totalPrice += productInCart.getQuantity() * productInCart.getProduct().getDefaultPrice();
+        }
+        return totalPrice;
+    }
+
     @Override
     public String toString() {
         return String.format("id: %1$d, " +
                         "paid status: %2$b, " +
-                        "cart id: %3$d",
+                        "date: %3$s, " +
+                        "cart id: %4$d",
                 this.id,
                 this.paid,
+                this.date,
                 this.cart_id);
     }
 }

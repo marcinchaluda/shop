@@ -115,6 +115,7 @@ CREATE TABLE "user_order"
  "id"      serial PRIMARY KEY,
  "cart_id" integer NOT NULL,
  "paid"    boolean NOT NULL,
+ "date"    TIMESTAMPTZ DEFAULT Now(),
  CONSTRAINT "FK_62" FOREIGN KEY ( "cart_id" ) REFERENCES "cart" ( "id" )
 );
 
@@ -127,7 +128,8 @@ INSERT INTO address VALUES (DEFAULT, '', '', '00-000', '', 0);
 INSERT INTO address VALUES (DEFAULT, 'Poland', 'Cracov', '31-476', 'Grodzka', 1);
 SELECT pg_catalog.setval('address_id_seq', 2, true);
 
-INSERT INTO user_account VALUES (DEFAULT, 'Bob', 'soriusz15@gmail.com', '123', '111221222', 2, 2);
+INSERT INTO user_account VALUES (DEFAULT, 'Bob', 'yyyy@gmail.com', '123', '111221222', 2, 2);
+INSERT INTO user_account VALUES (DEFAULT, 'Jenny', 'uuuu@xxx.com', '456', '2223333444', 1, 1);
 SELECT pg_catalog.setval('user_account_id_seq', 1, true);
 
 INSERT INTO supplier VALUES (DEFAULT, 'Amazon', 'Description of the Amazon', 'America');
@@ -152,11 +154,32 @@ INSERT INTO product VALUES (DEFAULT, 'IPhone 8', 'IPhone 8 description', '11', '
 SELECT pg_catalog.setval('product_id_seq', 8, true);
 
 INSERT INTO cart VALUES (DEFAULT, 1);
-SELECT pg_catalog.setval('cart_id_seq', 1, true);
+INSERT INTO cart VALUES (DEFAULT, 1);
+INSERT INTO cart VALUES (DEFAULT, 2);
+INSERT INTO cart VALUES (DEFAULT, 2);
+INSERT INTO cart VALUES (DEFAULT, 2);
+SELECT pg_catalog.setval('cart_id_seq', 5, true);
 
 INSERT INTO cart_content VALUES (DEFAULT, 1, 1, 3);
 INSERT INTO cart_content VALUES (DEFAULT, 2, 1, 2);
-SELECT pg_catalog.setval('cart_content_id_seq', 3, true);
+INSERT INTO cart_content VALUES (DEFAULT, 1, 2, 13);
+INSERT INTO cart_content VALUES (DEFAULT, 5, 2, 5);
+INSERT INTO cart_content VALUES (DEFAULT, 2, 2, 3);
+INSERT INTO cart_content VALUES (DEFAULT, 6, 3, 2);
+INSERT INTO cart_content VALUES (DEFAULT, 7, 3, 7);
+INSERT INTO cart_content VALUES (DEFAULT, 1, 3, 2);
+INSERT INTO cart_content VALUES (DEFAULT, 8, 3, 10);
+INSERT INTO cart_content VALUES (DEFAULT, 7, 4, 1);
+INSERT INTO cart_content VALUES (DEFAULT, 3, 4, 2);
+INSERT INTO cart_content VALUES (DEFAULT, 4, 4, 6);
+INSERT INTO cart_content VALUES (DEFAULT, 6, 4, 7);
+INSERT INTO cart_content VALUES (DEFAULT, 8, 4, 22);
+INSERT INTO cart_content VALUES (DEFAULT, 4, 5, 9);
+SELECT pg_catalog.setval('cart_content_id_seq', 15, true);
 
 INSERT INTO user_order VALUES (DEFAULT, 1, false);
-SELECT pg_catalog.setval('user_order_id_seq', 1, true);
+INSERT INTO user_order VALUES (DEFAULT, 2, false);
+INSERT INTO user_order VALUES (DEFAULT, 3, false);
+INSERT INTO user_order VALUES (DEFAULT, 4, false);
+INSERT INTO user_order VALUES (DEFAULT, 5, false);
+SELECT pg_catalog.setval('user_order_id_seq', 5, true);
