@@ -15,13 +15,18 @@
 <body>
 <div xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="banner flex-row">
-        <h1>Codecool Shop</h1>
+        <h1>Order history</h1>
     </div>
+</div>
+
+<div class="user-description">
+    <span th:text="${user.name}"></span>
 </div>
 
 <div class="container">
     <div id="items" class="items flex-col">
         <div class="card-details item flex-row" th:each="order: ${orders}">
+            <a th:href="@{'summary/' + ${order.id}}"><p>Order <span th:text="${order.id}"/></p></a>
             <p>Date: <span th:text="${order.date}"/></p>
             <p>Total Price: <span th:text="${order.totalPrice}"/></p>
             <p>Paid: <span th:text="${order.paid}"/> <span/></p>
