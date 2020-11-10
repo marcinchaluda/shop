@@ -60,10 +60,9 @@ public class HelpServlet {
         if (pathInfo == null || pathInfo.equals("/")) {
             User user = new Gson().fromJson(userJSON.toJSONString(), User.class);
             int userId = userLogic.addElementWithOutAddress(user);
-            System.out.println(userId);
+
             if (userId == USER_ALREADY_PRESENT) response.setStatus(HttpServletResponse.SC_NO_CONTENT);
             else response.setStatus(HttpServletResponse.SC_CREATED);
-            System.out.println(response.getStatus());
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }

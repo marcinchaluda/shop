@@ -5,11 +5,13 @@ import com.codecool.shop.dao.ShopDatabaseManager;
 import com.codecool.shop.dao.implementation.UserDaoJdbc;
 import com.codecool.shop.model.User;
 
+import javax.mail.MessagingException;
+import java.io.IOException;
 import java.util.List;
 
 public class UserLogic implements BusinessLogic<User> {
     UserDaoJdbc userDao = ShopDatabaseManager.Instance.getUserDao();
-
+    private MailSender sender = MailSender.getInstance();
 
     private static UserLogic instance = null;
 
@@ -27,9 +29,24 @@ public class UserLogic implements BusinessLogic<User> {
 
     public int addElementWithOutAddress(User user) {
         if (getUserByName(user.getName()) == null) {
+            sendWelcomeEmail(user);
             return userDao.addUserWithOutAddress(user);
         }
         return HelpServlet.USER_ALREADY_PRESENT;
+    }
+
+    private void sendWelcomeEmail(User user) {
+        String userEmail = user.getEmail();
+        String emailSubject = "Welcome to Codecool shop.";
+        String emailBody = "You received this email due to successful registration to our shop. " +
+                "You are now able to login to you account. Happy shopping!";
+        try {
+            sender.sendEmail(userEmail, emailSubject, emailBody);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
