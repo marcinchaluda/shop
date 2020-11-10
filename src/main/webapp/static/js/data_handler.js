@@ -141,8 +141,7 @@ export const dataHandler = {
     },
 
     getOrder: function (orderId, callback) {
-        this._api_get(`api/orders/${orderId}`, response => {
-            this._data['order'] = response;
+        this._api_get(`api/orders/` + orderId, response => {
             callback(response);
         })
     },
@@ -152,4 +151,10 @@ export const dataHandler = {
             this._data['order-details'] = response;
         });
     },
+
+    patchOrder: function (orderId, orderDetails) {
+        this._api_patch(`../api/orders/${orderId}`, orderDetails, response => {
+            window.location.replace(`../summary/${orderId}`);
+        });
+    }
 }

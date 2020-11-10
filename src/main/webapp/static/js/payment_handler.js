@@ -9,6 +9,7 @@ const paypalInfo = document.querySelector(".paypal .personal-info");
 const statusMessage = document.querySelector(".status-message");
 
 const payment = {
+    orderId: document.location.pathname.split("/")[2],
     init: function () {
         this.showCreditCardContent();
         this.showPaypalContent();
@@ -36,10 +37,7 @@ const payment = {
         payBtn.addEventListener("click", () => {
             document.querySelector(".credit-card .details").submit();
             if (creditCardFieldsValid(creditCartInfo)) {
-                //TODO get order id from database
-                const orderId = 1;
-                statusMessage.textContent = generatePaymentStatus();
-                getOrder(orderId);
+                statusMessage.textContent = generatePaymentStatus(payment.orderId);
             }
         });
     },
@@ -48,28 +46,11 @@ const payment = {
         loginBtn.addEventListener("click", () => {
             document.querySelector(".credit-card .details").submit();
             if (creditCardFieldsValid(paypalInfo)) {
-                //TODO get order id from database
-                const orderId = 1;
-                statusMessage.textContent = generatePaymentStatus();
-                getOrder(orderId);
+                statusMessage.textContent = generatePaymentStatus(payment.orderId);
             }
         });
     },
 
-}
-function updateOrder(order) {
-    const jsonData = {
-        id: order.id,
-        cart_id: order.cart.id,
-        paid: true,
-    }
-    dataHandler.updateOrder(order.id, jsonData);
-}
-
-function getOrder(orderId) {
-    dataHandler.getOrder(orderId, function (response) {
-        updateOrder(response);
-    });
 }
 
 function clearStatusMessageContent() {
@@ -87,12 +68,14 @@ function creditCardFieldsValid(formToCheck) {
     return true;
 }
 
-function generatePaymentStatus() {
+function generatePaymentStatus(orderId) {
     let message;
     const randomNumber = Math.floor(Math.random() * 10);
     if (randomNumber < 6) {
         message = "payment successful!";
         statusMessage.style.backgroundColor = "lightgreen";
+        const json = `{\"paid\": \"true\", \"orderId\": ${orderId}}`;
+        dataHandler.patchOrder(orderId, JSON.parse(json));
     } else {
         message = "your payment has been decline!";
         statusMessage.style.backgroundColor = "red";
