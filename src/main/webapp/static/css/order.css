@@ -1,3 +1,118 @@
+.order-redirect a {
+  text-decoration: none;
+  text-transform: uppercase; }
 
+* {
+  margin: 0;
+  padding: 0; }
+
+body {
+  background-position: center top;
+  background-color: #EAE9F2; }
+
+.flex-row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; }
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%; }
+
+.footer-body {
+  margin-top: 5em;
+  border-top: 1px solid #0D0D0D;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  padding: 1em 3em;
+  text-align: right;
+  background-color: #EAE9F2; }
+
+.banner {
+  background-color: #0B2D59;
+  color: #EAE9F2;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 2em;
+  margin: 0 auto; }
+
+.wrapper {
+  width: 80vw;
+  border: 2px solid #C6C5D9;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 4em auto; }
+
+.user-description {
+  background-color: #C6C5D9;
+  color: #0B2D59;
+  padding: 1em;
+  text-align: center;
+  text-transform: uppercase; }
+
+.container {
+  width: 90%;
+  margin: 1em auto; }
+
+.card-details {
+  border: 2px solid #C6C5D9;
+  margin: 1em 0; }
+
+.order-redirect {
+  border-right: 2px solid #C6C5D9;
+  width: 25%;
+  background-color: #C6C5D9;
+  text-align: center;
+  line-height: 5.5em; }
+
+.order-redirect a {
+  color: #0B2D59; }
+
+.order-redirect:hover a {
+  color: #EAE9F2; }
+
+.order-redirect:hover {
+  background-color: #0B2D59; }
+
+.order-date, .price, .paid {
+  text-align: center;
+  width: 20%; }
+
+div h4 {
+  padding: 1em 0 0.5em 0;
+  border-bottom: 1px solid #C6C5D9;
+  color: #0B2D59;
+  text-transform: uppercase;
+  margin: 0 1em; }
+
+.desc {
+  padding: 0.5em 0 1em 0;
+  color: navy;
+  opacity: 0.5; }
+
+.desc i, .home-page i {
+  padding-right: 0.4em; }
+
+.home-page {
+  position: fixed;
+  bottom: 10vh;
+  right: 5vw;
+  width: 200px;
+  height: 50px;
+  border-radius: 25px;
+  background-color: #0B2D59;
+  color: #EAE9F2;
+  line-height: 2em;
+  text-align: center;
+  font-size: 1.5em;
+  border: 2px solid #0B2D59; }
+
+.home-page:hover {
+  background-color: #C6C5D9;
+  color: #0B2D59; }
 
 /*# sourceMappingURL=order.css.map */
