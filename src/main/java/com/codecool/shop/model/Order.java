@@ -14,6 +14,7 @@ public class Order extends BaseModel {
 
     public Order(Cart cart) {
         this.cart = cart;
+        this.cart_id = cart.getId();
     }
 
     public boolean isPaid() {
