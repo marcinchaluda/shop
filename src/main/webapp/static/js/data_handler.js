@@ -154,6 +154,8 @@ export const dataHandler = {
     },
 
     patchOrder: function (orderId, orderDetails) {
-        this._api_patch(`../api/orders/${orderId}`, orderDetails, response => {})
+        this._api_patch(`../api/orders/${orderId}`, orderDetails, response => {
+            window.location.replace(`../summary/${orderId}`);
+        });
     }
 }
