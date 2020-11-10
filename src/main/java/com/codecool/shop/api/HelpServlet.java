@@ -4,24 +4,20 @@ import com.codecool.shop.logic.*;
 import com.codecool.shop.model.ProductInCart;
 import com.codecool.shop.model.User;
 import com.google.gson.Gson;
-import netscape.javascript.JSException;
-import netscape.javascript.JSObject;
 import org.json.simple.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class HelpServlet {
-    public static final int USER_ALREADY_RESENT = -1;
+    public static final int USER_ALREADY_PRESENT = -1;
 
     public static <T> void sendRequestForAllElementsAndCheckSortAbility(HttpServletRequest request, HttpServletResponse response, BusinessLogic<T> logic) throws IOException, ServletException {
         final int MODEL_ID_INDEX = 1;
@@ -64,8 +60,10 @@ public class HelpServlet {
         if (pathInfo == null || pathInfo.equals("/")) {
             User user = new Gson().fromJson(userJSON.toJSONString(), User.class);
             int userId = userLogic.addElementWithOutAddress(user);
-            if (userId == USER_ALREADY_RESENT) response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+            System.out.println(userId);
+            if (userId == USER_ALREADY_PRESENT) response.setStatus(HttpServletResponse.SC_NO_CONTENT);
             else response.setStatus(HttpServletResponse.SC_CREATED);
+            System.out.println(response.getStatus());
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }

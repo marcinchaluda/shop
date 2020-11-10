@@ -29,7 +29,7 @@ public class UserLogic implements BusinessLogic<User> {
         if (getUserByName(user.getName()) == null) {
             return userDao.addUserWithOutAddress(user);
         }
-        return HelpServlet.USER_ALREADY_RESENT;
+        return HelpServlet.USER_ALREADY_PRESENT;
     }
 
     @Override

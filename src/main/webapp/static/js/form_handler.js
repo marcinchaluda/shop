@@ -3,33 +3,45 @@ const message = document.querySelector(".message");
 const messageContainer = document.querySelector(".status-message");
 
 function init() {
-    messageContainer.style.backgroundColor = "#EAE9F2";
-    message.textContent = "";
+    clearErrorMessage();
 }
-registerButton.addEventListener("click", () => {
+registerButton.addEventListener("click", (event) => {
     messageContainer.style.backgroundColor = "#EAE9F2";
     if (validateEmptyField()) {
-        messageContainer.style.backgroundColor = "red";
-        message.textContent = "This user already exist! Please input valid fields."
+        const status = fetch("http://localhost:8080/registration").then(response => response.status);
+        if (status !== 201) {
+            displayErrorMessage("This user already exist! Please input valid fields.");
+        } else {
+            clearErrorMessage();
+        }
     }
 });
 
 function validateEmptyField() {
+
     const name = document.querySelector(".user-name");
     const email = document.querySelector(".user-email");
     const password = document.querySelector(".user-password");
     const confirmPassword = document.querySelector(".user-confirm-password");
 
-    init();
     if (name.value === "" || email.value === "" || password.value === "") {
         return false;
     }
-    if (password.value != confirmPassword.value) {
-        messageContainer.style.backgroundColor = "red";
-        message.textContent = "Your password and confirmation password do not match.";
+    if (password.value !== confirmPassword.value) {
+        displayErrorMessage("Your password and confirmation password do not match.");
         return false;
     }
     return true
+}
+
+function displayErrorMessage(errorMessage) {
+    messageContainer.style.backgroundColor = "red";
+    message.textContent = errorMessage;
+}
+
+function clearErrorMessage() {
+    messageContainer.style.backgroundColor = "#EAE9F2";
+    message.textContent = "";
 }
 
 init();
