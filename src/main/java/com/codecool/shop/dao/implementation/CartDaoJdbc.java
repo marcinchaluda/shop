@@ -14,17 +14,14 @@ import java.util.Map;
 
 public class CartDaoJdbc implements ModifyDao<Cart> {
     private final DataSource dataSource;
-    private final Dao<User> userDao;
+    private final ModifyDao<User> userDao;
     private final Dao<Product> productDao;
     private final CartContentJdbc cartContentJdbc = new CartContentJdbc();
 
-    public CartDaoJdbc(DataSource dataSource, Dao<User> userDao, Dao<Product> productDao) {
+    public CartDaoJdbc(DataSource dataSource, ModifyDao<User> userDao, Dao<Product> productDao) {
         this.dataSource = dataSource;
         this.userDao = userDao;
         this.productDao = productDao;
-    }
-
-    public void increaseQuantityOfProduct(ProductInCart productInCart, int cartId) {
     }
 
     /**
@@ -93,6 +90,8 @@ public class CartDaoJdbc implements ModifyDao<Cart> {
      */
     @Override
     public int add(Cart cart) {
+        userDao.update(cart.getUser());
+
         try (Connection conn = dataSource.getConnection()) {
             String sql = "INSERT INTO cart VALUES (DEFAULT, ?)";
             PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);

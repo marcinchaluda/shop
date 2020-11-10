@@ -23,6 +23,9 @@ public class OrderDaoJdbc implements ModifyDao<Order> {
      */
     @Override
     public int add(Order order) {
+        Cart newBlankCart = new Cart(order.getCart().getUser());
+        cartDao.add(newBlankCart);
+
         try (Connection conn = dataSource.getConnection()) {
             String sql = "INSERT INTO user_order VALUES (DEFAULT, ?, ?)";
             PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
