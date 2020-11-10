@@ -34,6 +34,9 @@ public class Order extends BaseModel {
     }
 
     public int getCart_id() {
+        if (cart_id == 0) {
+            return cart.getId();
+        }
         return cart_id;
     }
 

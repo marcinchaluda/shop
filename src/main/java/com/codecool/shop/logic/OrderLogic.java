@@ -39,6 +39,18 @@ public class OrderLogic implements BusinessLogic<Order> {
     @Override
     public void updateElement(Order order, int id) {
         order.setId(id);
+        if (order.isPaid()) {
+//        try {
+//            String userEmail = order.getCart().getUser().getEmail();
+//            String emailSubject = "Order successfully paid.";
+//            String emailBody = "Your order " + order.getId() + " is successfully paid, wait for your order in not long time!";
+//            sender.sendEmail(userEmail, emailSubject, emailBody);
+//        } catch (MessagingException e) {
+//            throw new RuntimeException("Can't connect with email service", e);
+//        } catch (IOException e) {
+//            throw new RuntimeException("Connection file not found.", e);
+//        }
+        }
         orderDao.update(order);
     }
 
