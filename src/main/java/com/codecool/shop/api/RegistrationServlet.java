@@ -45,7 +45,6 @@ public class RegistrationServlet extends HttpServlet {
         userDetails.put("name", name);
         userDetails.put("email", email);
         userDetails.put("password", hashedPassword);
-        userDetails.put("phoneNumber", 111111111);
         return userDetails;
     }
 }
