@@ -1,15 +1,17 @@
 package com.codecool.shop.api;
 
-import com.codecool.shop.logic.BusinessLogic;
-import com.codecool.shop.logic.CartLogic;
-import com.codecool.shop.logic.GetAllLogic;
-import com.codecool.shop.logic.Sortable;
+import com.codecool.shop.logic.*;
 import com.codecool.shop.model.ProductInCart;
+import com.codecool.shop.model.User;
 import com.google.gson.Gson;
+import netscape.javascript.JSException;
+import netscape.javascript.JSObject;
+import org.json.simple.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -53,6 +55,20 @@ public class HelpServlet {
         }
     }
 
+    public static <T> void createInstanceAndAddUserIfNotPresent(HttpServletRequest request, HttpServletResponse response, JSONObject userJSON) throws IOException {
+        String pathInfo = request.getPathInfo();
+        UserLogic userLogic = UserLogic.getInstance();
+
+        if (pathInfo == null || pathInfo.equals("/")) {
+            User user = new Gson().fromJson(userJSON.toJSONString(), User.class);
+            int userId = userLogic.addElementWithOutAddress(user);
+            if (userId == -1) response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+            else response.setStatus(HttpServletResponse.SC_CREATED);
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
     public static <T> void createInstanceAndUpdateElement(HttpServletRequest request, HttpServletResponse response, BusinessLogic<T> logic, Class<T> classType) throws IOException {
         T element = createElementFromJson(request, response, classType);
         if (request.getPathInfo() != null) {
@@ -71,6 +87,7 @@ public class HelpServlet {
     public static void createInstanceAndUpdateCartContent(HttpServletRequest request, HttpServletResponse response, CartLogic cartLogic) throws IOException, ServletException {
         final int modelIdIndex = 1;
         ProductInCart productInCart = createElementFromJson(request, response, ProductInCart.class);
+        System.out.println(productInCart.toString());
         String pathInfo = request.getPathInfo();
 
         if (pathInfo == null || pathInfo.equals("/")) {

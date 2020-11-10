@@ -1,11 +1,10 @@
 package com.codecool.shop.api;
 
 import com.codecool.shop.config.TemplateEngineUtil;
-import org.mindrot.jbcrypt.BCrypt;
+import org.json.simple.JSONObject;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,13 +22,30 @@ public class RegistrationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        JSONObject userDetails = createJSONObjectFromParameters(request);
+
+        HelpServlet.createInstanceAndAddUserIfNotPresent(request, response, userDetails);
+
+        if (response.getStatus() == HttpServletResponse.SC_CREATED) {
+            WebContext context = new WebContext(request, response, request.getServletContext());
+            TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
+            engine.process("user/login.html", context, response.getWriter());
+        } else {
+            doGet(request, response);
+        }
+    }
+
+    private JSONObject createJSONObjectFromParameters(HttpServletRequest request) {
         String name = request.getParameter("user-name");
         String email = request.getParameter("user-email");
         String password = request.getParameter("password");
-
         String hashedPassword = HelpServlet.decryptPassword(password);
 
-        System.out.println(name + "; " + email + "; " + password + "; " + hashedPassword);
-        doGet(request, response);
+        JSONObject userDetails = new JSONObject();
+        userDetails.put("name", name);
+        userDetails.put("email", email);
+        userDetails.put("password", hashedPassword);
+        userDetails.put("phoneNumber", 111111111);
+        return userDetails;
     }
 }
