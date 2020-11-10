@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="Codecool" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title>Codecool Shop || Billing info</title>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/static/css/cart.css" />
+    <script type="module" src='/static/js/billing_handler.js' defer></script>
+</head>
+<body>
+<div class="content flex-col">
+    <form class="flex-col" action="#">
+        <div class="billing-address flex-col">
+            <h1>Phone number</h1>
+            <div class="flex-col">
+                <div class="button">
+                    <input type="text" id="phoneNumber" name="phoneNumber" th:value="${user.phoneNumber}">
+                    <a id="set-phone-number" class="submit-button" value="Set phone number">Set phone number</a>
+                </div>
+            </div>
+        </div>
+        <div class="billing-address flex-col">
+            <h1 id="bill-id" th:address_id="${user.billingAddress.id}">Billing Address</h1>
+            <div class="flex-row">
+                <label for="country">Country</label>
+                <input type="text" id="country" class="country" pattern="[A-Za-z]{3,}" th:value="${user.billingAddress.country}" required>
+            </div>
+            <div class="flex-row">
+                <label for="city">City</label>
+                <input type="text" id="city" class="city" pattern="[A-Za-z]{3,}" th:value="${user.billingAddress.city}" required>
+            </div>
+            <div class="flex-row">
+                <label for="zip-code">Zip Code</label>
+                <input type="text" id="zip-code" class="zip-code" pattern="[0-9]{2}-[0-9]{3}" th:value="${user.billingAddress.zipCode}" required>
+            </div>
+            <div class="flex-row">
+                <label for="street">Street</label>
+                <input type="text" id="street" class="street" pattern="[A-Za-z]{3,}" th:value="${user.billingAddress.street}" required>
+            </div>
+            <div class="flex-row">
+                <label for="local">Local</label>
+                <input type="text" id="local" class="local" pattern="[0-9]{1,}" min="1" max="10" th:value="${user.billingAddress.localNumber}" required>
+            </div>
+        </div>
+        <div class="button">
+            <a id="set-same-button" class="submit-button" value="Set same address">Set same address</a>
+        </div>
+        <div class="billing-address flex-col">
+            <h1 id="ship-id" th:address_id="${user.shippingAddress.id}">Shipping Address</h1>
+            <div class="flex-row">
+                <label for="ship-country">Country</label>
+                <input type="text" id="ship-country" class="ship-country" pattern="[A-Za-z]{3,}" th:value="${user.shippingAddress.country}" required>
+            </div>
+            <div class="flex-row">
+                <label for="ship-city">City</label>
+                <input type="text" id="ship-city" class="ship-city" pattern="[A-Za-z]{3,}" th:value="${user.shippingAddress.city}" required>
+            </div>
+            <div class="flex-row">
+                <label for="ship-zip-code">Zip Code</label>
+                <input type="text" id="ship-zip-code" class="ship-zip-code" pattern="[0-9]{2}-[0-9]{3}" th:value="${user.shippingAddress.zipCode}" required>
+            </div>
+            <div class="flex-row">
+                <label for="ship-street">Street</label>
+                <input type="text" id="ship-street" class="ship-street" pattern="[A-Za-z]{3,}" th:value="${user.shippingAddress.street}" required>
+            </div>
+            <div class="flex-row">
+                <label for="ship-local">Local</label>
+                <input type="text" id="ship-local" class="ship-local" pattern="[0-9]{1,}" min="1" max="10" th:value="${user.shippingAddress.localNumber}" required>
+            </div>
+        </div>
+        <div class="button">
+            <a id="set-addresses" class="submit-button" value="Set addresses">Set addresses</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>
