@@ -26,8 +26,8 @@ public class ShopDatabaseManager {
     static {
         try {
             Instance = ShopDatabaseManager.getInstance();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
