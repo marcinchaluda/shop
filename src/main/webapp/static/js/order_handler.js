@@ -1,2 +1,6 @@
-import {dataHandler} from "./data_handler.js";
+const homeButton = document.querySelector(".home-page");
+
+homeButton.addEventListener("click", () => {
+    location.href = "/";
+});
 
