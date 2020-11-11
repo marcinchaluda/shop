@@ -2,6 +2,8 @@ package com.codecool.shop.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 public abstract class BaseDescribedModel extends BaseModel {
 
     @SerializedName(value="name")
@@ -33,5 +35,19 @@ public abstract class BaseDescribedModel extends BaseModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BaseDescribedModel that = (BaseDescribedModel) o;
+        return Objects.equals(name, that.name) &&
+                Objects.equals(description, that.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description);
     }
 }
