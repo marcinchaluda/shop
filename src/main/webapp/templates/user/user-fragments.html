@@ -34,16 +34,16 @@
 </form>
 
 <form  th:fragment="user-login" class="user-login" xmlns:th="http://www.w3.org/1999/xhtml"
-       action="/" method="post">
+       action="/login" method="post">
     <div class="user-info flex-col">
         <div class="email flex-row">
             <label for="login-email">Email</label>
             <input id="login-email" pattern="[^@]+@[^\.]+\..+" type="email" placeholder="email"
-                   class="user-email" name="user-email" maxlength="32" required>
+                   class="email" name="user-email" maxlength="32" required>
         </div>
         <div class="password flex-row">
             <label for="login-password">Password</label>
-            <input id="login-password" type="password" placeholder="password" class="user-password"
+            <input id="login-password" type="password" placeholder="password" class="password"
                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one
                    uppercase and lowercase letter, and at least 8 or more characters" name="password" required>
         </div>

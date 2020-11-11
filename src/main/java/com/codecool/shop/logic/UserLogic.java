@@ -47,6 +47,17 @@ public class UserLogic implements BusinessLogic<User> {
         }
     }
 
+    public User getUserByEmail(String email) {
+        User currentUser = null;
+        List<User> users= userDao.getAll();
+        for (User user : users) {
+            if (user.getEmail().equals(email)) {
+                currentUser = user;
+            }
+        }
+        return currentUser;
+    }
+
     @Override
     public void updateElement(User user, int id) {
         user.setId(id);

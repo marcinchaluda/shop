@@ -68,6 +68,21 @@ public class HelpServlet {
         }
     }
 
+    public static <T> void getUserByEmail(HttpServletRequest request, HttpServletResponse response, JSONObject userJSON)  throws IOException {
+        String pathInfo = request.getPathInfo();
+        UserLogic userLogic = UserLogic.getInstance();
+
+        if (pathInfo == null || pathInfo.equals("/")) {
+            String email = (String) userJSON.get("email");
+            String password = (String) userJSON.get("password");
+            User user = userLogic.getUserByEmail(email);
+            if (encryptPassword(user, password)) response.setStatus(HttpServletResponse.SC_CREATED);
+            else response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
     public static <T> void createInstanceAndUpdateElement(HttpServletRequest request, HttpServletResponse response, BusinessLogic<T> logic, Class<T> classType) throws IOException {
         T element = createElementFromJson(request, response, classType);
         if (request.getPathInfo() != null) {
@@ -181,5 +196,9 @@ public class HelpServlet {
 
     public static String decryptPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt(12));
+    }
+
+    private static Boolean encryptPassword(User user, String passwordToCompare) {
+        return BCrypt.checkpw(passwordToCompare, user.getPassword());
     }
 }
