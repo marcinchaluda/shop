@@ -1,16 +1,18 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.DataSourceFactory;
+import com.codecool.shop.model.Address;
 import com.codecool.shop.model.Category;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.function.Executable;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CategoryDaoJdbcTest {
     private static DataSource dataSource;
@@ -25,7 +27,8 @@ class CategoryDaoJdbcTest {
 
     @BeforeEach
     public void clearTable() {
-        clearCategoryTableToDefaultState();
+        dropTable();
+        createTable();
     }
 
     @Order(1)
@@ -96,17 +99,80 @@ class CategoryDaoJdbcTest {
         assertEquals(3, categories.size());
     }
 
-    @AfterAll
-    public static void complete() {
-        clearCategoryTableToDefaultState();
+    @Order(6)
+    @Test
+    public void should_throwRuntimeException_when_addingCategoryNotExistingTable() {
+        Category category = new Category("tablet");
+        dropTable();
+
+        Executable executable = () -> categoryDao.add(category);
+
+        assertThrows(RuntimeException.class, executable);
     }
 
-    private static void clearCategoryTableToDefaultState() {
+    @Order(7)
+    @Test
+    public void should_throwRuntimeException_when_updatingCategoryNotExistingTable() {
+        Category category = new Category("tablet");
+        category.setId(CATEGORY_ID);
+        dropTable();
+
+        Executable executable = () -> categoryDao.update(category);
+
+        assertThrows(RuntimeException.class, executable);
+    }
+
+    @Order(8)
+    @Test
+    public void should_throwRuntimeException_when_removingCategoryNotExistingTable() {
+        dropTable();
+
+        Executable executable = () -> categoryDao.remove(CATEGORY_ID);
+
+        assertThrows(RuntimeException.class, executable);
+    }
+
+    @Order(9)
+    @Test
+    public void should_throwRuntimeException_when_gettingCategoryNotExistingTable() {
+        dropTable();
+
+        Executable executable = () -> categoryDao.get(CATEGORY_ID);
+
+        assertThrows(RuntimeException.class, executable);
+    }
+
+    @Order(10)
+    @Test
+    public void should_throwRuntimeException_when_gettingAllCategoriesNotExistingTable() {
+        dropTable();
+
+        Executable executable = () -> categoryDao.getAll();
+
+        assertThrows(RuntimeException.class, executable);
+    }
+
+
+    @AfterAll
+    public static void complete() {
+        dropTable();
+    }
+
+    private static void createTable() {
         try (Connection connection = dataSource.getConnection()) {
-            String sqlQuery = "TRUNCATE TABLE product_category RESTART IDENTITY CASCADE;";
+            String sqlQuery = "CREATE TABLE IF NOT EXISTS product_category (\"id\" serial PRIMARY KEY, \"name\" text NOT NULL);";
             connection.prepareStatement(sqlQuery).execute();
         } catch (SQLException error) {
-            throw new RuntimeException("Error while clearing test table.", error);
+            throw new RuntimeException("Error while creating test table.", error);
+        }
+    }
+
+    private static void dropTable() {
+        try (Connection connection = dataSource.getConnection()) {
+            String sqlQuery = "DROP TABLE IF EXISTS product_category CASCADE;";
+            connection.prepareStatement(sqlQuery).execute();
+        } catch (SQLException error) {
+            throw new RuntimeException("Error while deleting test table.", error);
         }
     }
 }
