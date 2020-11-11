@@ -1,12 +1,6 @@
 package com.codecool.shop.api;
 
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.ModifyDao;
-import com.codecool.shop.logic.OrderLogic;
-import com.codecool.shop.logic.UserLogic;
-import com.codecool.shop.model.Order;
-import com.codecool.shop.model.User;
-import org.json.simple.JSONObject;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -37,18 +31,5 @@ public class RegistrationServlet extends HttpServlet {
             out.print("{\"status\": 202}");
         }
         out.flush();
-    }
-
-    private JSONObject createJSONObjectFromParameters(HttpServletRequest request) {
-        String name = request.getParameter("user-name");
-        String email = request.getParameter("user-email");
-        String password = request.getParameter("password");
-        String hashedPassword = HelpServlet.decryptPassword(password);
-
-        JSONObject userDetails = new JSONObject();
-        userDetails.put("name", name);
-        userDetails.put("email", email);
-        userDetails.put("password", hashedPassword);
-        return userDetails;
     }
 }

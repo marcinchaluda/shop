@@ -27,7 +27,7 @@ public class UserLogic implements BusinessLogic<User> {
         if (userDao.isExist(user)) {
             return HelpServlet.USER_ALREADY_PRESENT;
         }
-        //  sendWelcomeEmail(user);
+          sendWelcomeEmail(user);
         return userDao.add(user);
     }
 

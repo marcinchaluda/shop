@@ -58,8 +58,9 @@ public class HelpServlet {
 
         String pathInfo = request.getPathInfo();
         if (pathInfo == null || pathInfo.equals("/")) {
-            User element = createElementFromJson(request, response, User.class);
-            int id = userLogic.addElement(element);
+            User user = createElementFromJson(request, response, User.class);
+            user.setPassword(encryptPassword(user.getPassword()));
+            int id = userLogic.addElement(user);
 
             if (id == USER_ALREADY_PRESENT) response.setStatus(HttpServletResponse.SC_ACCEPTED);
             else response.setStatus(HttpServletResponse.SC_CREATED);
@@ -69,7 +70,7 @@ public class HelpServlet {
         }
     }
 
-    public static <T> void getUserByEmail(HttpServletRequest request, HttpServletResponse response, JSONObject userJSON) throws IOException {
+    public static <T> void getUserByEmail(HttpServletRequest request, HttpServletResponse response, JSONObject userJSON) {
         String pathInfo = request.getPathInfo();
         UserLogic userLogic = UserLogic.getInstance();
 
@@ -77,7 +78,7 @@ public class HelpServlet {
             String email = (String) userJSON.get("email");
             String password = (String) userJSON.get("password");
             User user = userLogic.getUserByEmail(email);
-            if (encryptPassword(user, password)) response.setStatus(HttpServletResponse.SC_CREATED);
+            if (decryptPassword(user, password)) response.setStatus(HttpServletResponse.SC_CREATED);
             else response.setStatus(HttpServletResponse.SC_NO_CONTENT);
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -102,7 +103,6 @@ public class HelpServlet {
     public static void createInstanceAndUpdateCartContent(HttpServletRequest request, HttpServletResponse response, CartLogic cartLogic) throws IOException, ServletException {
         final int modelIdIndex = 1;
         ProductInCart productInCart = createElementFromJson(request, response, ProductInCart.class);
-        System.out.println(productInCart.toString());
         String pathInfo = request.getPathInfo();
 
         if (pathInfo == null || pathInfo.equals("/")) {
@@ -122,7 +122,6 @@ public class HelpServlet {
             getSplitUrlIfLengthIsEqual2(response, pathInfo);
         }
         String json = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-        System.out.println(json);
         return new Gson().fromJson(json, classType);
     }
 
@@ -196,11 +195,11 @@ public class HelpServlet {
         return pathInfo;
     }
 
-    public static String decryptPassword(String password) {
+    public static String encryptPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt(12));
     }
 
-    private static Boolean encryptPassword(User user, String passwordToCompare) {
+    private static Boolean decryptPassword(User user, String passwordToCompare) {
         return BCrypt.checkpw(passwordToCompare, user.getPassword());
     }
 }
