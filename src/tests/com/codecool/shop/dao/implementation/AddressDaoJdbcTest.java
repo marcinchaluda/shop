@@ -2,7 +2,10 @@ package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.DataSourceFactory;
 import com.codecool.shop.model.Address;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -17,26 +20,11 @@ class AddressDaoJdbcTest {
     private AddressDaoJdbc addressDao;
     final int ADDRESS_ID = 1;
 
-    @BeforeAll
-    public static void start() {
-        System.out.println("Tested conditions and completed tasks:");
-    }
-
     @BeforeEach
     public void prepare() {
         dataSource = DataSourceFactory.getPostgreSQLTestDataSource();
         addressDao = new AddressDaoJdbc(dataSource);
-        clearAddressTable();
-        System.out.println("-- Cleared Address table in test database --");
-    }
-
-    private static void clearAddressTable() {
-        try (Connection connection = dataSource.getConnection()) {
-            String sqlQuery = "TRUNCATE TABLE address RESTART IDENTITY CASCADE;";
-            connection.prepareStatement(sqlQuery).execute();
-        } catch (SQLException error) {
-            throw new RuntimeException("Error while clearing test table.", error);
-        }
+        clearAddressTabletoDefaultState();
     }
 
     @Order(1)
@@ -49,7 +37,6 @@ class AddressDaoJdbcTest {
         addressFromDB.setId(ADDRESS_ID);
 
         assertEquals(address, addressFromDB);
-        System.out.println("1. Adding address to database.");
     }
 
     @Order(2)
@@ -66,7 +53,6 @@ class AddressDaoJdbcTest {
         addressFromDB.setId(ADDRESS_ID);
 
         assertEquals(address, addressFromDB);
-        System.out.println("2. Updating address in database after inserting one.");
     }
 
     @Order(3)
@@ -75,7 +61,6 @@ class AddressDaoJdbcTest {
         Address address = addressDao.get(ADDRESS_ID);
 
         assertNull(address);
-        System.out.println("3. Getting never existing address.");
     }
 
     @Order(4)
@@ -88,7 +73,6 @@ class AddressDaoJdbcTest {
         Address addressFromDB = addressDao.get(ADDRESS_ID);
 
         assertNull(addressFromDB);
-        System.out.println("4. Getting removed address.");
     }
 
     @Order(5)
@@ -101,13 +85,19 @@ class AddressDaoJdbcTest {
         Address addressFromDB = addressDao.get(ADDRESS_ID);
 
         assertNull(addressFromDB);
-        System.out.println("5. Updating not existing address and getting it from database.");
     }
 
     @AfterAll
     public static void complete() {
-        System.out.println("Completing testing, restoring default settings in database.");
-        clearAddressTable();
-        System.out.println("-- Cleared Address table in test database --");
+        clearAddressTabletoDefaultState();
+    }
+
+    private static void clearAddressTabletoDefaultState() {
+        try (Connection connection = dataSource.getConnection()) {
+            String sqlQuery = "TRUNCATE TABLE address RESTART IDENTITY CASCADE;";
+            connection.prepareStatement(sqlQuery).execute();
+        } catch (SQLException error) {
+            throw new RuntimeException("Error while clearing test table.", error);
+        }
     }
 }
