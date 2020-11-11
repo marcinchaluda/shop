@@ -5,7 +5,6 @@ import com.codecool.shop.model.Login;
 import com.codecool.shop.model.ProductInCart;
 import com.codecool.shop.model.User;
 import com.google.gson.Gson;
-import org.json.simple.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.ServletException;
