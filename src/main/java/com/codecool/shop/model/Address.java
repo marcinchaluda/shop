@@ -1,6 +1,9 @@
 package com.codecool.shop.model;
 
 import com.google.gson.annotations.SerializedName;
+import org.junit.jupiter.api.Order;
+
+import java.util.Objects;
 
 public class Address extends BaseModel {
 
@@ -81,5 +84,22 @@ public class Address extends BaseModel {
                 this.zipCode,
                 this.street,
                 this.localNumber);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return localNumber == address.localNumber &&
+                Objects.equals(country, address.country) &&
+                Objects.equals(city, address.city) &&
+                Objects.equals(zipCode, address.zipCode) &&
+                Objects.equals(street, address.street);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(country, city, zipCode, street, localNumber);
     }
 }
