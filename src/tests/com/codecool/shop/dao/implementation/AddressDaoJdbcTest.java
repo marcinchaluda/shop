@@ -24,7 +24,7 @@ class AddressDaoJdbcTest {
     public void prepare() {
         dataSource = DataSourceFactory.getPostgreSQLTestDataSource();
         addressDao = new AddressDaoJdbc(dataSource);
-        clearAddressTabletoDefaultState();
+        clearAddressTableToDefaultState();
     }
 
     @Order(1)
@@ -41,7 +41,7 @@ class AddressDaoJdbcTest {
 
     @Order(2)
     @Test
-    public void should_updatedAddressEqualsThatFromDatabase_when_createdAddAndModifiedAddress() {
+    public void should_updatedAddressEqualsThatFromDatabase_when_createdAddAndModifyAddress() {
         Address address = new Address("Poland", "Warsaw", "31-476", "Hollywood", 115);
         addressDao.add(address);
 
@@ -89,10 +89,10 @@ class AddressDaoJdbcTest {
 
     @AfterAll
     public static void complete() {
-        clearAddressTabletoDefaultState();
+        clearAddressTableToDefaultState();
     }
 
-    private static void clearAddressTabletoDefaultState() {
+    private static void clearAddressTableToDefaultState() {
         try (Connection connection = dataSource.getConnection()) {
             String sqlQuery = "TRUNCATE TABLE address RESTART IDENTITY CASCADE;";
             connection.prepareStatement(sqlQuery).execute();
