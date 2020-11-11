@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = "/login")
@@ -31,7 +32,9 @@ public class LoginServlet extends HttpServlet {
             WebContext context = new WebContext(request, response, request.getServletContext());
             String email = (String) userDetails.get("email");
             User user = UserLogic.getInstance().getUserByEmail(email);
-            context.setVariable("user", user);
+            HttpSession session = request.getSession();
+            session.setAttribute("user", user);
+//            context.setVariable("user", user);
             TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
             engine.process("product/index.html", context, response.getWriter());
         } else {
