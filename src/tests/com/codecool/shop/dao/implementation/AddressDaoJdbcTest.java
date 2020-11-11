@@ -43,10 +43,10 @@ class AddressDaoJdbcTest {
     @Test
     public void should_addressInsertedIntoDatabaseEqualsThatFromDatabase_when_addAddressToDatabase() {
         Address address = new Address("Poland", "Warsaw", "31-476", "Hollywood", 115);
-        address.setId(ADDRESS_ID);
         addressDao.add(address);
 
         Address addressFromDB = addressDao.get(ADDRESS_ID);
+        addressFromDB.setId(ADDRESS_ID);
 
         assertEquals(address, addressFromDB);
         System.out.println("1. Adding address to database.");
@@ -56,7 +56,6 @@ class AddressDaoJdbcTest {
     @Test
     public void should_updatedAddressEqualsThatFromDatabase_when_createdAddAndModifiedAddress() {
         Address address = new Address("Poland", "Warsaw", "31-476", "Hollywood", 115);
-        address.setId(ADDRESS_ID);
         addressDao.add(address);
 
         address.setCountry("Tomaszowy Kraj");
@@ -64,6 +63,7 @@ class AddressDaoJdbcTest {
         addressDao.update(address);
 
         Address addressFromDB = addressDao.get(ADDRESS_ID);
+        addressFromDB.setId(ADDRESS_ID);
 
         assertEquals(address, addressFromDB);
         System.out.println("2. Updating address in database after inserting one.");
@@ -82,7 +82,6 @@ class AddressDaoJdbcTest {
     @Test
     public void should_returnNull_when_gettingRemovedAddress() {
         Address address = new Address("Poland", "Warsaw", "31-476", "Hollywood", 115);
-        address.setId(ADDRESS_ID);
         addressDao.add(address);
         addressDao.remove(ADDRESS_ID);
 
