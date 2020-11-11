@@ -41,24 +41,6 @@ public class UserDaoJdbc implements GetAllDao<User>, ModifyDao<User> {
         }
     }
 
-    public int addUserWithOutAddress(User user) {
-        try (Connection connection = dataSource.getConnection()) {
-            String sqlQuery = "INSERT INTO user_account (full_name, email, password, phone_number) VALUES (?, ?, ?, ?);";
-            PreparedStatement statement = connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, user.getName());
-            statement.setString(2, user.getEmail());
-            statement.setString(3, user.getPassword());
-            statement.setString(4, user.getPhoneNumber());
-            statement.executeUpdate();
-            ResultSet result = statement.getGeneratedKeys();
-            result.next();
-            user.setId(result.getInt(1));
-            return result.getInt(1);
-        } catch (SQLException error) {
-            throw new RuntimeException("Error while adding a new User.", error);
-        }
-    }
-
     private void setAllUserFields(User user, PreparedStatement statement) throws SQLException {
         statement.setString(1, user.getName());
         statement.setString(2, user.getEmail());

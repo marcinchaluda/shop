@@ -161,8 +161,15 @@ export const dataHandler = {
 
     postUser: function (data, callback) {
         this.postDataGetResponse("registration", data ,response => {
-            this._data['cart-details'] = response;
+            this._data['user-details'] = response;
             callback(response);
-        })
+        });
+    },
+
+    postLoggedUser: function (data, callback) {
+        this.postDataGetResponse("login", data ,response => {
+            this._data['user-details'] = response;
+            callback(response);
+        });
     },
 }

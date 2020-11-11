@@ -1,6 +1,7 @@
 package com.codecool.shop.api;
 
 import com.codecool.shop.logic.*;
+import com.codecool.shop.model.Login;
 import com.codecool.shop.model.ProductInCart;
 import com.codecool.shop.model.User;
 import com.google.gson.Gson;
@@ -11,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -70,16 +72,20 @@ public class HelpServlet {
         }
     }
 
-    public static <T> void getUserByEmail(HttpServletRequest request, HttpServletResponse response, JSONObject userJSON) {
+    public static <T> void getUserByEmail(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String pathInfo = request.getPathInfo();
         UserLogic userLogic = UserLogic.getInstance();
-
         if (pathInfo == null || pathInfo.equals("/")) {
-            String email = (String) userJSON.get("email");
-            String password = (String) userJSON.get("password");
-            User user = userLogic.getUserByEmail(email);
-            if (decryptPassword(user, password)) response.setStatus(HttpServletResponse.SC_CREATED);
-            else response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+            Login loginDetails = createElementFromJson(request, response, Login.class);
+            User user = userLogic.getUserByEmail(loginDetails.getEmail());
+
+            if (decryptPassword(user, loginDetails.getPassword())) {
+                HttpSession session = request.getSession();
+                session.setAttribute("user", user);
+                response.setStatus(HttpServletResponse.SC_CREATED);
+            }
+            else response.setStatus(HttpServletResponse.SC_ACCEPTED);
+
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }

@@ -32,8 +32,7 @@
     </div>
 </form>
 
-<form  th:fragment="user-login" class="user-login" xmlns:th="http://www.w3.org/1999/xhtml"
-       action="/login" method="post">
+<form  th:fragment="user-login" class="user-login" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="user-info flex-col">
         <div class="email flex-row">
             <label for="login-email">Email</label>
@@ -47,7 +46,7 @@
                    uppercase and lowercase letter, and at least 8 or more characters" name="password" required>
         </div>
         <div class="input-btn flex-col">
-            <input type="submit" class="register-button" value="Login">
+            <input type="button" class="login-button" value="Login">
         </div>
     </div>
     <div class="login-redirect flex-row">

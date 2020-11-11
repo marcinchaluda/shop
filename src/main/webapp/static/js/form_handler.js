@@ -8,27 +8,27 @@ function init() {
     clearErrorMessage();
 }
 
-registerButton.addEventListener("click", (event) => {
+registerButton.addEventListener("click", () => {
     messageContainer.style.backgroundColor = "#EAE9F2";
     if (validateEmptyField()) {
-        dataHandler.postUser(getDataFromForm(), function (status) {
-            handleRegistrationResponse(status);
-        })
+        dataHandler.postUser(getDataFromRegistrationForm(), function (status) {
+            handleRegistrationResponse(status, "../login");
+        });
     }
 });
 
-function handleRegistrationResponse(response) {
+function handleRegistrationResponse(response, redirectURL) {
     if (response.status !== 201) {
         displayErrorMessage("This user already exist! Please input valid fields.");
     } else {
         clearErrorMessage();
-        window.location.href = "../login";
+        window.location.href = redirectURL;
     }
 }
 
 function validateEmptyField() {
 
-    const data = getDataFromForm();
+    const data = getDataFromRegistrationForm();
 
     if (data.name.value === "" || data.email.value === "" || data.password.value === "") {
         return false;
@@ -50,7 +50,7 @@ function clearErrorMessage() {
     message.textContent = "";
 }
 
-function getDataFromForm() {
+function getDataFromRegistrationForm() {
     return {
         name: document.querySelector(".user-name").value,
         email: document.querySelector(".user-email").value,
