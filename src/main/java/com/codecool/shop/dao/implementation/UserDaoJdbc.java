@@ -63,9 +63,15 @@ public class UserDaoJdbc implements GetAllDao<User>, ModifyDao<User> {
         statement.setString(1, user.getName());
         statement.setString(2, user.getEmail());
         statement.setString(3, user.getPassword());
-        statement.setString(4, user.getPhoneNumber());
-        statement.setInt(5, user.getBillingAddress().getId());
-        statement.setInt(6, user.getShippingAddress().getId());
+
+        if (user.getPhoneNumber() != null) statement.setString(4, user.getPhoneNumber());
+        else statement.setNull(4, Types.NULL);
+
+        if (user.getBillingAddress() != null) statement.setInt(5, user.getBillingAddress().getId());
+        else statement.setNull(5, Types.NULL);
+
+        if (user.getShippingAddress() != null) statement.setInt(6, user.getShippingAddress().getId());
+        else statement.setNull(6, Types.NULL);
     }
 
     /**
@@ -150,5 +156,20 @@ public class UserDaoJdbc implements GetAllDao<User>, ModifyDao<User> {
         User user = new User(name, email, password, phoneNumber, billingAddress, shippingAddress);
         user.setId(id);
         return user;
+    }
+    public boolean isExist(User user) {
+        try (Connection connection = dataSource.getConnection()) {
+            String sqlQuery = "SELECT EXISTS(SELECT TRUE FROM user_account WHERE full_name = ? OR email = ?);";
+            PreparedStatement statement = connection.prepareStatement(sqlQuery);
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getEmail());
+            ResultSet result = statement.executeQuery();
+            result.next();
+            return result.getBoolean(1);
+
+        } catch (SQLException error) {
+            throw new RuntimeException("Error while checking if user with name" + user.getName()
+                    + " or an email " + user.getEmail() + " exists in DB", error);
+        }
     }
 }

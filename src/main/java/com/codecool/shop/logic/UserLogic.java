@@ -24,15 +24,11 @@ public class UserLogic implements BusinessLogic<User> {
 
     @Override
     public int addElement(User user) {
-        return userDao.add(user);
-    }
-
-    public int addElementWithOutAddress(User user) {
-        if (getUserByName(user.getName()) == null) {
-            sendWelcomeEmail(user);
-            return userDao.addUserWithOutAddress(user);
+        if (userDao.isExist(user)) {
+            return HelpServlet.USER_ALREADY_PRESENT;
         }
-        return HelpServlet.USER_ALREADY_PRESENT;
+        //  sendWelcomeEmail(user);
+        return userDao.add(user);
     }
 
     private void sendWelcomeEmail(User user) {
@@ -49,7 +45,7 @@ public class UserLogic implements BusinessLogic<User> {
 
     public User getUserByEmail(String email) {
         User currentUser = null;
-        List<User> users= userDao.getAll();
+        List<User> users = userDao.getAll();
         for (User user : users) {
             if (user.getEmail().equals(email)) {
                 currentUser = user;
@@ -72,16 +68,5 @@ public class UserLogic implements BusinessLogic<User> {
     @Override
     public User getElement(int id) {
         return userDao.get(id);
-    }
-
-    private User getUserByName(String name) {
-        User currentUser = null;
-        List<User> users= userDao.getAll();
-        for (User user : users) {
-            if (user.getName().equals(name)) {
-                currentUser = user;
-            }
-        }
-        return currentUser;
     }
 }

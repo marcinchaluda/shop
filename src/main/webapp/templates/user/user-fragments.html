@@ -1,5 +1,4 @@
-<form  th:fragment="user-registration" class="registration" xmlns:th="http://www.w3.org/1999/xhtml"
-       action="/registration" method="post">
+<form  th:fragment="user-registration" class="registration" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="user-info flex-col">
         <div class="name flex-row">
             <label for="user-name">Name</label>
@@ -24,7 +23,7 @@
                    uppercase and lowercase letter, and at least 8 or more characters" name="password" required>
         </div>
         <div class="input-btn flex-col">
-            <input type="submit" class="register-button" value="Join">
+            <input type="button" class="register-button" value="Join">
         </div>
     </div>
     <div class="login-redirect flex-row">

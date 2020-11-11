@@ -45,7 +45,7 @@ public class HelpServlet {
             PrintWriter out = response.getWriter();
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            out.print("{\"id\": \""+id+"\"}");
+            out.print("{\"id\": \"" + id + "\"}");
             response.setStatus(HttpServletResponse.SC_OK);
             out.flush();
         } else {
@@ -53,22 +53,23 @@ public class HelpServlet {
         }
     }
 
-    public static <T> void createInstanceAndAddUserIfNotPresent(HttpServletRequest request, HttpServletResponse response, JSONObject userJSON) throws IOException {
-        String pathInfo = request.getPathInfo();
+    public static void createInstanceAndAddUserIfNotPresent(HttpServletRequest request, HttpServletResponse response) throws IOException {
         UserLogic userLogic = UserLogic.getInstance();
 
+        String pathInfo = request.getPathInfo();
         if (pathInfo == null || pathInfo.equals("/")) {
-            User user = new Gson().fromJson(userJSON.toJSONString(), User.class);
-            int userId = userLogic.addElementWithOutAddress(user);
+            User element = createElementFromJson(request, response, User.class);
+            int id = userLogic.addElement(element);
 
-            if (userId == USER_ALREADY_PRESENT) response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+            if (id == USER_ALREADY_PRESENT) response.setStatus(HttpServletResponse.SC_ACCEPTED);
             else response.setStatus(HttpServletResponse.SC_CREATED);
+
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 
-    public static <T> void getUserByEmail(HttpServletRequest request, HttpServletResponse response, JSONObject userJSON)  throws IOException {
+    public static <T> void getUserByEmail(HttpServletRequest request, HttpServletResponse response, JSONObject userJSON) throws IOException {
         String pathInfo = request.getPathInfo();
         UserLogic userLogic = UserLogic.getInstance();
 
@@ -121,6 +122,7 @@ public class HelpServlet {
             getSplitUrlIfLengthIsEqual2(response, pathInfo);
         }
         String json = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+        System.out.println(json);
         return new Gson().fromJson(json, classType);
     }
 
@@ -186,7 +188,7 @@ public class HelpServlet {
         return null;
     }
 
-    private static String getPathInfoWhenUriContainsIdParameter(HttpServletRequest request){
+    private static String getPathInfoWhenUriContainsIdParameter(HttpServletRequest request) {
         String pathInfo = request.getPathInfo();
         if (pathInfo == null || pathInfo.equals("/")) {
             return null;

@@ -157,5 +157,12 @@ export const dataHandler = {
         this._api_patch(`../api/orders/${orderId}`, orderDetails, response => {
             window.location.replace(`../summary/${orderId}`);
         });
-    }
+    },
+
+    postUser: function (data, callback) {
+        this.postDataGetResponse("registration", data ,response => {
+            this._data['cart-details'] = response;
+            callback(response);
+        })
+    },
 }
