@@ -161,4 +161,11 @@ i {
 .user-login-btn {
   margin-left: 1em; }
 
+.logged, .not-logged, .logged a {
+  margin-left: 1em; }
+
+.logged p {
+  padding-left: 1.5em;
+  color: darkorange; }
+
 /*# sourceMappingURL=style.css.map */
