@@ -18,7 +18,7 @@ public class LogoutServlet extends HttpServlet {
         clearSession(request);
         WebContext context = new WebContext(request, response, request.getServletContext());
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
-        engine.process("product/index.html", context, response.getWriter());
+        engine.process("user/login.html", context, response.getWriter());
     }
 
     private void clearSession(HttpServletRequest request) {
