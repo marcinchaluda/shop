@@ -2,10 +2,7 @@ package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.DataSourceFactory;
 import com.codecool.shop.model.Address;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -17,13 +14,17 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 class AddressDaoJdbcTest {
 
     private static DataSource dataSource;
-    private AddressDaoJdbc addressDao;
+    private static AddressDaoJdbc addressDao;
     final int ADDRESS_ID = 1;
 
-    @BeforeEach
-    public void prepare() {
+    @BeforeAll
+    public static void prepare() {
         dataSource = DataSourceFactory.getPostgreSQLTestDataSource();
         addressDao = new AddressDaoJdbc(dataSource);
+    }
+
+    @BeforeEach
+    public void clearTable() {
         clearAddressTableToDefaultState();
     }
 
