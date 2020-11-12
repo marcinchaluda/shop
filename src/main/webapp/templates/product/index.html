@@ -17,7 +17,7 @@
 <div th:replace="product/fragments.html :: main-page-banner"></div>
 <div th:replace="product/fragments.html :: main-page-nav-bar"></div>
 
-<div class="container"></div>
+<div class="container" id="products-container" th:cart_id="${cartId}"></div>
 
 <div th:replace="footer.html :: card"></div>
 

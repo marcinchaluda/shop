@@ -2,14 +2,15 @@ import { buttonHandler } from "./buttons_handler.js";
 import { util } from "./util.js";
 
 const container = document.querySelector(".container");
+let cartId = 0;
 
 export const layoutGenerator = {
     createProductCards: function (products) {
         const cardContainer = util.createElementWithClasses("div", "flex-row");
+        cartId = parseInt(document.querySelector("#products-container").getAttribute("cart_id"));
 
         products.forEach(product => {
             cardContainer.appendChild(this.createProductCard(product));
-
         });
 
         container.appendChild(cardContainer);
@@ -41,19 +42,14 @@ export const layoutGenerator = {
 function handleAddToCartButton() {
     const addToCartButtons = document.querySelectorAll(".card");
     addToCartButtons.forEach(card => {
-            const productId = card.querySelector(`.card-details`).id
-            const button = card.querySelector(".btn");
-            button.addEventListener("click", function () {
-                if (sessionStorage.getItem("email") === null) {
-                    util.redirectToLoginPage();
-                } else {
-                    const input = card.querySelector(`input`);
-                    const quantity = parseInt(input.getAttribute("value"));
-
-                    buttonHandler.addProductToCart(1, productId, quantity) //TODO hardcode cartID
-                }
-            });
-    });
+        const productId = card.querySelector(`.card-details`).id
+        const button = card.querySelector(".btn");
+        button.addEventListener("click", function () {
+            const input = card.querySelector(`input`);
+            const quantity = parseInt(input.getAttribute("value"));
+            buttonHandler.addProductToCart(cartId, productId, quantity);
+        });
+    })
 }
 
 function createNameElement(product) {

@@ -3,8 +3,10 @@
         <h1>Codecool Shop</h1>
         <div class="user-panel flex-row">
             <div th:if="${session.user}" class="logged flex-row">
-                <p id="total-price-and-quantity">(5)</p>
-                <a class="cart-btn" th:href="@{/cart}"><i class="fas fa-shopping-cart"></i>Cart</a>
+                <div class="flex-row">
+                    <p id="total-price-and-quantity">Empty</p>
+                    <a class="cart-btn" th:href="@{/cart}"><i class="fas fa-shopping-cart"></i>Cart</a>
+                </div>
                 <p>User <span th:text="${session.user.name}"/></p>
                 <a class="user-logout-btn" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i>Logout</a>
                 <a class="user-orders-btn" th:href="@{'/orders?user=' + ${session.user.id}}">Orders</a>

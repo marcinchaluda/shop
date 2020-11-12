@@ -82,6 +82,7 @@ CREATE TABLE "cart"
 (
  "id"      serial PRIMARY KEY,
  "user_id" integer NOT NULL,
+ "disabled"boolean NOT NULL,
  CONSTRAINT "FK_67" FOREIGN KEY ( "user_id" ) REFERENCES "user_account" ( "id" )
 );
 
@@ -154,11 +155,11 @@ INSERT INTO product VALUES (DEFAULT, 'Lenovo Tab', 'Lenovo Tab description', '35
 INSERT INTO product VALUES (DEFAULT, 'IPhone 8', 'IPhone 8 description', '11', 'EURO', 2, 3, 'https://image.ceneostatic.pl/data/products/55424279/i-apple-iphone-8-64gb-srebrny.jpg');
 SELECT pg_catalog.setval('product_id_seq', 8, true);
 
-INSERT INTO cart VALUES (DEFAULT, 1);
-INSERT INTO cart VALUES (DEFAULT, 1);
-INSERT INTO cart VALUES (DEFAULT, 2);
-INSERT INTO cart VALUES (DEFAULT, 2);
-INSERT INTO cart VALUES (DEFAULT, 2);
+INSERT INTO cart VALUES (DEFAULT, 1, true);
+INSERT INTO cart VALUES (DEFAULT, 1, false);
+INSERT INTO cart VALUES (DEFAULT, 2, true);
+INSERT INTO cart VALUES (DEFAULT, 2, true);
+INSERT INTO cart VALUES (DEFAULT, 2, false);
 SELECT pg_catalog.setval('cart_id_seq', 5, true);
 
 INSERT INTO cart_content VALUES (DEFAULT, 1, 1, 3);

@@ -1,5 +1,6 @@
-package com.codecool.shop.api;
+package com.codecool.shop.sites;
 
+import com.codecool.shop.api.HelpServlet;
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.logic.UserLogic;
 import com.codecool.shop.model.User;
