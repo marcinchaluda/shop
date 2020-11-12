@@ -5,9 +5,8 @@
 .user-items div, .content form {
   padding: 1em; }
 
-.billing-address, .card-details, .quantity-container, .adding-bar, .user-items {
-  border: 2px solid #C6C5D9;
-}
+.user-items, .adding-bar, .quantity-container, .card-details, .billing-address, .card-details-width {
+  border: 2px solid #C6C5D9; }
 
 .cart, .billing-address {
   width: 50vw;
@@ -91,8 +90,13 @@ body {
   background-color: #C6C5D9; }
 
 .plus-minus:hover, .card-details a:hover {
-  color: #C6C5D9;
-}
+  color: #C6C5D9; }
+
+.card-details-width {
+  margin: 0;
+  height: auto;
+  width: 20em;
+  font-size: 1em; }
 
 .card-details a i {
   padding-right: 0.5em; }
@@ -101,7 +105,11 @@ body {
   padding-bottom: 0.5em; }
 
 .cart-header a:hover {
-  border-bottom: 2px solid #0B2D59;
-}
+  border-bottom: 2px solid #0B2D59; }
+
+#phoneNumber {
+  width: 20em;
+  text-align: center;
+  justify-content: center; }
 
 /*# sourceMappingURL=cart.css.map */
