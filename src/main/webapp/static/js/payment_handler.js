@@ -55,7 +55,7 @@ const payment = {
 
 function clearStatusMessageContent() {
     statusMessage.textContent = "";
-    statusMessage.style.backgroundColor = "#EAE9F2";
+    statusMessage.style.backgroundColor = "#eae9f2";
 }
 
 function creditCardFieldsValid(formToCheck) {

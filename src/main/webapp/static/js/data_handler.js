@@ -7,7 +7,7 @@ export const dataHandler = {
             credentials:'same-origin'
         })
             .then(response => response.json())
-            .then(response => callback(response))
+            .then(json_response => callback(json_response))
     },
 
     _api_post: function (url, data, callback) {
