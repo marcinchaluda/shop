@@ -5,10 +5,13 @@ import {buttonHandler} from "./buttons_handler.js";
 
 const itemsContainer = document.querySelector("#items");
 const usernameTitleContainer = document.querySelector("#username-cart-title");
+const removeAllButton = document.querySelector("#remove-all-from-basket-button");
 
 const cartHandler = {
+    cartId: 0,
     activate: () => {
-        generateItemsInBasket(1);
+        cartHandler.cartId = 1;
+        generateItemsInBasket(cartHandler.cartId);
     }
 }
 
@@ -16,6 +19,14 @@ const generateItemsInBasket = cartId => {
     dataHandler.getCart(cartId, response => {
         createListOfItems(response);
         cartButtonHandler.init(response);
+        removeAllButton.addEventListener("click", () => {
+            document.querySelectorAll(".card-details").forEach(product => {
+                product.parentElement.removeChild(product);
+            })
+            response.products = [];
+            dataHandler.removeAllProductsFromCart(response);
+            updatePrices();
+        });
     })
 }
 
@@ -39,7 +50,7 @@ const createListOfItems = data => {
     if (data.products[0] != null) {
         currency = data.products[0].product.currency;
     }
-    addTotalPriceContainer(totalPrice + " " + currency); //TODO currency disappear
+    addTotalPriceContainer(totalPrice + " " + currency);
 }
 
 const addItemToDisplay = dataToInsert => {
@@ -63,7 +74,7 @@ const addItemToDisplay = dataToInsert => {
         quantityNumber.textContent = quantity.toString();
         updatePrices();
 
-        buttonHandler.updateProductInCart(1, dataToInsert.product_id, quantity) //TODO hardcode cartID
+        buttonHandler.updateProductInCart(cartHandler.cartId, dataToInsert.product_id, quantity);
     })
 
     const quantityValue = util.createElementWithClasses("p", "number");
@@ -81,7 +92,7 @@ const addItemToDisplay = dataToInsert => {
         quantityNumber.textContent = quantity.toString();
         updatePrices();
 
-        buttonHandler.updateProductInCart(1, dataToInsert.product_id, quantity) //TODO hardcode cartID
+        buttonHandler.updateProductInCart(cartHandler.cartId, dataToInsert.product_id, quantity);
     })
 
     quantityContainer.appendChild(minusButton);
@@ -97,7 +108,11 @@ const addItemToDisplay = dataToInsert => {
     const subCostCurrency = util.createElementWithClasses("span", "total-cost-currency");
     subCostCurrency.innerText = dataToInsert.currency;
 
+    const space = util.createElementWithClasses("span");
+    space.innerText = " ";
+
     subCost.appendChild(subCostValue);
+    subCost.appendChild(space);
     subCost.appendChild(subCostCurrency);
 
     const removeButton = util.createElementWithClasses("a", "remove-from-cart-button");
@@ -117,7 +132,7 @@ const addItemToDisplay = dataToInsert => {
 const removeButtonEvent = (dataToInsert, removeButton) => {
     removeButton.parentElement.parentElement.removeChild(removeButton.parentElement);
     updatePrices();
-    buttonHandler.removeProductFromCart(1, dataToInsert.product_id) //TODO hardcode cartID
+    buttonHandler.removeProductFromCart(cartHandler.cartId, dataToInsert.product_id);
 }
 
 const addTotalPriceContainer = totalPrice => {

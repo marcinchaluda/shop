@@ -125,9 +125,10 @@ CREATE INDEX "fkIdx_62" ON "user_order"
 
 INSERT INTO address VALUES (DEFAULT, '', '', '00-000', '', 0);
 INSERT INTO address VALUES (DEFAULT, 'Poland', 'Cracov', '31-476', 'Grodzka', 1);
-SELECT pg_catalog.setval('address_id_seq', 2, true);
+INSERT INTO address VALUES (DEFAULT, 'Poland', 'Cracov', '31-476', 'Grodzka', 1);
+SELECT pg_catalog.setval('address_id_seq', 3, true);
 
-INSERT INTO user_account VALUES (DEFAULT, 'Bob', 'soriusz15@gmail.com', '123', '111221222', 1, 1);
+INSERT INTO user_account VALUES (DEFAULT, 'Bob', 'soriusz15@gmail.com', '123', '111221222', 1, 2);
 SELECT pg_catalog.setval('user_account_id_seq', 1, true);
 
 INSERT INTO supplier VALUES (DEFAULT, 'Amazon', 'Description of the Amazon', 'America');

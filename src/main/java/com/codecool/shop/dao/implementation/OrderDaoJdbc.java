@@ -88,11 +88,10 @@ public class OrderDaoJdbc implements ModifyDao<Order> {
                 return null;
             }
 
-            Cart cart = cartDao.get(rs.getInt(1));
+            Cart cart = cartDao.get(rs.getInt("cart_id"));
             Order order = new Order(cart);
             order.setId(id);
-            order.setPaid(rs.getBoolean(2));
-
+            order.setPaid(rs.getBoolean("paid"));
             return order;
 
         } catch (SQLException e) {

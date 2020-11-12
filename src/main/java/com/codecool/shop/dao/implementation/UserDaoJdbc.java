@@ -68,6 +68,7 @@ public class UserDaoJdbc implements GetAllDao<User>, ModifyDao<User> {
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
             setAllUserFields(user, statement);
             statement.setInt(7, user.getId());
+            statement.executeUpdate();
         } catch (SQLException error) {
             throw new RuntimeException("Error while updating a User.", error);
         }
@@ -84,6 +85,7 @@ public class UserDaoJdbc implements GetAllDao<User>, ModifyDao<User> {
             String sqlQuery = "DELETE FROM user_account WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
             statement.setInt(1, id);
+            statement.executeUpdate();
         } catch (SQLException error) {
             throw new RuntimeException("Error while removing a User.", error);
         }
