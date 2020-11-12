@@ -1,4 +1,4 @@
-.cart-header a, .card-details a {
+.cart-header a, .card-details a, .resume-shopping-button a {
   text-decoration: none;
   text-transform: uppercase; }
 
@@ -77,17 +77,20 @@ body {
 .button {
   justify-content: center; }
 
-.button .submit-button {
+.button .submit-button, .resume-shopping-button {
   padding: 0.5em 2em;
   text-transform: uppercase;
   font-size: 1.2em;
   background-color: #0B2D59;
   color: #EAE9F2; }
 
-.button .submit-button:hover {
+.button .submit-button:hover, .resume-shopping-button:hover {
   cursor: pointer;
   color: #0B2D59;
   background-color: #C6C5D9; }
+
+.resume-shopping-button a:hover {
+  color: #0B2D59; }
 
 .plus-minus:hover, .card-details a:hover {
   color: #C6C5D9; }
@@ -130,5 +133,12 @@ body {
 .home-page:hover {
   background-color: #C6C5D9;
   color: #0B2D59; }
+
+.resume-shopping-button {
+  width: 15vw;
+  margin: 1em auto; }
+
+.resume-shopping-button a {
+  color: #EAE9F2; }
 
 /*# sourceMappingURL=cart.css.map */

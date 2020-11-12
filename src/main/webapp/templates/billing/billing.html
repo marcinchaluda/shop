@@ -72,13 +72,11 @@
                 <input type="text" id="ship-local" class="ship-local" pattern="[0-9]{1,}" min="1" max="10" th:value="${user.shippingAddress.localNumber}" required>
             </div>
         </div>
-        <div class="confirm-buttons flex-row">
-            <div class="button">
-                <a id="set-addresses" class="submit-button" value="Set addresses">Set shipping addresses</a>
-            </div>
-            <div class="button">
-                <a href="/">Back to shopping</a>
-            </div>
+        <div class="button">
+            <a id="set-addresses" class="submit-button" value="Set addresses">Set shipping addresses</a>
+        </div>
+        <div class="resume-shopping-button">
+            <a href="/">Back to shopping</a>
         </div>
     </form>
 </div>

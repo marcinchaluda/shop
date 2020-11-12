@@ -105,17 +105,20 @@ body
 .button
   justify-content: center
 
-.button .submit-button
+.button .submit-button, .resume-shopping-button
   padding: 0.5em 2em
   text-transform: uppercase
   font-size: 1.2em
   background-color: $darkSkyColor
   color: $silver
 
-.button .submit-button:hover
+.button .submit-button:hover, .resume-shopping-button:hover
   cursor: pointer
   color: $darkSkyColor
   background-color: $lightGrey
+
+.resume-shopping-button a:hover
+  color: $darkSkyColor
 
 .plus-minus:hover, .card-details a:hover
   color: $lightGrey
@@ -159,3 +162,11 @@ body
 .home-page:hover
   background-color: $lightGrey
   color: $darkSkyColor
+
+.resume-shopping-button
+  width: 15vw
+  margin: 1em auto
+
+.resume-shopping-button a
+  @extend %remove-decoration
+  color: $silver
