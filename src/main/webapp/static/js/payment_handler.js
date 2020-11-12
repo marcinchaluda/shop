@@ -1,4 +1,5 @@
 import {dataHandler} from "./data_handler.js";
+import {util} from "./util.js";
 
 const creditCardBtn = document.querySelector(".credit-card a");
 const payPalBtn = document.querySelector(".paypal a");
@@ -35,8 +36,7 @@ const payment = {
 
     submitCreditCardPayment: function () {
         payBtn.addEventListener("click", () => {
-            document.querySelector(".credit-card .details").submit();
-            if (creditCardFieldsValid(creditCartInfo)) {
+            if (creditCardFieldsValid()) {
                 statusMessage.textContent = generatePaymentStatus(payment.orderId);
             }
         });
@@ -44,8 +44,7 @@ const payment = {
 
     submitPayPalPayment: function () {
         loginBtn.addEventListener("click", () => {
-            document.querySelector(".credit-card .details").submit();
-            if (creditCardFieldsValid(paypalInfo)) {
+            if (payPalFieldsValid()) {
                 statusMessage.textContent = generatePaymentStatus(payment.orderId);
             }
         });
@@ -58,14 +57,31 @@ function clearStatusMessageContent() {
     statusMessage.style.backgroundColor = "#eae9f2";
 }
 
-function creditCardFieldsValid(formToCheck) {
-    let allFields = formToCheck.childNodes;
-    for (let i=1; i < allFields.length - 2; i += 2) {
-        if (allFields[i].children[1].value === "") {
-            return false;
-        }
+function creditCardFieldsValid() {
+    const cardNumber = util.validateCardNumber(document.getElementById("card-number").value);
+    const cardHolder = util.validateCardHolder(document.getElementById("holder").value);
+    const validationCode = util.validateCode(document.getElementById("code").value);
+
+    if (!cardNumber) {
+        displayErrorMessage("Please provide valid card number. (16 digits)");
+    } else if (!cardHolder) {
+        displayErrorMessage("Please provide valid card holder's name. (Only a-Z)");
+    } else if (!validationCode) {
+        displayErrorMessage("Please provide valid verification code. (3 digits)");
     }
-    return true;
+    return cardHolder && cardNumber && validationCode;
+}
+
+function payPalFieldsValid() {
+    const name = util.validateUserName(document.getElementById("username").value);
+    const password = util.validatePassword(document.getElementById("pass").value);
+
+    if (!name) {
+        displayErrorMessage("Please provide valid name. (Only a-Z)");
+    } else if (!password) {
+        displayErrorMessage("Please provide valid password. (One lower, one upper case letter, digits, min 8 chars)");
+    }
+    return name && password;
 }
 
 function generatePaymentStatus(orderId) {
@@ -83,4 +99,10 @@ function generatePaymentStatus(orderId) {
     return message;
 }
 
+function displayErrorMessage(errorMessage) {
+    statusMessage.style.backgroundColor = "red";
+    statusMessage.textContent = errorMessage;
+}
+
 payment.init();
+util.redirectToHomePage();

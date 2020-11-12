@@ -1,4 +1,4 @@
-.cart-header a, .card-details a {
+.cart-header a, .card-details a, .resume-shopping-button, .resume-shopping-button a {
   text-decoration: none;
   text-transform: uppercase; }
 
@@ -77,17 +77,20 @@ body {
 .button {
   justify-content: center; }
 
-.button .submit-button {
+.button .submit-button, .resume-shopping-button {
   padding: 0.5em 2em;
   text-transform: uppercase;
   font-size: 1.2em;
   background-color: #0B2D59;
   color: #EAE9F2; }
 
-.button .submit-button:hover {
+.button .submit-button:hover, .resume-shopping-button:hover {
   cursor: pointer;
   color: #0B2D59;
   background-color: #C6C5D9; }
+
+.resume-shopping-button:hover a {
+  color: #0B2D59; }
 
 .plus-minus:hover, .card-details a:hover {
   color: #C6C5D9; }
@@ -111,5 +114,42 @@ body {
   width: 20em;
   text-align: center;
   justify-content: center; }
+
+.home-page {
+  cursor: pointer;
+  position: fixed;
+  bottom: 10vh;
+  right: 5vw;
+  width: 200px;
+  height: 50px;
+  border-radius: 25px;
+  background-color: #0B2D59;
+  color: #EAE9F2;
+  line-height: 2em;
+  font-size: 1.5em;
+  border: 2px solid #0B2D59;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1em 0 0; }
+
+.home-page:hover {
+  background-color: #C6C5D9;
+  color: #0B2D59; }
+
+.home-page i {
+  padding: 0 1em; }
+
+.resume-shopping-button {
+  width: 15vw;
+  margin: 1em auto; }
+
+.resume-shopping-button {
+  color: #EAE9F2; }
+
+.shopping-btn-container {
+  margin-top: 2em; }
+
+.resume-shopping-button a {
+  color: #EAE9F2; }
 
 /*# sourceMappingURL=cart.css.map */

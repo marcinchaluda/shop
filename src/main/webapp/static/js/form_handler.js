@@ -1,4 +1,5 @@
 import {dataHandler} from "./data_handler.js";
+import {util} from "./util.js";
 
 const registerButton = document.querySelector(".register-button");
 const message = document.querySelector(".message");
@@ -19,7 +20,7 @@ registerButton.addEventListener("click", () => {
 
 function handleRegistrationResponse(response, redirectURL) {
     if (response.status !== 201) {
-        displayErrorMessage("This user already exist! Please input valid fields.");
+        displayErrorMessage("This user already exist!");
     } else {
         clearErrorMessage();
         window.location.href = redirectURL;
@@ -29,15 +30,24 @@ function handleRegistrationResponse(response, redirectURL) {
 function validateEmptyField() {
 
     const data = getDataFromRegistrationForm();
+    if (data.password.value === data.confirmPassword.value) {
+        if (!util.validateUserName(data.name)) {
+            displayErrorMessage("Please provide valid card holder's name. (Only a-Z)");
+            return false;
+        }
 
-    if (data.name.value === "" || data.email.value === "" || data.password.value === "") {
-        return false;
+        if (!util.validateEmail(data.email)) {
+            displayErrorMessage("Please enter valid email. (Email format with @)");
+            return false;
+        }
+        if (!util.validatePassword(data.password)) {
+            displayErrorMessage("Please enter valid password. (One lower, one upper case letter, digits, min 8 chars)");
+            return false;
+        }
+
+        clearErrorMessage();
+        return true;
     }
-    if (data.password.value !== data.confirmPassword.value) {
-        displayErrorMessage("Your password and confirmation password do not match.");
-        return false;
-    }
-    return true
 }
 
 function displayErrorMessage(errorMessage) {
@@ -60,3 +70,4 @@ function getDataFromRegistrationForm() {
 }
 
 init();
+util.redirectToHomePage();

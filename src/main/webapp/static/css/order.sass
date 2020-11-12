@@ -115,6 +115,7 @@ div h4
   padding-right: 0.4em
 
 .home-page
+  cursor: pointer
   position: fixed
   bottom: 10vh
   right: 5vw
@@ -124,10 +125,24 @@ div h4
   background-color: $darkSkyColor
   color: $silver
   line-height: 2em
-  text-align: center
   font-size: 1.5em
   border: 2px solid $darkSkyColor
+  justify-content: center
+  align-items: center
+  padding: 0 1em 0 0
 
 .home-page:hover
   background-color: $lightGrey
   color: $darkSkyColor
+
+.home-page i
+  padding: 0 1em
+
+.paid
+  color: green
+
+.not-paid
+  color: red
+
+h4.paid
+  width: 80%

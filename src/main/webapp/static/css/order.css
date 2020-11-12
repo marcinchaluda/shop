@@ -98,6 +98,7 @@ div h4 {
   padding-right: 0.4em; }
 
 .home-page {
+  cursor: pointer;
   position: fixed;
   bottom: 10vh;
   right: 5vw;
@@ -107,12 +108,26 @@ div h4 {
   background-color: #0B2D59;
   color: #EAE9F2;
   line-height: 2em;
-  text-align: center;
   font-size: 1.5em;
-  border: 2px solid #0B2D59; }
+  border: 2px solid #0B2D59;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1em 0 0; }
 
 .home-page:hover {
   background-color: #C6C5D9;
   color: #0B2D59; }
+
+.home-page i {
+  padding: 0 1em; }
+
+.paid {
+  color: green; }
+
+.not-paid {
+  color: red; }
+
+h4.paid {
+  width: 80%; }
 
 /*# sourceMappingURL=order.css.map */

@@ -1,5 +1,6 @@
 import {cartButtonHandler} from "./cart_button_handler.js";
 import {dataHandler} from "./data_handler.js";
+import {util} from "./util.js";
 
 const countryBill = document.querySelector("#country");
 const cityBill = document.querySelector("#city");
@@ -51,3 +52,4 @@ const setUpAddress = (country, city, zipCode, street, local, id) => {
 }
 
 billingHandler.init();
+util.redirectToHomePage();

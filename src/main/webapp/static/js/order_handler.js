@@ -1,6 +1,4 @@
-const homeButton = document.querySelector(".home-page");
+import {util} from "./util.js";
 
-homeButton.addEventListener("click", () => {
-    location.href = "/";
-});
+util.redirectToHomePage();
 
