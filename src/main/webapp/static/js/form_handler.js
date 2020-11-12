@@ -40,7 +40,7 @@ function validateEmptyField() {
             displayErrorMessage("Please enter valid email. (Email format with @)");
             return false;
         }
-        if (!util.alidatePassword(data.password)) {
+        if (!util.validatePassword(data.password)) {
             displayErrorMessage("Please enter valid password. (One lower, one upper case letter, digits, min 8 chars)");
             return false;
         }
