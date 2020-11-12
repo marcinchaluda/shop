@@ -20,7 +20,7 @@ registerButton.addEventListener("click", () => {
 
 function handleRegistrationResponse(response, redirectURL) {
     if (response.status !== 201) {
-        displayErrorMessage("This user already exist! Please input valid fields.");
+        displayErrorMessage("This user already exist!");
     } else {
         clearErrorMessage();
         window.location.href = redirectURL;
@@ -32,9 +32,11 @@ function validateEmptyField() {
     const data = getDataFromRegistrationForm();
     if (data.password.value === data.confirmPassword.value) {
         if (util.validateUserName(data.name) && util.validateEmail(data.email) && util.validatePassword(data.password)) {
+            clearErrorMessage();
             return true;
         }
     }
+    displayErrorMessage("Please enter name, email and password in valid format!");
     return false;
 }
 

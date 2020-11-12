@@ -20,7 +20,7 @@ loginButton.addEventListener("click", () => {
 
 function handleRegistrationResponse(response, redirectURL) {
     if (response.status !== 201) {
-        displayErrorMessage("This user already exist! Please input valid fields.");
+        displayErrorMessage("Password doesn't match.");
     } else {
         clearErrorMessage();
         sessionStorage.setItem("email", document.getElementById("login-email").value);
@@ -43,8 +43,10 @@ function validateLoginData() {
     const data = getDataFromLoginForm();
 
     if (util.validateEmail(data.email) && util.validatePassword(data.password)) {
+        clearErrorMessage();
         return true;
     }
+    displayErrorMessage("Please enter valid email and password!")
     return false;
 }
 
