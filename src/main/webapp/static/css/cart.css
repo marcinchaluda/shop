@@ -1,4 +1,4 @@
-.cart-header a, .card-details a, .resume-shopping-button {
+.cart-header a, .card-details a, .resume-shopping-button, .resume-shopping-button a {
   text-decoration: none;
   text-transform: uppercase; }
 
@@ -148,5 +148,8 @@ body {
 
 .shopping-btn-container {
   margin-top: 2em; }
+
+.resume-shopping-button a {
+  color: #EAE9F2; }
 
 /*# sourceMappingURL=cart.css.map */
