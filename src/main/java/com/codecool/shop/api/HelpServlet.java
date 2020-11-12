@@ -1,6 +1,7 @@
 package com.codecool.shop.api;
 
 import com.codecool.shop.logic.*;
+import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Login;
 import com.codecool.shop.model.ProductInCart;
 import com.codecool.shop.model.User;
@@ -77,10 +78,12 @@ public class HelpServlet {
         if (pathInfo == null || pathInfo.equals("/")) {
             Login loginDetails = createElementFromJson(request, response, Login.class);
             User user = userLogic.getUserByEmail(loginDetails.getEmail());
+            Cart cart = CartLogic.getInstance().getElementByUser(user.getId());
 
             if (decryptPassword(user, loginDetails.getPassword())) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);
+                session.setAttribute("cartId", cart.getId());
                 response.setStatus(HttpServletResponse.SC_CREATED);
             }
             else response.setStatus(HttpServletResponse.SC_ACCEPTED);

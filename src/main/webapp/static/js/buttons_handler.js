@@ -11,15 +11,17 @@ const ulProducts = document.querySelector(".products");
 const ulSupplies = document.querySelector(".suppliers");
 const navButtons = document.querySelectorAll("ul li a");
 const content = document.querySelector(".container");
+let cartId = 0;
 
 export const buttonHandler = {
     init: function () {
+        cartId = parseInt(document.querySelector("#products-container").getAttribute("cart_id"));
         this.showProducts(category.product, products.tablets);
         setInitStyles();
         productsNavBar.activateAllProductButtons();
         suppliersNavBar.activateAllSuppliersButtons();
         this.toggleNavMenuBySortOption();
-        showTotalPriceAndQuantity(1);
+        showTotalPriceAndQuantity(cartId);
     },
 
     addProductToCart: function (cartId, productId, quantity) {
@@ -27,8 +29,12 @@ export const buttonHandler = {
             productId: productId,
             quantity: quantity
         }
-        dataHandler.increaseAmountOfProductInCart(data, cartId);
-        showTotalPriceAndQuantity(cartId);
+        if (cartId !== 0) {
+            dataHandler.increaseAmountOfProductInCart(data, cartId);
+            showTotalPriceAndQuantity(cartId);
+        } else {
+            window.location.href = "/login";
+        }
     },
 
     updateProductInCart: function (cartId, productId, quantity) {
@@ -66,7 +72,7 @@ export const buttonHandler = {
         currentButton.style.color = "#0B2D59";
     },
 
-    displayProducts: function(category, product, currentBtn) {
+    displayProducts: function (category, product, currentBtn) {
         util.removeContent(content);
         buttonHandler.markButtonAsCurrent(currentBtn);
         buttonHandler.showProducts(category, product);
@@ -125,11 +131,10 @@ const updateTotalPriceAndQuantity = data => {
     let quantity = 0;
     let totalPrice = 0;
     let currency = "EURO";
-    if (data.products[0] != null) {
+    if (data !== null && data.products[0] != null) {
         currency = data.products[0].product.currency;
         data.products.forEach(product => quantity += product.quantity);
         data.products.forEach(product => totalPrice += product.product.unitPrice * product.quantity);
+        document.querySelector("#total-price-and-quantity").innerHTML = `(` + quantity + ` items) (` + totalPrice + " " + currency + `)`;
     }
-
-    document.querySelector("#total-price-and-quantity").innerHTML = `(` + quantity + ` items) (` + totalPrice + " " + currency + `)`;
 }

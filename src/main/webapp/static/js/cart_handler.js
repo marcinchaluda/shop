@@ -10,7 +10,7 @@ const removeAllButton = document.querySelector("#remove-all-from-basket-button")
 const cartHandler = {
     cartId: 0,
     activate: () => {
-        cartHandler.cartId = 1;
+        cartHandler.cartId = parseInt(document.querySelector("#username-cart-title").getAttribute("cart_id"));
         generateItemsInBasket(cartHandler.cartId);
     }
 }

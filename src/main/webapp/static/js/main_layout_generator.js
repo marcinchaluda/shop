@@ -2,14 +2,15 @@ import { buttonHandler } from "./buttons_handler.js";
 import { util } from "./util.js";
 
 const container = document.querySelector(".container");
+let cartId = 0;
 
 export const layoutGenerator = {
     createProductCards: function (products) {
         const cardContainer = util.createElementWithClasses("div", "flex-row");
+        cartId = parseInt(document.querySelector("#products-container").getAttribute("cart_id"));
 
         products.forEach(product => {
             cardContainer.appendChild(this.createProductCard(product));
-
         });
 
         container.appendChild(cardContainer);
@@ -46,9 +47,8 @@ function handleAddToCartButton() {
         button.addEventListener("click", function () {
             const input = card.querySelector(`input`);
             const quantity = parseInt(input.getAttribute("value"));
-
-            buttonHandler.addProductToCart(1, productId, quantity) //TODO hardcode cartID
-        })
+            buttonHandler.addProductToCart(cartId, productId, quantity);
+        });
     })
 }
 

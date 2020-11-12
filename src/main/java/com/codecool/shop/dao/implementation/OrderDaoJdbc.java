@@ -13,10 +13,10 @@ import java.util.List;
 
 public class OrderDaoJdbc implements ModifyDao<Order> {
     private final DataSource dataSource;
-    private final Dao<Cart> cartDao;
+    private final ModifyDao<Cart> cartDao;
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    public OrderDaoJdbc(DataSource dataSource, Dao<Cart> cartDao) {
+    public OrderDaoJdbc(DataSource dataSource, ModifyDao<Cart> cartDao) {
         this.dataSource = dataSource;
         this.cartDao = cartDao;
     }
@@ -27,6 +27,9 @@ public class OrderDaoJdbc implements ModifyDao<Order> {
      */
     @Override
     public int add(Order order) {
+        order.getCart().setDisabled(true);
+        cartDao.update(order.getCart());
+
         try (Connection conn = dataSource.getConnection()) {
             String sql = "INSERT INTO user_order VALUES (DEFAULT, ?, ?)";
             PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
