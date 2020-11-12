@@ -107,4 +107,9 @@ body {
 .cart-header a:hover {
   border-bottom: 2px solid #0B2D59; }
 
+#phoneNumber {
+  width: 20em;
+  text-align: center;
+  justify-content: center; }
+
 /*# sourceMappingURL=cart.css.map */
