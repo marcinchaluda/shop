@@ -27,8 +27,11 @@ public class OrderDaoJdbc implements ModifyDao<Order> {
      */
     @Override
     public int add(Order order) {
-        order.getCart().setDisabled(true);
-        cartDao.update(order.getCart());
+        Cart oldCart = cartDao.get(order.getCart_id());
+        oldCart.setDisabled(true);
+        ((CartDaoJdbc) cartDao).changeDisableStatus(oldCart);
+
+        cartDao.add(new Cart(order.getCart().getUser()));
 
         try (Connection conn = dataSource.getConnection()) {
             String sql = "INSERT INTO user_order VALUES (DEFAULT, ?, ?)";

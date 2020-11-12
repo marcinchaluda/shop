@@ -1,6 +1,7 @@
 package com.codecool.shop.sites;
 
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.logic.CartLogic;
 import com.codecool.shop.logic.OrderLogic;
 import com.codecool.shop.model.OrderHistory;
 import com.codecool.shop.model.User;
@@ -23,6 +24,9 @@ public class BasketServlet extends HttpServlet {
         if (session.getAttribute("user") == null || session.getAttribute("cartId") == null) {
             response.sendRedirect("/login");
         } else {
+            User user = (User) session.getAttribute("user");
+            CartLogic cartLogic = CartLogic.getInstance();
+            session.setAttribute("cartId", cartLogic.getElementByUser(user.getId()).getId());
             int cartId = (int) session.getAttribute("cartId");
             WebContext context = new WebContext(request, response, request.getServletContext());
             TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());

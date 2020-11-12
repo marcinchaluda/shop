@@ -120,6 +120,18 @@ public class CartDaoJdbc implements ModifyDao<Cart> {
         }
     }
 
+    public void changeDisableStatus(Cart cart) {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "UPDATE cart SET disabled = ? WHERE id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setBoolean(1, cart.isDisabled());
+            st.setInt(2, cart.getId());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
      * {@inheritDoc}
      *

@@ -1,6 +1,8 @@
 package com.codecool.shop.sites;
 
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.logic.CartLogic;
+import com.codecool.shop.model.User;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -22,6 +24,9 @@ public class IndexServlet extends HttpServlet {
             context.setVariable("user", false);
             context.setVariable("cartId", 0);
         } else {
+            User user = (User) session.getAttribute("user");
+            CartLogic cartLogic = CartLogic.getInstance();
+            session.setAttribute("cartId", cartLogic.getElementByUser(user.getId()).getId());
             int cartId = (int) session.getAttribute("cartId");
             context.setVariable("user", true);
             context.setVariable("cartId", cartId);

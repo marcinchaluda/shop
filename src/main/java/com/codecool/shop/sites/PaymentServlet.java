@@ -1,6 +1,7 @@
 package com.codecool.shop.sites;
 
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.logic.CartLogic;
 import com.codecool.shop.logic.SessionLogic;
 import com.codecool.shop.model.User;
 import org.thymeleaf.TemplateEngine;
@@ -25,6 +26,8 @@ public class PaymentServlet extends HttpServlet {
             SessionLogic sessionLogic = SessionLogic.getInstance();
             String[] splits = pathInfo.split("/");
             User user = (User) session.getAttribute("user");
+            CartLogic cartLogic = CartLogic.getInstance();
+            session.setAttribute("cartId", cartLogic.getElementByUser(user.getId()).getId());
             if (sessionLogic.orderBelongsToUser(user.getId(), Integer.parseInt(splits[1]))) {
                 TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
                 WebContext context = new WebContext(request, response, request.getServletContext());
