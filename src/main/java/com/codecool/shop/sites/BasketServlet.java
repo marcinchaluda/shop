@@ -24,7 +24,6 @@ public class BasketServlet extends HttpServlet {
             response.sendRedirect("/login");
         } else {
             int cartId = (int) session.getAttribute("cartId");
-            System.out.println(cartId);
             WebContext context = new WebContext(request, response, request.getServletContext());
             TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
             context.setVariable("cartId", cartId);

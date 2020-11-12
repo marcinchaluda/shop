@@ -22,7 +22,6 @@ public class BillingServlet extends HttpServlet {
         } else {
             TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
             WebContext context = new WebContext(request, response, request.getServletContext());
-
             String[] splits = pathInfo.split("/");
             User user = UserLogic.getInstance().getElement(Integer.parseInt(splits[1]));
             context.setVariable("user", user);
