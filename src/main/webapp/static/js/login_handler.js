@@ -1,4 +1,5 @@
 import {dataHandler} from "./data_handler.js";
+import {util} from "./util.js";
 
 const loginButton = document.querySelector(".login-button");
 const message = document.querySelector(".message");
@@ -42,3 +43,4 @@ function getDataFromLoginForm() {
 }
 
 init();
+util.redirectToHomePage();

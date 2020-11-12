@@ -1,4 +1,5 @@
 import {dataHandler} from "./data_handler.js";
+import {util} from "./util.js";
 
 const creditCardBtn = document.querySelector(".credit-card a");
 const payPalBtn = document.querySelector(".paypal a");
@@ -84,3 +85,4 @@ function generatePaymentStatus(orderId) {
 }
 
 payment.init();
+util.redirectToHomePage();

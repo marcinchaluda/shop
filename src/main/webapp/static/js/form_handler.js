@@ -1,4 +1,5 @@
 import {dataHandler} from "./data_handler.js";
+import {util} from "./util.js";
 
 const registerButton = document.querySelector(".register-button");
 const message = document.querySelector(".message");
@@ -60,3 +61,4 @@ function getDataFromRegistrationForm() {
 }
 
 init();
+util.redirectToHomePage();

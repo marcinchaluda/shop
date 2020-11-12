@@ -14,9 +14,6 @@
 <body>
 <div class="content flex-col">
     <form class="flex-col" action="#">
-        <div class="button">
-            <a href="/">Back to shopping</a>
-        </div>
         <div class="billing-address flex-col">
             <h1>Phone number</h1>
             <div class="flex-col">
@@ -50,7 +47,7 @@
             </div>
         </div>
         <div class="button">
-            <a id="set-same-button" class="submit-button" value="Set same address">Set same address</a>
+            <a id="set-same-button" class="submit-button" value="Set same address">Shipping address same as billing address</a>
         </div>
         <div class="billing-address flex-col">
             <h1 id="ship-id" th:address_id="${user.shippingAddress.id}">Shipping Address</h1>
@@ -75,10 +72,16 @@
                 <input type="text" id="ship-local" class="ship-local" pattern="[0-9]{1,}" min="1" max="10" th:value="${user.shippingAddress.localNumber}" required>
             </div>
         </div>
-        <div class="button">
-            <a id="set-addresses" class="submit-button" value="Set addresses">Set addresses</a>
+        <div class="confirm-buttons flex-row">
+            <div class="button">
+                <a id="set-addresses" class="submit-button" value="Set addresses">Set shipping addresses</a>
+            </div>
+            <div class="button">
+                <a href="/">Back to shopping</a>
+            </div>
         </div>
     </form>
 </div>
+<div class="home-page"><i class="fas fa-home"></i>Home page</div>
 </body>
 </html>

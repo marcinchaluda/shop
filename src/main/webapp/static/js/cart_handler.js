@@ -171,3 +171,4 @@ function updatePrices() {
 }
 
 cartHandler.activate();
+util.redirectToHomePage();

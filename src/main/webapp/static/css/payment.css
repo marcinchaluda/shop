@@ -117,4 +117,23 @@ i {
 .user-info div {
   padding: 0.7em; }
 
+.home-page {
+  cursor: pointer;
+  position: fixed;
+  bottom: 10vh;
+  right: 5vw;
+  width: 200px;
+  height: 50px;
+  border-radius: 25px;
+  background-color: #0B2D59;
+  color: #EAE9F2;
+  line-height: 2em;
+  text-align: center;
+  font-size: 1.5em;
+  border: 2px solid #0B2D59; }
+
+.home-page:hover {
+  background-color: #C6C5D9;
+  color: #0B2D59; }
+
 /*# sourceMappingURL=payment.css.map */

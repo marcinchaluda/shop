@@ -9,5 +9,12 @@ export const util = {
 
     removeContent: function (element) {
         element.innerHTML = "";
-    }
+    },
+
+    redirectToHomePage: function () {
+        const homeButton = document.querySelector(".home-page");
+        homeButton.addEventListener("click", () => {
+            window.location.href = "/";
+        });
+    },
 }
