@@ -33,14 +33,17 @@
                     <p class="desc"><i class="fas fa-coins"></i>Total price</p>
                 </div>
                 <div class="paid flex-col">
-                    <h4 th:text="${order.paid}"></h4>
+                    <div>
+                        <h4 class="paid" th:if="${order.paid}">Paid</h4>
+                        <h4 class="not-paid" th:unless="${order.paid}">Not Paid</h4>
+                    </div>
                     <p class="desc"><i class="far fa-credit-card"></i>Payment status</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="home-page"><i class="fas fa-home"></i>Home page</div>
+<div class="home-page flex-row"><i class="fas fa-home"></i>Home page</div>
 <div th:replace="footer.html :: card"></div>
 </body>
 </html>
