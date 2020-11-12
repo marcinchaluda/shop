@@ -2,7 +2,9 @@ package com.codecool.shop.logic;
 
 import com.codecool.shop.api.HelpServlet;
 import com.codecool.shop.dao.ShopDatabaseManager;
+import com.codecool.shop.dao.implementation.CartDaoJdbc;
 import com.codecool.shop.dao.implementation.UserDaoJdbc;
+import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.User;
 
 import javax.mail.MessagingException;
@@ -11,6 +13,7 @@ import java.util.List;
 
 public class UserLogic implements BusinessLogic<User> {
     UserDaoJdbc userDao = ShopDatabaseManager.Instance.getUserDao();
+    CartDaoJdbc cartDao = ShopDatabaseManager.Instance.getCartDao();
     private final MailSender sender = MailSender.getInstance();
 
     private static UserLogic instance = null;
@@ -24,6 +27,14 @@ public class UserLogic implements BusinessLogic<User> {
 
     @Override
     public int addElement(User user) {
+        int userId = addUser(user);
+        Cart cart = new Cart(user);
+        cartDao.add(cart);
+
+        return userId;
+    }
+
+    private int addUser(User user) {
         if (userDao.isExist(user)) {
             return HelpServlet.USER_ALREADY_PRESENT;
         }
