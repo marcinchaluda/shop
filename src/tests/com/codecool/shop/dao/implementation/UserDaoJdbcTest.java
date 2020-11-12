@@ -26,6 +26,10 @@ class UserDaoJdbcTest {
         dataSource = DataSourceFactory.getPostgreSQLTestDataSource();
         addressDao = mock(AddressDaoJdbc.class);
         userDao = new UserDaoJdbc(dataSource, addressDao);
+        when(addressDao.get(1))
+                .thenReturn(new Address("Poland", "Warsaw", "31-476", "Hollywood", 115));
+        when(addressDao.get(2))
+                .thenReturn(new Address("Poland", "Cracow", "22-476", "Bangladesh", 77));
     }
 
     @BeforeEach
@@ -48,10 +52,6 @@ class UserDaoJdbcTest {
     @Order(2)
     @Test
     public void should_updatedUserEqualsThatFromDatabase_when_createdAddAndModifyUser() {
-        when(addressDao.get(1))
-                .thenReturn(new Address("Poland", "Warsaw", "31-476", "Hollywood", 115));
-        when(addressDao.get(2))
-                .thenReturn(new Address("Poland", "Cracow", "22-476", "Bangladesh", 77));
         Address address1 = addressDao.get(1);
         Address address2 = addressDao.get(2);
         User user = new User("Name", "email@email.com", "password", "", address1, address2);
@@ -77,10 +77,6 @@ class UserDaoJdbcTest {
     @Order(4)
     @Test
     public void should_returnNull_when_gettingRemovedUser() {
-        when(addressDao.get(1))
-                .thenReturn(new Address("Poland", "Warsaw", "31-476", "Hollywood", 115));
-        when(addressDao.get(2))
-                .thenReturn(new Address("Poland", "Cracow", "22-476", "Bangladesh", 77));
         Address address1 = addressDao.get(1);
         Address address2 = addressDao.get(2);
         User user = new User("Name", "email@email.com", "password", "", address1, address2);
@@ -95,10 +91,6 @@ class UserDaoJdbcTest {
     @Order(5)
     @Test
     public void should_returnNull_when_updatingNotExistingUserAndGettingItFromDatabase() {
-        when(addressDao.get(1))
-                .thenReturn(new Address("Poland", "Warsaw", "31-476", "Hollywood", 115));
-        when(addressDao.get(2))
-                .thenReturn(new Address("Poland", "Cracow", "22-476", "Bangladesh", 77));
         Address address1 = addressDao.get(1);
         Address address2 = addressDao.get(2);
         User user = new User("Name", "email@email.com", "password", "", address1, address2);
@@ -124,10 +116,6 @@ class UserDaoJdbcTest {
     @Order(7)
     @Test
     public void should_throwRuntimeException_when_addingUserNotExistingTable() {
-        when(addressDao.get(1))
-                .thenReturn(new Address("Poland", "Warsaw", "31-476", "Hollywood", 115));
-        when(addressDao.get(2))
-                .thenReturn(new Address("Poland", "Cracow", "22-476", "Bangladesh", 77));
         Address address1 = addressDao.get(1);
         Address address2 = addressDao.get(2);
         User user = new User("Name", "email@email.com", "password", "", address1, address2);
@@ -141,10 +129,6 @@ class UserDaoJdbcTest {
     @Order(8)
     @Test
     public void should_throwRuntimeException_when_updatingUserNotExistingTable() {
-        when(addressDao.get(1))
-                .thenReturn(new Address("Poland", "Warsaw", "31-476", "Hollywood", 115));
-        when(addressDao.get(2))
-                .thenReturn(new Address("Poland", "Cracow", "22-476", "Bangladesh", 77));
         Address address1 = addressDao.get(1);
         Address address2 = addressDao.get(2);
         User user = new User("Name", "email@email.com", "password", "", address1, address2);
