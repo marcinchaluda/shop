@@ -42,12 +42,18 @@ function validateLoginData() {
 
     const data = getDataFromLoginForm();
 
-    if (util.validateEmail(data.email) && util.validatePassword(data.password)) {
-        clearErrorMessage();
-        return true;
+    if (!util.validateEmail(data.email)) {
+        displayErrorMessage("Please enter valid email. (Email format with @)");
+        return false;
     }
-    displayErrorMessage("Please enter valid email and password!")
-    return false;
+
+    if (!util.validatePassword(data.password)) {
+        displayErrorMessage("Please enter valid password. (One lower, one upper case letter, digits, min 8 chars)");
+        return false;
+    }
+
+    clearErrorMessage();
+    return true;
 }
 
 function getDataFromLoginForm() {

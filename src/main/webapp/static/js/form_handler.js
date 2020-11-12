@@ -31,13 +31,23 @@ function validateEmptyField() {
 
     const data = getDataFromRegistrationForm();
     if (data.password.value === data.confirmPassword.value) {
-        if (util.validateUserName(data.name) && util.validateEmail(data.email) && util.validatePassword(data.password)) {
-            clearErrorMessage();
-            return true;
+        if (!util.validateUserName(data.name)) {
+            displayErrorMessage("Please provide valid card holder's name. (Only a-Z)");
+            return false;
         }
+
+        if (!util.validateEmail(data.email)) {
+            displayErrorMessage("Please enter valid email. (Email format with @)");
+            return false;
+        }
+        if (!util.alidatePassword(data.password)) {
+            displayErrorMessage("Please enter valid password. (One lower, one upper case letter, digits, min 8 chars)");
+            return false;
+        }
+
+        clearErrorMessage();
+        return true;
     }
-    displayErrorMessage("Please enter name, email and password in valid format!");
-    return false;
 }
 
 function displayErrorMessage(errorMessage) {
