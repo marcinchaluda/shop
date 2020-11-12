@@ -36,7 +36,6 @@ const payment = {
 
     submitCreditCardPayment: function () {
         payBtn.addEventListener("click", () => {
-            document.querySelector(".credit-card .details").submit();
             if (creditCardFieldsValid()) {
                 statusMessage.textContent = generatePaymentStatus(payment.orderId);
             }
@@ -45,7 +44,6 @@ const payment = {
 
     submitPayPalPayment: function () {
         loginBtn.addEventListener("click", () => {
-            document.querySelector(".credit-card .details").submit();
             if (payPalFieldsValid()) {
                 statusMessage.textContent = generatePaymentStatus(payment.orderId);
             }
@@ -64,6 +62,13 @@ function creditCardFieldsValid() {
     const cardHolder = util.validateCardHolder(document.getElementById("holder").value);
     const validationCode = util.validateCode(document.getElementById("code").value);
 
+    if (!cardNumber) {
+        displayErrorMessage("Please provide valid card number. (16 digits)");
+    } else if (!cardHolder) {
+        displayErrorMessage("Please provide valid card holder's name. (Only a-Z)");
+    } else if (!validationCode) {
+        displayErrorMessage("Please provide valid verification code. (3 digits)");
+    }
     return cardHolder && cardNumber && validationCode;
 }
 
@@ -71,6 +76,11 @@ function payPalFieldsValid() {
     const name = util.validateUserName(document.getElementById("username").value);
     const password = util.validatePassword(document.getElementById("pass").value);
 
+    if (!name) {
+        displayErrorMessage("Please provide valid name. (Only a-Z)");
+    } else if (!password) {
+        displayErrorMessage("Please provide valid password. (One lower, one upper case letter, digits, min 8 chars)");
+    }
     return name && password;
 }
 
@@ -87,6 +97,11 @@ function generatePaymentStatus(orderId) {
         statusMessage.style.backgroundColor = "red";
     }
     return message;
+}
+
+function displayErrorMessage(errorMessage) {
+    statusMessage.style.backgroundColor = "red";
+    statusMessage.textContent = errorMessage;
 }
 
 payment.init();
