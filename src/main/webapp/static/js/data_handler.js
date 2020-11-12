@@ -51,6 +51,12 @@ export const dataHandler = {
             .then(response => callback(response));
     },
 
+    removeAllProductsFromCart: function (cartDetails) {
+        this._api_put(`api/carts/${cartDetails.id}`, cartDetails, response => {
+            this._data['product-details'] = response;
+        });
+    },
+
     postDataGetResponse: (url, data, callback) => {
         fetch(url, {
             method: 'POST',
