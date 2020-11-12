@@ -12,6 +12,16 @@ public class Cart extends BaseModel {
     @SerializedName(value="user")
     private User user;
 
+    public boolean isDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
+    }
+
+    private boolean disabled;
+
     transient private Map<Product, Integer> productList = new HashMap<>();
 
     @SerializedName(value="products")

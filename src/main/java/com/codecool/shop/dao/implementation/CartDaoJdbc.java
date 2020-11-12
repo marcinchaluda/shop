@@ -91,9 +91,10 @@ public class CartDaoJdbc implements ModifyDao<Cart> {
     @Override
     public int add(Cart cart) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "INSERT INTO cart VALUES (DEFAULT, ?)";
+            String sql = "INSERT INTO cart VALUES (DEFAULT, ?, ?)";
             PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             st.setInt(1, cart.getUser().getId());
+            st.setBoolean(2, false);
             st.executeUpdate();
             ResultSet rs = st.getGeneratedKeys();
             rs.next();
@@ -147,7 +148,7 @@ public class CartDaoJdbc implements ModifyDao<Cart> {
     @Override
     public Cart get(int id) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "SELECT user_id FROM cart WHERE id = ?";
+            String sql = "SELECT * FROM cart WHERE id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
@@ -168,9 +169,10 @@ public class CartDaoJdbc implements ModifyDao<Cart> {
 
     public Cart getCartWhenUser(int userId) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "SELECT id, user_id FROM cart WHERE user_id = ?";
+            String sql = "SELECT id, user_id, disabled FROM cart WHERE user_id = ? AND disabled = ?";
             PreparedStatement st = conn.prepareStatement(sql);
             st.setInt(1, userId);
+            st.setBoolean(2, false);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 Cart cart = new Cart(userDao.get(rs.getInt("user_id")));

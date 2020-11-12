@@ -4,7 +4,7 @@
         <div class="user-panel flex-row">
             <div th:if="${session.user}" class="logged flex-row">
                 <div class="flex-row">
-                    <p id="total-price-and-quantity">(5)</p>
+                    <p id="total-price-and-quantity">Empty</p>
                     <a class="cart-btn" th:href="@{/cart}"><i class="fas fa-shopping-cart"></i>Cart</a>
                 </div>
                 <p>User <span th:text="${session.user.name}"/></p>
