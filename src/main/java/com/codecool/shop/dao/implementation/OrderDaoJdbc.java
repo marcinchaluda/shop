@@ -114,17 +114,15 @@ public class OrderDaoJdbc implements ModifyDao<Order> {
         try (Connection conn = dataSource.getConnection()) {
             String sql = "SELECT user_order.id FROM user_order\n" +
                          "LEFT JOIN cart on cart.id = user_order.cart_id\n" +
-                         "LEFT JOIN user_account on user_account.id = cart.user_id\n" +
-                         "WHERE user_account.id = ?";
+                         "WHERE cart.user_id = ?";
 
             PreparedStatement st = conn.prepareStatement(sql);
             st.setInt(1, userId);
             ResultSet rs = st.executeQuery();
-            if (!rs.next()) {
-                return null;
-            }
             List<Order> orderList = new ArrayList<>();
-
+            if (!rs.next()) {
+                return orderList;
+            }
             do  {
                 orderList.add(get(rs.getInt(1)));
             } while (rs.next());

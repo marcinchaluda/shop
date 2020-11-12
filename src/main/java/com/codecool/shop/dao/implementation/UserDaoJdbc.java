@@ -28,6 +28,9 @@ public class UserDaoJdbc implements GetAllDao<User>, ModifyDao<User> {
     @Override
     public int add(User user) {
         try (Connection connection = dataSource.getConnection()) {
+            addBlankBillingAddressToUser(user);
+            addBlankShippingAddressToUser(user);
+
             String sqlQuery = "INSERT INTO user_account (full_name, email, password, phone_number, billing_address, shipping_address) VALUES (?, ?, ?, ?, ?, ?);";
             PreparedStatement statement = connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
             setAllUserFields(user, statement);
@@ -35,10 +38,27 @@ public class UserDaoJdbc implements GetAllDao<User>, ModifyDao<User> {
             ResultSet result = statement.getGeneratedKeys();
             result.next();
             user.setId(result.getInt(1));
+
             return result.getInt(1);
         } catch (SQLException error) {
             throw new RuntimeException("Error while adding a new User.", error);
         }
+    }
+
+    private void addBlankBillingAddressToUser(User user) {
+        Address blankBillingAddress = getBlankAddress();
+        addressDao.add(blankBillingAddress);
+        user.setBillingAddress(blankBillingAddress);
+    }
+
+    private Address getBlankAddress() {
+        return new Address(null, null, null, null, Types.NULL);
+    }
+
+    private void addBlankShippingAddressToUser(User user) {
+        Address blankShippingAddress = getBlankAddress();
+        addressDao.add(blankShippingAddress);
+        user.setShippingAddress(blankShippingAddress);
     }
 
     private void setAllUserFields(User user, PreparedStatement statement) throws SQLException {
@@ -141,6 +161,7 @@ public class UserDaoJdbc implements GetAllDao<User>, ModifyDao<User> {
         user.setId(id);
         return user;
     }
+
     public boolean isExist(User user) {
         try (Connection connection = dataSource.getConnection()) {
             String sqlQuery = "SELECT EXISTS(SELECT TRUE FROM user_account WHERE full_name = ? OR email = ?);";
