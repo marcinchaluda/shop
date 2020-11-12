@@ -2,6 +2,8 @@ package com.codecool.shop.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 public class Order extends BaseModel {
 
     @SerializedName(value = "paid")
@@ -77,5 +79,21 @@ public class Order extends BaseModel {
                 this.paid,
                 this.date,
                 this.cart_id);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return paid == order.paid &&
+                cart_id == order.cart_id &&
+                Double.compare(order.totalPrice, totalPrice) == 0 &&
+                Objects.equals(cart, order.cart);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(paid, cart, cart_id, totalPrice);
     }
 }
