@@ -129,8 +129,8 @@ INSERT INTO address VALUES (DEFAULT, 'Poland', 'Cracov', '31-476', 'Grodzka', 1)
 INSERT INTO address VALUES (DEFAULT, 'Poland', 'Cracov', '31-476', 'Grodzka', 1);
 SELECT pg_catalog.setval('address_id_seq', 3, true);
 
-INSERT INTO user_account VALUES (DEFAULT, 'Bob', 'yyyy@gmail.com', '123', '111221222', 1, 2);
-INSERT INTO user_account VALUES (DEFAULT, 'Jenny', 'uuuu@xxx.com', '456', '2223333444', 1, 2);
+INSERT INTO user_account VALUES (DEFAULT, 'Bob', 'yyyy@gmail.com', '$2a$12$qW2B5q1yIUExduj/9H25I.rq9VfohfLiZIlQWrs/5V7IeP359lDgO', '111221222', 1, 2);
+INSERT INTO user_account VALUES (DEFAULT, 'Jenny', 'uuuu@xxx.com', '$2a$12$qW2B5q1yIUExduj/9H25I.rq9VfohfLiZIlQWrs/5V7IeP359lDgO', '2223333444', 1, 2);
 SELECT pg_catalog.setval('user_account_id_seq', 2, true);
 
 INSERT INTO supplier VALUES (DEFAULT, 'Amazon', 'Description of the Amazon', 'America');
