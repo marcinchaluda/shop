@@ -43,4 +43,9 @@ export const util = {
         return password.match(regexPass);
     },
 
+    validateEmail: function (email) {
+        const regexPass = new RegExp("[^@]+@[^\\.]+\\..+");
+        return email.match(regexPass);
+    },
+
 }

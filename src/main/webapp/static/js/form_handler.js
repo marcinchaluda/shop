@@ -30,14 +30,14 @@ function handleRegistrationResponse(response, redirectURL) {
 function validateEmptyField() {
 
     const data = getDataFromRegistrationForm();
-    if (data.name.value === "" || data.email.value === "" || data.password.value === "") {
-        return false;
-    }
-    if (data.password.value !== data.confirmPassword.value) {
+    if (data.password.value === data.confirmPassword.value) {
+        if (util.validateUserName(data.name) && util.validateEmail(data.email) && util.validatePassword(data.password)) {
+            return true;
+        }
+    } else {
         displayErrorMessage("Your password and confirmation password do not match.");
-        return false;
     }
-    return true
+    return false;
 }
 
 function displayErrorMessage(errorMessage) {
