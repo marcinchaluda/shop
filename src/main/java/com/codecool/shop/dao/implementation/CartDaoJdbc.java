@@ -166,6 +166,25 @@ public class CartDaoJdbc implements ModifyDao<Cart> {
         }
     }
 
+    public Cart getCartWhenUser(int userId) {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT id, user_id FROM cart WHERE user_id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, userId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                Cart cart = new Cart(userDao.get(rs.getInt("user_id")));
+                int cartId = rs.getInt("id");
+                cart.setId(cartId);
+                cart.setProductList(cartContentJdbc.getAllProducts(cartId));
+                return cart;
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while reading cart with user id: " + userId, e);
+        }
+    }
+
     public void updateProductInCart(ProductInCart productInCart, int cartId, String action) {
         try (Connection connection = dataSource.getConnection()) {
 
