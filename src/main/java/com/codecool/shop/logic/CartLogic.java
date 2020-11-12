@@ -39,6 +39,10 @@ public class CartLogic implements BusinessLogic<Cart> {
         return cartDao.get(id);
     }
 
+    public Cart getElementByUser(int userId) {
+        return cartDao.getCartWhenUser(userId);
+    }
+
     public void updateProductInCart(ProductInCart productInCart, int cartId, String action) {
         if (productInCart.getQuantity() == 0) {
             cartDao.removeProductFromCart(productInCart, cartId);
