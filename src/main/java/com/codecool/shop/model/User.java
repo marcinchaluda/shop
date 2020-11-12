@@ -73,10 +73,15 @@ public class User extends BaseDescribedModel {
         return String.format("id: %1$d, " +
                         "name: %2$s, " +
                         "email: %3$s, " +
-                        "phoneNumber: %4$s",
+                        "phoneNumber: %4$s" +
+                        "phoneNumber: %5$d" +
+                        "phoneNumber: %6$d",
                 this.id,
                 this.name,
                 this.email,
-                this.phoneNumber);
+                this.phoneNumber,
+                this.billingAddress.getId(),
+                this.shippingAddress.getId()
+        );
     }
 }
