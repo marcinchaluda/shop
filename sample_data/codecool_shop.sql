@@ -48,11 +48,11 @@ CREATE INDEX "fkIdx_412" ON "product"
 CREATE TABLE "address"
 (
  "id"           serial PRIMARY KEY,
- "country"      text NOT NULL,
- "city"         text NOT NULL,
- "zip_code"     text NOT NULL,
- "street"       text NOT NULL,
- "local_number" integer NOT NULL
+ "country"      text,
+ "city"         text,
+ "zip_code"     text,
+ "street"       text,
+ "local_number" integer
 );
 
 CREATE TABLE "user_account"
@@ -62,8 +62,8 @@ CREATE TABLE "user_account"
  "email"            text NOT NULL,
  "password"         text NOT NULL,
  "phone_number"     text,
- "billing_address"  integer NOT NULL,
- "shipping_address" integer NOT NULL,
+ "billing_address"  integer,
+ "shipping_address" integer,
  CONSTRAINT "FK_47" FOREIGN KEY ( "billing_address" ) REFERENCES "address" ( "id" ),
  CONSTRAINT "FK_50" FOREIGN KEY ( "shipping_address" ) REFERENCES "address" ( "id" )
 );
@@ -126,11 +126,12 @@ CREATE INDEX "fkIdx_62" ON "user_order"
 
 INSERT INTO address VALUES (DEFAULT, '', '', '00-000', '', 0);
 INSERT INTO address VALUES (DEFAULT, 'Poland', 'Cracov', '31-476', 'Grodzka', 1);
-SELECT pg_catalog.setval('address_id_seq', 2, true);
+INSERT INTO address VALUES (DEFAULT, 'Poland', 'Cracov', '31-476', 'Grodzka', 1);
+SELECT pg_catalog.setval('address_id_seq', 3, true);
 
-INSERT INTO user_account VALUES (DEFAULT, 'Bob', 'yyyy@gmail.com', '123', '111221222', 2, 2);
-INSERT INTO user_account VALUES (DEFAULT, 'Jenny', 'uuuu@xxx.com', '456', '2223333444', 1, 1);
-SELECT pg_catalog.setval('user_account_id_seq', 1, true);
+INSERT INTO user_account VALUES (DEFAULT, 'Bob', 'yyyy@gmail.com', '123', '111221222', 1, 2);
+INSERT INTO user_account VALUES (DEFAULT, 'Jenny', 'uuuu@xxx.com', '456', '2223333444', 1, 2);
+SELECT pg_catalog.setval('user_account_id_seq', 2, true);
 
 INSERT INTO supplier VALUES (DEFAULT, 'Amazon', 'Description of the Amazon', 'America');
 INSERT INTO supplier VALUES (DEFAULT, 'Lenovo', 'Description of the Lenovo', 'China');

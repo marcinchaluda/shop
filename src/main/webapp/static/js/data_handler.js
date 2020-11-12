@@ -109,14 +109,29 @@ export const dataHandler = {
         });
     },
 
-    removeAllProductsFromCart: function (cartDetails) {
-        this._api_put(`api/carts/${cartDetails.id}`, cartDetails, response => {
-            this._data['product-details'] = response;
-        });
+    getUser: function (userId, callback) {
+        this._api_get("../api/users/" + userId, response => {
+            this._data['user-details'] = response;
+            callback(response);
+        })
+    },
+
+    updateUser: function (user, userId, callback) {
+        this._api_put("../api/users/" + userId, user, response => {
+            this._data['user-details'] = response;
+            callback(response);
+        })
     },
 
     getCart: function (cartId, callback) {
         this._api_get("api/carts/" + cartId, response => {
+            this._data['cart-details'] = response;
+            callback(response);
+        })
+    },
+
+    postCart: function (cartDetails, callback) {
+        this._api_post("api/carts", response => {
             this._data['cart-details'] = response;
             callback(response);
         })
@@ -129,8 +144,12 @@ export const dataHandler = {
         })
     },
 
+    addNewAddress: (newAddress, callback) => {
+        dataHandler._api_post("../api/addresses", response => {})
+    },
+
     updateAddress: (newAddress, addressId, callback) => {
-        dataHandler._api_put("api/addresses/" + addressId, newAddress, response => {})
+        dataHandler._api_put("../api/addresses/" + addressId, newAddress, response => {})
     },
 
     postOrder: function (orderDetails, callback) {
@@ -142,6 +161,7 @@ export const dataHandler = {
 
     getOrder: function (orderId, callback) {
         this._api_get(`api/orders/` + orderId, response => {
+            this._data['order-details'] = response;
             callback(response);
         })
     },
@@ -156,5 +176,19 @@ export const dataHandler = {
         this._api_patch(`../api/orders/${orderId}`, orderDetails, response => {
             window.location.replace(`../summary/${orderId}`);
         });
-    }
+    },
+
+    postUser: function (data, callback) {
+        this.postDataGetResponse("registration", data ,response => {
+            this._data['user-details'] = response;
+            callback(response);
+        });
+    },
+
+    postLoggedUser: function (data, callback) {
+        this.postDataGetResponse("login", data ,response => {
+            this._data['user-details'] = response;
+            callback(response);
+        });
+    },
 }

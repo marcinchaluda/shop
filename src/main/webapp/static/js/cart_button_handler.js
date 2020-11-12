@@ -22,6 +22,9 @@ export const cartButtonHandler = {
         submitButton.addEventListener("click", () => {
             checkFieldsAndCreateNewOrder(cart.user.shippingAddress.id, cart.id);
         });
+    },
+    initWithoutSubmit: userId => {
+        setSameButton.addEventListener("click", setAllFieldsWithSameValues);
     }
 }
 
