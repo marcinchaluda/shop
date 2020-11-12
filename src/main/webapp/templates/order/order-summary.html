@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <title>Codecool Shop || Cart</title>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/static/css/cart.css"/>
+</head>
+<body>
+<div class="content flex-col">
+    <div class="cart">
+        <div class="user-items flex-col">
+            <div class="cart-header flex-row">
+                <p>Order nr.</p>
+                <p id="username-cart-title" th:text="${order.id}"></p>
+            </div>
+            <div id="items" class="items flex-col">
+                <div class="card-details item flex-row" th:each="product: ${products}">
+                    <p>Name: <span th:text="${product.product.name}"/></p>
+                    <p>Quantity: <span th:text="${product.quantity}"/></p>
+                    <p>Price: <span th:text="${product.product.defaultPrice} * ${product.quantity}"/> <span
+                            th:text="${product.product.defaultCurrency}"/></p>
+                </div>
+            </div>
+            <div class="flex-row addresses-container">
+                <div class="flex-col item">
+                    <div class="card-details">Shipping Address</div>
+                    <div class="flex-col card-details-width">
+                        <div>Country: <p th:text="${user.shippingAddress.country}"></p></div>
+                        <div>City: <p
+                                th:text="${user.shippingAddress.city} + ${space} + ${user.shippingAddress.zipCode}"></p>
+                        </div>
+                        <div>Street: <p
+                                th:text="${user.shippingAddress.street} + ${space} + ${user.shippingAddress.localNumber}"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-col item">
+                    <div class="card-details">User details</div>
+                    <div class="flex-col card-details-width">
+                        <div>Name: <p th:text="${user.name}"></p></div>
+                        <div>Email: <p th:text="${user.email}"></p></div>
+                        <div>Phone: <p th:text="${user.phoneNumber}"></p></div>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${!order.paid}" class="flex-row">
+                <div class="card-details flex-col">
+                    <p>You didn't paid for your order yet.</p>
+                </div>
+                <div class="button flex-col item">
+                    <a th:href="@{${paymentLink}}" class="submit-button">GO TO CHECKOUT</a>
+                </div>
+            </div>
+            <div class="items flex-col">
+                <div class="card-details item flex-row">
+                    <p>Total Price: <span th:text="${totalPrice}"/></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-package com.codecool.shop.api;
+package com.codecool.shop.sites;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import org.thymeleaf.TemplateEngine;
@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/"})
-public class IndexServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/cart"})
+public class BasketServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         WebContext context = new WebContext(request, response, request.getServletContext());
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
-        engine.process("product/index.html", context, response.getWriter());
+        engine.process("cart/cart.html", context, response.getWriter());
     }
 }
