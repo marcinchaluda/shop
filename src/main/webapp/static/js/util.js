@@ -18,11 +18,29 @@ export const util = {
         });
     },
 
-    redirectToLoginPage: function () {
-        window.location.href = "../login";
+    validateUserName: function (username) {
+        const regexName = new RegExp('^[A-Za-z0-9]+$');
+        return username.match(regexName);
     },
 
-    userLoggedIn: function () {
-        return localStorage.getItem("email") ? true : false;
+    validateCardHolder: function (cardHolder) {
+        const regexCardHolder = new RegExp('^[A-Za-z]*$');
+        return cardHolder.match(regexCardHolder);
     },
+
+    validateCardNumber: function (cardNumber) {
+        const regexCardNumber = new RegExp("^[0-9]{16}");
+        return cardNumber.match(regexCardNumber);
+    },
+
+    validateCode: function (code) {
+        const regexPass = new RegExp("^[0-9]{3}");
+        return code.match(regexPass);
+    },
+
+    validatePassword: function (password) {
+        const regexPass = new RegExp("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}");
+        return password.match(regexPass);
+    },
+
 }

@@ -136,4 +136,10 @@ i {
   background-color: #C6C5D9;
   color: #0B2D59; }
 
+.pay-button, .login-button {
+  width: 15vw; }
+
+.content input.pay-button, .content input.login-button, .container input.login-button {
+  margin-right: 0; }
+
 /*# sourceMappingURL=payment.css.map */

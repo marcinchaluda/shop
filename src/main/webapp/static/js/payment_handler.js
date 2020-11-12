@@ -37,7 +37,7 @@ const payment = {
     submitCreditCardPayment: function () {
         payBtn.addEventListener("click", () => {
             document.querySelector(".credit-card .details").submit();
-            if (creditCardFieldsValid(creditCartInfo)) {
+            if (creditCardFieldsValid()) {
                 statusMessage.textContent = generatePaymentStatus(payment.orderId);
             }
         });
@@ -46,7 +46,7 @@ const payment = {
     submitPayPalPayment: function () {
         loginBtn.addEventListener("click", () => {
             document.querySelector(".credit-card .details").submit();
-            if (creditCardFieldsValid(paypalInfo)) {
+            if (payPalFieldsValid()) {
                 statusMessage.textContent = generatePaymentStatus(payment.orderId);
             }
         });
@@ -59,14 +59,19 @@ function clearStatusMessageContent() {
     statusMessage.style.backgroundColor = "#eae9f2";
 }
 
-function creditCardFieldsValid(formToCheck) {
-    let allFields = formToCheck.childNodes;
-    for (let i=1; i < allFields.length - 2; i += 2) {
-        if (allFields[i].children[1].value === "") {
-            return false;
-        }
-    }
-    return true;
+function creditCardFieldsValid() {
+    const cardNumber = util.validateCardNumber(document.getElementById("card-number").value);
+    const cardHolder = util.validateCardHolder(document.getElementById("holder").value);
+    const validationCode = util.validateCode(document.getElementById("code").value);
+
+    return cardHolder && cardNumber && validationCode;
+}
+
+function payPalFieldsValid() {
+    const name = util.validateUserName(document.getElementById("username").value);
+    const password = util.validatePassword(document.getElementById("pass").value);
+
+    return name && password;
 }
 
 function generatePaymentStatus(orderId) {

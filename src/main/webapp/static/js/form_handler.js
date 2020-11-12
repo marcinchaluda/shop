@@ -30,7 +30,6 @@ function handleRegistrationResponse(response, redirectURL) {
 function validateEmptyField() {
 
     const data = getDataFromRegistrationForm();
-
     if (data.name.value === "" || data.email.value === "" || data.password.value === "") {
         return false;
     }
