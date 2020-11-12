@@ -17,4 +17,12 @@ export const util = {
             window.location.href = "/";
         });
     },
+
+    redirectToLoginPage: function () {
+        window.location.href = "../login";
+    },
+
+    userLoggedIn: function () {
+        return localStorage.getItem("email") ? true : false;
+    },
 }

@@ -1,4 +1,4 @@
-.cart-header a, .card-details a, .resume-shopping-button a {
+.cart-header a, .card-details a, .resume-shopping-button {
   text-decoration: none;
   text-transform: uppercase; }
 
@@ -89,7 +89,7 @@ body {
   color: #0B2D59;
   background-color: #C6C5D9; }
 
-.resume-shopping-button a:hover {
+.resume-shopping-button:hover a {
   color: #0B2D59; }
 
 .plus-minus:hover, .card-details a:hover {
@@ -138,7 +138,10 @@ body {
   width: 15vw;
   margin: 1em auto; }
 
-.resume-shopping-button a {
+.resume-shopping-button {
   color: #EAE9F2; }
+
+.shopping-btn-container {
+  margin-top: 2em; }
 
 /*# sourceMappingURL=cart.css.map */

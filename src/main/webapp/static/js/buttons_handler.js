@@ -11,6 +11,7 @@ const ulProducts = document.querySelector(".products");
 const ulSupplies = document.querySelector(".suppliers");
 const navButtons = document.querySelectorAll("ul li a");
 const content = document.querySelector(".container");
+const logoutBtn = document.querySelector(".user-logout-btn");
 
 export const buttonHandler = {
     init: function () {
@@ -19,7 +20,10 @@ export const buttonHandler = {
         productsNavBar.activateAllProductButtons();
         suppliersNavBar.activateAllSuppliersButtons();
         this.toggleNavMenuBySortOption();
-        showTotalPriceAndQuantity(1);
+        if (sessionStorage.getItem("email") !== null) {
+            this.logoutUser();
+            showTotalPriceAndQuantity(1);
+        }
     },
 
     addProductToCart: function (cartId, productId, quantity) {
@@ -71,6 +75,20 @@ export const buttonHandler = {
         buttonHandler.markButtonAsCurrent(currentBtn);
         buttonHandler.showProducts(category, product);
     },
+
+    logoutUser: function () {
+        if (logoutBtn !== null) {
+            logoutBtn.addEventListener("click", () => {
+                clearLocalStorage();
+            });
+        }
+    },
+}
+
+function clearLocalStorage() {
+    if (sessionStorage.getItem("email") !== null) {
+        sessionStorage.clear();
+    }
 }
 
 function switchSortOption() {
@@ -118,10 +136,13 @@ function setInitStyles() {
 }
 
 const showTotalPriceAndQuantity = cartId => {
-    dataHandler.getCart(cartId, updateTotalPriceAndQuantity);
+    if (localStorage.getItem("email")) {
+        dataHandler.getCart(cartId, updateTotalPriceAndQuantity);
+    }
 }
 
 const updateTotalPriceAndQuantity = data => {
+    console.log(data);
     let quantity = 0;
     let totalPrice = 0;
     let currency = "EURO";

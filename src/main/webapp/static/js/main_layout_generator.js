@@ -41,15 +41,19 @@ export const layoutGenerator = {
 function handleAddToCartButton() {
     const addToCartButtons = document.querySelectorAll(".card");
     addToCartButtons.forEach(card => {
-        const productId = card.querySelector(`.card-details`).id
-        const button = card.querySelector(".btn");
-        button.addEventListener("click", function () {
-            const input = card.querySelector(`input`);
-            const quantity = parseInt(input.getAttribute("value"));
+            const productId = card.querySelector(`.card-details`).id
+            const button = card.querySelector(".btn");
+            button.addEventListener("click", function () {
+                if (sessionStorage.getItem("email") === null) {
+                    util.redirectToLoginPage();
+                } else {
+                    const input = card.querySelector(`input`);
+                    const quantity = parseInt(input.getAttribute("value"));
 
-            buttonHandler.addProductToCart(1, productId, quantity) //TODO hardcode cartID
-        })
-    })
+                    buttonHandler.addProductToCart(1, productId, quantity) //TODO hardcode cartID
+                }
+            });
+    });
 }
 
 function createNameElement(product) {

@@ -21,6 +21,7 @@ function handleRegistrationResponse(response, redirectURL) {
         displayErrorMessage("This user already exist! Please input valid fields.");
     } else {
         clearErrorMessage();
+        sessionStorage.setItem("email", document.getElementById("login-email").value);
         window.location.href = redirectURL;
     }
 }
