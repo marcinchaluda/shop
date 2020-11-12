@@ -82,6 +82,7 @@ CREATE TABLE "cart"
 (
  "id"      serial PRIMARY KEY,
  "user_id" integer NOT NULL,
+ "disabled"boolean,
  CONSTRAINT "FK_67" FOREIGN KEY ( "user_id" ) REFERENCES "user_account" ( "id" )
 );
 
