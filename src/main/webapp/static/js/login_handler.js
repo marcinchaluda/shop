@@ -12,7 +12,9 @@ function init() {
 loginButton.addEventListener("click", () => {
     messageContainer.style.backgroundColor = "#EAE9F2";
     dataHandler.postLoggedUser(getDataFromLoginForm(), function (status) {
-        handleRegistrationResponse(status, "../");
+        if (validateLoginData()) {
+            handleRegistrationResponse(status, "../");
+        }
     });
 });
 
@@ -34,6 +36,16 @@ function displayErrorMessage(errorMessage) {
 function clearErrorMessage() {
     messageContainer.style.backgroundColor = "#EAE9F2";
     message.textContent = "";
+}
+
+function validateLoginData() {
+
+    const data = getDataFromLoginForm();
+
+    if (util.validateEmail(data.email) && util.validatePassword(data.password)) {
+        return true;
+    }
+    return false;
 }
 
 function getDataFromLoginForm() {

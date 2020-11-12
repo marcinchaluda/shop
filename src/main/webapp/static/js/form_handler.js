@@ -34,8 +34,6 @@ function validateEmptyField() {
         if (util.validateUserName(data.name) && util.validateEmail(data.email) && util.validatePassword(data.password)) {
             return true;
         }
-    } else {
-        displayErrorMessage("Your password and confirmation password do not match.");
     }
     return false;
 }
