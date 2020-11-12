@@ -12,28 +12,25 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/api/users/*"})
 public class UsersServlet extends HttpServlet {
+    UserLogic userLogic = UserLogic.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        UserLogic userLogic = UserLogic.getInstance();
         HelpServlet.sendRequestForAllElementsAndCheckSortAbility(request, response, userLogic);
     }
 
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        UserLogic userLogic = UserLogic.getInstance();
         HelpServlet.createInstanceAndUpdateElement(request, response, userLogic, User.class);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        UserLogic userLogic = UserLogic.getInstance();
         HelpServlet.createInstanceAndAddElement(request, response, userLogic, User.class);
     }
 
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        UserLogic userLogic = UserLogic.getInstance();
         HelpServlet.createInstanceAndRemoveElement(request, response, userLogic, User.class);
     }
 }

@@ -1,13 +1,22 @@
 <!doctype html>
-<html lang="pl">
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Codecool Shop || Login</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/static/css/payment.css" />
+    <script type="module" src='/static/js/login_handler.js' defer></script>
 </head>
 <body>
-
+<div class="status-message">
+    <p class="message"></p>
+</div>
+<div class="container flex-col">
+    <h1 class="user-header"><i class="fas fa-sign-in-alt"></i>Login</h1>
+    <div th:replace="user/user-fragments.html :: user-login"></div>
+</div>
 </body>
 </html>

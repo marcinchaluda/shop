@@ -16,6 +16,7 @@ public class IndexServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         WebContext context = new WebContext(request, response, request.getServletContext());
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
+        context.setVariable("user", false);
         engine.process("product/index.html", context, response.getWriter());
     }
 }

@@ -1,23 +1,25 @@
 package com.codecool.shop.api;
 
-import com.codecool.shop.logic.BusinessLogic;
-import com.codecool.shop.logic.CartLogic;
-import com.codecool.shop.logic.GetAllLogic;
-import com.codecool.shop.logic.Sortable;
+import com.codecool.shop.logic.*;
+import com.codecool.shop.model.Login;
 import com.codecool.shop.model.ProductInCart;
+import com.codecool.shop.model.User;
 import com.google.gson.Gson;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class HelpServlet {
+    public static final int USER_ALREADY_PRESENT = -1;
+
     public static <T> void sendRequestForAllElementsAndCheckSortAbility(HttpServletRequest request, HttpServletResponse response, BusinessLogic<T> logic) throws IOException, ServletException {
         final int MODEL_ID_INDEX = 1;
 
@@ -44,11 +46,47 @@ public class HelpServlet {
             PrintWriter out = response.getWriter();
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            out.print("{\"id\": \""+id+"\"}");
+            out.print("{\"id\": \"" + id + "\"}");
             response.setStatus(HttpServletResponse.SC_OK);
             out.flush();
         } else {
             response.setStatus(HttpServletResponse.SC_CONFLICT);
+        }
+    }
+
+    public static void createInstanceAndAddUserIfNotPresent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        UserLogic userLogic = UserLogic.getInstance();
+
+        String pathInfo = request.getPathInfo();
+        if (pathInfo == null || pathInfo.equals("/")) {
+            User user = createElementFromJson(request, response, User.class);
+            user.setPassword(encryptPassword(user.getPassword()));
+            int id = userLogic.addElement(user);
+
+            if (id == USER_ALREADY_PRESENT) response.setStatus(HttpServletResponse.SC_ACCEPTED);
+            else response.setStatus(HttpServletResponse.SC_CREATED);
+
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
+    public static <T> void getUserByEmail(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String pathInfo = request.getPathInfo();
+        UserLogic userLogic = UserLogic.getInstance();
+        if (pathInfo == null || pathInfo.equals("/")) {
+            Login loginDetails = createElementFromJson(request, response, Login.class);
+            User user = userLogic.getUserByEmail(loginDetails.getEmail());
+
+            if (decryptPassword(user, loginDetails.getPassword())) {
+                HttpSession session = request.getSession();
+                session.setAttribute("user", user);
+                response.setStatus(HttpServletResponse.SC_CREATED);
+            }
+            else response.setStatus(HttpServletResponse.SC_ACCEPTED);
+
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 
@@ -154,11 +192,19 @@ public class HelpServlet {
         return null;
     }
 
-    private static String getPathInfoWhenUriContainsIdParameter(HttpServletRequest request){
+    private static String getPathInfoWhenUriContainsIdParameter(HttpServletRequest request) {
         String pathInfo = request.getPathInfo();
         if (pathInfo == null || pathInfo.equals("/")) {
             return null;
         }
         return pathInfo;
+    }
+
+    public static String encryptPassword(String password) {
+        return BCrypt.hashpw(password, BCrypt.gensalt(12));
+    }
+
+    private static Boolean decryptPassword(User user, String passwordToCompare) {
+        return BCrypt.checkpw(passwordToCompare, user.getPassword());
     }
 }

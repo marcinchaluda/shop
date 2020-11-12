@@ -4,6 +4,7 @@ import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.*;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class ShopDatabaseManager {
     private GetAllDao<Supplier> supplierDao;
     private SortDao productDao;
     private ModifyDao<Address> addressDao;
-    private ModifyDao<User> userDao;
+    private UserDaoJdbc userDao;
     private CartDaoJdbc cartDao;
     private ModifyDao<Order> orderDao;
 
@@ -25,8 +26,8 @@ public class ShopDatabaseManager {
     static {
         try {
             Instance = ShopDatabaseManager.getInstance();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -48,7 +49,8 @@ public class ShopDatabaseManager {
      * Start method that establish connection with database and set up all DAO's instances
      */
     private void setup() throws SQLException {
-        DataSource dataSource = DataSourceFactory.getPostgreSQLShopDataSource();
+        DataSource dataSource = null;
+        dataSource = DataSourceFactory.getPostgreSQLShopDataSource();
         if (dataSource != null) {
             connect(dataSource);
             setUpAllDAOs(dataSource);
@@ -95,7 +97,7 @@ public class ShopDatabaseManager {
         return addressDao;
     }
 
-    public ModifyDao<User> getUserDao() {
+    public UserDaoJdbc getUserDao() {
         return userDao;
     }
 

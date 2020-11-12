@@ -48,11 +48,11 @@ CREATE INDEX "fkIdx_412" ON "product"
 CREATE TABLE "address"
 (
  "id"           serial PRIMARY KEY,
- "country"      text NOT NULL,
- "city"         text NOT NULL,
- "zip_code"     text NOT NULL,
- "street"       text NOT NULL,
- "local_number" integer NOT NULL
+ "country"      text,
+ "city"         text,
+ "zip_code"     text,
+ "street"       text,
+ "local_number" integer
 );
 
 CREATE TABLE "user_account"
@@ -62,8 +62,8 @@ CREATE TABLE "user_account"
  "email"            text NOT NULL,
  "password"         text NOT NULL,
  "phone_number"     text,
- "billing_address"  integer NOT NULL,
- "shipping_address" integer NOT NULL,
+ "billing_address"  integer,
+ "shipping_address" integer,
  CONSTRAINT "FK_47" FOREIGN KEY ( "billing_address" ) REFERENCES "address" ( "id" ),
  CONSTRAINT "FK_50" FOREIGN KEY ( "shipping_address" ) REFERENCES "address" ( "id" )
 );
