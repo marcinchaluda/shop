@@ -1,4 +1,4 @@
-package com.codecool.shop.api;
+package com.codecool.shop.sites;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.logic.UserLogic;

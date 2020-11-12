@@ -1,5 +1,6 @@
-package com.codecool.shop.api;
+package com.codecool.shop.sites;
 
+import com.codecool.shop.api.HelpServlet;
 import com.codecool.shop.config.TemplateEngineUtil;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
