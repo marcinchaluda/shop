@@ -141,6 +141,7 @@ public class UserDaoJdbc implements GetAllDao<User>, ModifyDao<User> {
         user.setId(id);
         return user;
     }
+
     public boolean isExist(User user) {
         try (Connection connection = dataSource.getConnection()) {
             String sqlQuery = "SELECT EXISTS(SELECT TRUE FROM user_account WHERE full_name = ? OR email = ?);";
