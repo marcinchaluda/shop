@@ -33,11 +33,7 @@ public class SummaryServlet extends HttpServlet {
             context.setVariable("user", order.getCart().getUser());
             context.setVariable("space", " ");
 
-            double totalPrice = 0;
-            for (ProductInCart productInCart : order.getCart().getProducts()) {
-                totalPrice += productInCart.getQuantity() * productInCart.getProduct().getDefaultPrice();
-            }
-            context.setVariable("totalPrice", totalPrice);
+            context.setVariable("totalPrice", order.getTotalPrice());
 
             engine.process("order/order-summary.html", context, response.getWriter());
         }

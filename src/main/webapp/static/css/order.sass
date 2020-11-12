@@ -1,0 +1,133 @@
+$basicBlack: #0D0D0D
+$color: #032340
+$darkSkyColor: #0B2D59
+$lightGrey: #C6C5D9
+$silver: #EAE9F2
+
+%remove-decoration
+  text-decoration: none
+  text-transform: uppercase
+
+%padding-1em
+  padding: 1em
+
+%border
+  border: 2px solid $lightGrey
+
+%set-basic-width
+  width: 50vw
+  margin: 1em auto
+
+*
+  margin: 0
+  padding: 0
+
+body
+  background-position: center top
+  background-color: $silver
+
+.flex-row
+  display: flex
+  justify-content: space-between
+  flex-wrap: wrap
+
+.flex-col
+  display: flex
+  flex-direction: column
+  justify-content: space-around
+  height: 100%
+
+.footer-body
+  margin-top: 5em
+  border-top: 1px solid $basicBlack
+  position: fixed
+  bottom: 0
+  right: 0
+  width: 100%
+  padding: 1em 3em
+  text-align: right
+  background-color: $silver
+
+.banner
+  background-color: $darkSkyColor
+  color: $silver
+  text-transform: uppercase
+  text-align: center
+  padding: 2em
+  margin: 0 auto
+
+.wrapper
+  width: 80vw
+  border: 2px solid $lightGrey
+  border-radius: 10px
+  overflow: hidden
+  margin: 4em auto
+
+.user-description
+  background-color: $lightGrey
+  color: $darkSkyColor
+  padding: 1em
+  text-align: center
+  text-transform: uppercase
+
+.container
+  width: 90%
+  margin: 1em auto
+
+.card-details
+  border: 2px solid $lightGrey
+  margin: 1em 0
+
+.order-redirect
+  border-right: 2px solid $lightGrey
+  width: 25%
+  background-color: $lightGrey
+  text-align: center
+  line-height: 5.5em
+
+.order-redirect a
+  @extend %remove-decoration
+  color: $darkSkyColor
+
+.order-redirect:hover a
+  color: $silver
+
+.order-redirect:hover
+  background-color: $darkSkyColor
+
+.order-date, .price, .paid
+  text-align: center
+  width: 20%
+
+div h4
+  padding: 1em 0 0.5em 0
+  border-bottom: 1px solid $lightGrey
+  color: $darkSkyColor
+  text-transform: uppercase
+  margin: 0 1em
+
+.desc
+  padding: 0.5em 0 1em 0
+  color: navy
+  opacity: 0.5
+
+.desc i, .home-page i
+  padding-right: 0.4em
+
+.home-page
+  position: fixed
+  bottom: 10vh
+  right: 5vw
+  width: 200px
+  height: 50px
+  border-radius: 25px
+  background-color: $darkSkyColor
+  color: $silver
+  line-height: 2em
+  text-align: center
+  font-size: 1.5em
+  border: 2px solid $darkSkyColor
+
+.home-page:hover
+  background-color: $lightGrey
+  color: $darkSkyColor

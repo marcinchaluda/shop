@@ -2,13 +2,16 @@ package com.codecool.shop.logic;
 
 import com.codecool.shop.dao.ModifyDao;
 import com.codecool.shop.dao.ShopDatabaseManager;
+import com.codecool.shop.dao.implementation.OrderDaoJdbc;
 import com.codecool.shop.model.Order;
+import com.codecool.shop.model.OrderHistory;
+import com.codecool.shop.model.User;
 
-import javax.mail.MessagingException;
-import java.io.IOException;
+import java.util.List;
 
 public class OrderLogic implements BusinessLogic<Order> {
-    private ModifyDao<Order> orderDao = ShopDatabaseManager.Instance.getOrderDao();
+    private OrderDaoJdbc orderDao = ShopDatabaseManager.Instance.getOrderDao();
+    private ModifyDao<User> userDao = ShopDatabaseManager.Instance.getUserDao();
     private MailSender sender = MailSender.getInstance();
 
     private static OrderLogic instance = null;
@@ -62,5 +65,12 @@ public class OrderLogic implements BusinessLogic<Order> {
     @Override
     public Order getElement(int id) {
         return orderDao.get(id);
+    }
+
+    public OrderHistory getOrdersHistoryBy(int userId) {
+        User user = userDao.get(userId);
+        List<Order> userOrders = orderDao.getOrdersByUserId(userId);
+
+        return new OrderHistory(user, userOrders);
     }
 }
